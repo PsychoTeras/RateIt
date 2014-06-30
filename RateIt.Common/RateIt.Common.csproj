@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{991A400E-16D2-476F-A7D2-C6B30972AF47}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RateIt.Common</RootNamespace>
+    <AssemblyName>RateIt.Common</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\_Bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>..\_Bin\</OutputPath>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="IDS.DynamicConfiguration, Version=0.0.0.0, Culture=neutral, PublicKeyToken=fd7b5ce46623b2c0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Assemblies\IDS.DynamicConfiguration.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyVersion.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AssemblyVersion.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\GeoArea.cs" />
+    <Compile Include="Classes\GeoRectangle.cs" />
+    <Compile Include="Classes\GeoSize.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Core\Controller\MainController_Store.cs" />
+    <Compile Include="Core\DAL\StoreDAL.cs" />
+    <Compile Include="Core\DAL\UserLoginDAL.cs" />
+    <Compile Include="Core\Entities\BaseDocument.cs" />
+    <Compile Include="Core\Entities\Stores\Store.cs" />
+    <Compile Include="Core\Entities\Users\UserListItem.cs" />
+    <Compile Include="Core\Entities\Users\UserLogged.cs" />
+    <Compile Include="Core\ErrorCodes\ECLogin.cs" />
+    <Compile Include="Core\ErrorCodes\ECLogout.cs" />
+    <Compile Include="Core\ErrorCodes\ECStoreRegistration.cs" />
+    <Compile Include="Core\QueryResults\StoreListQueryResult.cs" />
+    <Compile Include="Helpers\ClassExtentions.cs" />
+    <Compile Include="Classes\GeoPoint.cs" />
+    <Compile Include="Helpers\GeoHelper.cs" />
+    <Compile Include="SupplyClasses\HRTimer.cs" />
+    <Compile Include="Core\QueryResults\BaseQueryResult.cs" />
+    <Compile Include="Core\QueryResults\UserListQueryResult.cs" />
+    <Compile Include="Core\Entities\Users\User.cs" />
+    <Compile Include="Core\ErrorCodes\ECGeneral.cs" />
+    <Compile Include="Core\ErrorCodes\ECUserRegistration.cs" />
+    <Compile Include="Helpers\Helper.cs" />
+    <Compile Include="Core\Controller\IController.cs" />
+    <Compile Include="Core\Entities\Users\UserLoginInfo.cs" />
+    <Compile Include="Core\Entities\Products\Product.cs" />
+    <Compile Include="Core\Controller\MainController.cs" />
+    <Compile Include="Core\Controller\MainController_User.cs" />
+    <Compile Include="Core\DAL\BaseDAL.cs" />
+    <Compile Include="SupplyClasses\MongoDBConnection.cs" />
+    <Compile Include="Core\DAL\UserDAL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Core\QueryResults\UserQueryResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\AssemblyVersion.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AssemblyVersion.cs</LastGenOutput>
+    </None>
+    <None Include="Properties\AssemblyVersion.x" />
+    <None Include="RateIt.Common.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\_Externals\MongoDB\mongo-csharp-driver-master\MongoDB.Bson\MongoDB.Bson.csproj">
+      <Project>{0e9a3a2a-49cd-4f6c-847c-dc79b4b65ce6}</Project>
+      <Name>MongoDB.Bson</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\_Externals\MongoDB\mongo-csharp-driver-master\MongoDB.Driver\MongoDB.Driver.csproj">
+      <Project>{ae5166cd-76b0-4911-bd80-ced9521f37a1}</Project>
+      <Name>MongoDB.Driver</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+  <PropertyGroup>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <TransformOutOfDateOnly>false</TransformOutOfDateOnly>
+    <TransformOnBuild>true</TransformOnBuild>
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\TextTemplating\Microsoft.TextTemplating.targets" />
+
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

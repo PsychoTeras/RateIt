@@ -1,0 +1,1 @@
+"_Externals\MongoDB\mongodb-win32-i386-2.2.2\mongod.exe" --dbpath _Externals\MongoDB\mongodb-win32-i386-2.2.2\DB --rest
