@@ -529,6 +529,7 @@ namespace RateIt.Management.Forms
             this.tbMapLongtitude.Size = new System.Drawing.Size(140, 20);
             this.tbMapLongtitude.TabIndex = 3;
             this.tbMapLongtitude.Text = "36.260140681508";
+            this.tbMapLongtitude.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbMapLatitude_KeyDown);
             // 
             // lblMapLongtitude
             // 
@@ -546,6 +547,7 @@ namespace RateIt.Management.Forms
             this.tbMapLatitude.Size = new System.Drawing.Size(140, 20);
             this.tbMapLatitude.TabIndex = 1;
             this.tbMapLatitude.Text = "49.9513903316245";
+            this.tbMapLatitude.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbMapLatitude_KeyDown);
             // 
             // lblMapLatitude
             // 

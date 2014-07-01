@@ -39,7 +39,7 @@ namespace RateIt.Management.Forms
         public frmStoreRegister()
         {
             InitializeComponent();
-            cbSize.SelectedIndex = 1;
+            cbSize.SelectedIndex = 2;
         }
 
         private GeoSize GetSelectedStoreSizeInMeters()

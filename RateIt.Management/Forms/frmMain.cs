@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using GMap.NET;
+using GMap.NET.MapProviders;
 using MongoDB.Driver;
 using RateIt.Common;
 using RateIt.Common.Core.Controller;
@@ -171,6 +172,90 @@ namespace RateIt.Management.Forms
         {
             tbMapLatitude.Text = point.Lat.ToString(CultureInfo.InvariantCulture);
             tbMapLongtitude.Text = point.Lng.ToString(CultureInfo.InvariantCulture);
+        }
+
+        private void DoMapNavigate(bool force = false)
+        {
+            if (Visible || force)
+            {
+                //Parse LatLng from debug string
+                if (tbMapLatitude.Text.Contains("x"))
+                {
+                    string[] latLng = tbMapLatitude.Text.Split(new[] { "x" }, StringSplitOptions.None);
+                    tbMapLatitude.Text = latLng[0].Replace("{", "").Trim();
+                    tbMapLongtitude.Text = latLng[1].Replace("}", "").Trim();
+                }
+                //or load as is
+                else
+                {
+                    tbMapLatitude.Text = tbMapLatitude.Text.Trim();
+                    tbMapLongtitude.Text = tbMapLongtitude.Text.Trim();
+                }
+
+                double latitude, longtitude;
+                if (double.TryParse(tbMapLatitude.Text, out latitude) &&
+                    double.TryParse(tbMapLongtitude.Text, out longtitude))
+                {
+                    //Apply map style
+                    switch (cbMapStyle.SelectedIndex)
+                    {
+                        case 0:
+                            {
+                                map.MapProvider = GMapProviders.YandexMap;
+                                break;
+                            }
+                    }
+
+                    //Set map coordinates
+                    map.Position = new PointLatLng(latitude, longtitude);
+                    map.MinZoom = trackMapZoom.Minimum;
+                    map.MaxZoom = trackMapZoom.Maximum;
+                    map.Zoom = trackMapZoom.Value;
+                }
+            }
+        }
+
+        private void BtnMapNavigateClick(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+                //Navigate map
+                DoMapNavigate();
+
+                //Set main marker position
+                _mapMainMarker.Position = map.Position;
+                UpdateMapMarkerTbValues();
+
+                //Refresh the map
+                map.Refresh();
+            }
+        }
+
+        private void TbMapZoomScroll(object sender, EventArgs e)
+        {
+            lblMapZoom.Text = string.Format("Zoom [{0}]:", trackMapZoom.Value);
+            DoMapNavigate();
+        }
+
+        private void UpdateMapMarkerTbValues()
+        {
+            tbMapMarkerLatitude.Text = _mapMainMarker.Position.Lat.ToString(CultureInfo.InvariantCulture);
+            tbMapMarkerLongtitude.Text = _mapMainMarker.Position.Lng.ToString(CultureInfo.InvariantCulture);
+        }
+
+        private void SetMapMarkerPosition(MouseEventArgs e)
+        {
+            _mapMainMarker.Position = map.FromLocalToLatLng(e.X, e.Y);
+            UpdateMapMarkerTbValues();
+            map.Refresh();
+        }
+
+        private void tbMapLatitude_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                BtnMapNavigateClick(null, null);
+            }
         }
 
 #endregion

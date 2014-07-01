@@ -106,9 +106,9 @@ namespace RateIt.Common.Classes
             int halfHeight = (int) (heightInMeters/2);
 
             GeoArea geoArea = new GeoArea();
-            geoArea.AddPoint(GeoHelper.ShiftCoordinates(atLocation, -halfWidth, halfHeight));
-            geoArea.AddPoint(GeoHelper.ShiftCoordinates(atLocation, halfWidth, halfHeight));
-            geoArea.AddPoint(GeoHelper.ShiftCoordinates(atLocation, halfWidth, -halfHeight));
+            geoArea.AddPoint(GeoHelper.ShiftCoordinates(atLocation, -halfWidth,  halfHeight));
+            geoArea.AddPoint(GeoHelper.ShiftCoordinates(atLocation,  halfWidth,  halfHeight));
+            geoArea.AddPoint(GeoHelper.ShiftCoordinates(atLocation,  halfWidth, -halfHeight));
             geoArea.AddPoint(GeoHelper.ShiftCoordinates(atLocation, -halfWidth, -halfHeight));
 
             return geoArea;
