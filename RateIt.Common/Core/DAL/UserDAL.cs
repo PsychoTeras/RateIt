@@ -36,7 +36,7 @@ namespace RateIt.Common.Core.DAL
 
         protected override void CreateCollectionStructure()
         {
-            //Create T_USER indexes, IDX_T_USERS_USERNAME
+            //Create T_USERS indexes, IDX_T_USERS_USERNAME
             IndexKeysBuilder indexKeys = IndexKeys.
                 Ascending("UserName");
             IndexOptionsBuilder indexOptions = IndexOptions.

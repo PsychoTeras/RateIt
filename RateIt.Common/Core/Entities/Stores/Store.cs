@@ -7,7 +7,7 @@ namespace RateIt.Common.Core.Entities.Stores
     public sealed class Store : BaseDocument
     {
 
-#region Properties
+#region Public fields
 
         public string StoreName;
         public string Address;
@@ -16,7 +16,7 @@ namespace RateIt.Common.Core.Entities.Stores
         public GeoSize Size;
 
 #endregion
-
+        
 #region Class methods
 
         public Store() : this(string.Empty, string.Empty, string.Empty, null, null) { }

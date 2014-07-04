@@ -10,6 +10,7 @@ namespace RateIt.Common.Core.DAL
 #region Constants
 
         internal const string IDX_T_STORES_STORENAME = "IDX_T_STORES_STORENAME";
+        internal const string IDX_T_STORES_LOCATION = "IDX_T_STORES_LOCATION";
 
 #endregion
 
@@ -26,12 +27,20 @@ namespace RateIt.Common.Core.DAL
 
         protected override void CreateCollectionStructure()
         {
-            //Create T_USER indexes, IDX_T_USERS_USERNAME
+            //Create T_STORES indexes, IDX_T_STORES_STORENAME
             IndexKeysBuilder indexKeys = IndexKeys.
                 Ascending("StoreName");
             IndexOptionsBuilder indexOptions = IndexOptions.
                 SetName(IDX_T_STORES_STORENAME).
-                SetUnique(true);
+                SetUnique(false);
+            DataCollection.EnsureIndex(indexKeys, indexOptions);
+
+            //IDX_T_STORES_STORENAME
+            indexKeys = IndexKeys.
+                Ascending("Location");
+            indexOptions = IndexOptions.
+                SetName(IDX_T_STORES_LOCATION).
+                SetUnique(false);
             DataCollection.EnsureIndex(indexKeys, indexOptions);
 
             //!!! What is it?

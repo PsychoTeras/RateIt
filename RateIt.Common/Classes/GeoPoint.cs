@@ -32,6 +32,16 @@ namespace RateIt.Common.Classes
             Longitude = longitude;
         }
 
+
+#endregion
+
+#region Class methods
+
+        public override int GetHashCode()
+        {
+            return (int)(Latitude * Longitude);
+        }
+
         public override string ToString()
         {
             return string.Format("{0}x{1}", Latitude, Longitude);
