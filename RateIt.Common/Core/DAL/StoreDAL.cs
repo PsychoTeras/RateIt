@@ -68,8 +68,8 @@ namespace RateIt.Common.Core.DAL
         public StoreListQueryResult GetStoresByNameFuzzyAndLocation(string storeName, GeoPoint location)
         {
             //Calculate search criteria
-            const double searchRadius = (double)StoreSize.Huge / 1000; //In km
-            const double searchRadiusRad = searchRadius / GeoConstants.EARTH_RADIUS_KM;
+            const double searchRadius = (double)StoreSize.Huge; //In meters
+            const double searchRadiusRad = searchRadius / GeoConstants.EARTH_RADIUS_M;
 
             //Search by location
             IMongoQuery qStoresAtLocation = Query.WithinCircle(GEOPOINT_FIELD_NAME,
@@ -89,8 +89,8 @@ namespace RateIt.Common.Core.DAL
 
         public Store[] GetStoresAtLocation(GeoPoint location, StoreQueryAreaLevel areaLevel)
         {
-            double searchRadius = (double)areaLevel / 1000;
-            double searchRadiusRad = searchRadius / GeoConstants.EARTH_RADIUS_KM;
+            double searchRadius = (double)areaLevel; //In meters
+            double searchRadiusRad = searchRadius / GeoConstants.EARTH_RADIUS_M;
 
             //Search by location
             IMongoQuery qStoresAtLocation = Query.WithinCircle(GEOPOINT_FIELD_NAME,
@@ -108,17 +108,13 @@ namespace RateIt.Common.Core.DAL
             return stores;
         }
 
-        public Store[] GetStoresAtLocation(GeoPoint location, GeoSize areaSize)
+        public Store[] GetStoresAtLocation(GeoRectangle rectangle)
         {
-            //Calculate area rectangle
-            GeoArea geoArea = areaSize.ToGeoArea(location);
-            GeoRectangle geoRectangle = geoArea.ToRectangle();
-
             //Search by area
             IMongoQuery qStoresAtLocation = Query.WithinRectangle(GEOPOINT_FIELD_NAME,
-                geoRectangle.Latitude, geoRectangle.Longitude,
-                geoRectangle.Latitude + geoRectangle.LatitudeShift,
-                geoRectangle.Longitude + geoRectangle.LongitudeShift);
+                rectangle.Latitude, rectangle.Longitude,
+                rectangle.Latitude + rectangle.LatitudeShift,
+                rectangle.Longitude + rectangle.LongitudeShift);
 
             //Do search
             MongoCursor<Store> cursor = StoreListDataCollection.

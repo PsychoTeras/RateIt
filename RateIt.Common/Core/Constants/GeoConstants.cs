@@ -2,6 +2,6 @@
 {
     public static class GeoConstants
     {
-        public const int EARTH_RADIUS_KM = 6378;
+        public const int EARTH_RADIUS_M = 6378137;
     }
 }

@@ -410,7 +410,7 @@ namespace RateIt.Management.Forms
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 48);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 13);
+            this.label3.Size = new System.Drawing.Size(57, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "Longitude:";
             // 
@@ -488,7 +488,7 @@ namespace RateIt.Management.Forms
             this.cbMapStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMapStyle.FormattingEnabled = true;
             this.cbMapStyle.Items.AddRange(new object[] {
-            "Yandex Map"});
+            "Google Maps"});
             this.cbMapStyle.Location = new System.Drawing.Point(72, 106);
             this.cbMapStyle.Name = "cbMapStyle";
             this.cbMapStyle.Size = new System.Drawing.Size(140, 21);
@@ -536,7 +536,7 @@ namespace RateIt.Management.Forms
             this.lblMapLongitude.AutoSize = true;
             this.lblMapLongitude.Location = new System.Drawing.Point(6, 47);
             this.lblMapLongitude.Name = "lblMapLongitude";
-            this.lblMapLongitude.Size = new System.Drawing.Size(60, 13);
+            this.lblMapLongitude.Size = new System.Drawing.Size(57, 13);
             this.lblMapLongitude.TabIndex = 2;
             this.lblMapLongitude.Text = "Longitude:";
             // 
@@ -575,7 +575,9 @@ namespace RateIt.Management.Forms
             this.map.Bearing = 0F;
             this.map.CanDragMap = true;
             this.map.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.map.EmptyTileColor = System.Drawing.Color.Navy;
             this.map.GrayScaleMode = false;
+            this.map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.map.LevelsKeepInMemmory = 5;
             this.map.Location = new System.Drawing.Point(0, 0);
             this.map.MarkersEnabled = true;
@@ -584,14 +586,18 @@ namespace RateIt.Management.Forms
             this.map.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
             this.map.Name = "map";
             this.map.NegativeMode = false;
-            this.map.PolygonsEnabled = true;
+            this.map.PolygonsEnabled = false;
             this.map.RetryLoadTile = 0;
-            this.map.RoutesEnabled = true;
+            this.map.RoutesEnabled = false;
+            this.map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.map.ShowTileGridLines = false;
             this.map.Size = new System.Drawing.Size(459, 365);
             this.map.TabIndex = 0;
             this.map.Zoom = 0D;
             this.map.OnPositionChanged += new GMap.NET.PositionChanged(this.map_OnPositionChanged);
+            this.map.OnTileLoaded += new GMap.NET.TileLoaded(this.map_OnTileLoaded);
+            this.map.OnTileLoadComplete += new GMap.NET.TileLoadComplete(this.map_OnTileLoadComplete);
             this.map.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.mapStores_OnMapZoomChanged);
             this.map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MapMouseDown);
             this.map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MapMouseMove);

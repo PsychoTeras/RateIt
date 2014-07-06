@@ -151,7 +151,7 @@ namespace GMap.NET.WindowsForms
       public Pen EmptyTileBorders = new Pen(Color.White, 1);
 #endif
 
-      public bool ShowCenter = true;
+      public bool ShowCenter = false;
 
       /// <summary>
       /// pen for scale info
@@ -2965,6 +2965,21 @@ namespace GMap.NET.WindowsForms
          {
             Core.OnCurrentPositionChanged -= value;
          }
+      }
+
+      /// <summary>
+      /// occurs when one tile from set is loaded
+      /// </summary>
+      public event TileLoaded OnTileLoaded
+      {
+          add
+          {
+              Core.OnTileLoaded += value;
+          }
+          remove
+          {
+              Core.OnTileLoaded -= value;
+          }
       }
 
       /// <summary>

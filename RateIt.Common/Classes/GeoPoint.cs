@@ -32,7 +32,6 @@ namespace RateIt.Common.Classes
             Longitude = longitude;
         }
 
-
 #endregion
 
 #region Class methods

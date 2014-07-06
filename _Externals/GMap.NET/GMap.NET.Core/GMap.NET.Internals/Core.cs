@@ -341,6 +341,11 @@ namespace GMap.NET.Internals
       public event TileLoadComplete OnTileLoadComplete;
 
       /// <summary>
+      /// occurs when one tile from set load is complete
+      /// </summary>
+      public event TileLoaded OnTileLoaded;
+
+      /// <summary>
       /// occurs when tile set is starting to load
       /// </summary>
       public event TileLoadStart OnTileLoadStart;
@@ -967,6 +972,10 @@ namespace GMap.NET.Internals
 
                            if(img != null)
                            {
+                               if (OnTileLoaded != null)
+                               {
+                                   OnTileLoaded(task.GetValueOrDefault().Pos, task.GetValueOrDefault().Zoom);
+                               }
                               Debug.WriteLine(ctid + " - tile loaded: " + img.Data.Length / 1024 + "KB, " + task);
                               {
                                  t.AddOverlay(img);

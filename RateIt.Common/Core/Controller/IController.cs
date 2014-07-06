@@ -24,7 +24,7 @@ namespace RateIt.Common.Core.Controller
 
         BaseQueryResult StoreRegister(Store registrationInfo);
         StoreListQueryResult GetStoresAtLocation(GeoPoint location, StoreQueryAreaLevel areaLevel);
-        StoreListQueryResult GetStoresAtLocationSys(QuerySysRequestID sysId, GeoPoint location, GeoSize areaSize);
+        StoreListQueryResult GetStoresAtLocationSys(QuerySysRequestID sysId, GeoRectangle rectangle);
 
 #endregion
 

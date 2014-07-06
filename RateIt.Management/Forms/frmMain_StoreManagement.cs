@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
 using RateIt.Common.Classes;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Management.Controls.Map.Markers;
@@ -14,10 +13,13 @@ namespace RateIt.Management.Forms
 
 #region Private members
 
-        private GMapOverlay _mapMainOverlay;
+        private object _onTileLoadedObject;
 
+        private GMapOverlay _mapMainOverlay;
         private GMapMarker _mapMainMarker;
+
         private List<GMapMarker> _mapStoreMarkers;
+        private HashSet<Store> _storesOnScreen;
 
         private bool _mapIsMouseDown;
 
@@ -27,9 +29,8 @@ namespace RateIt.Management.Forms
 
         private void InitializeStoreManagement()
         {
-            //Create map overlays
-            _mapMainOverlay = new GMapOverlay(map, null);
-            map.Overlays.Add(_mapMainOverlay);
+            //Base initialization
+            _onTileLoadedObject = new object();
 
             //Show map
             cbMapStyle.SelectedIndex = 0;
@@ -37,13 +38,18 @@ namespace RateIt.Management.Forms
             TbMapZoomScroll(trackMapZoom, null);
             DoMapNavigate(true);
 
-            //Create main marker
-            _mapMainMarker = new GMapMarkerCross(map.Position);
+            //Create map overlays
+            _mapMainOverlay = new GMapOverlay();
+            map.Overlays.Add(_mapMainOverlay);
+
+            //Initialize main marker
+            _mapMainMarker = new MapMarker_Cross(map.Position);
             _mapMainOverlay.Markers.Add(_mapMainMarker);
             UpdateMapMarkerTbValues();
 
             //Initialize store markers
             _mapStoreMarkers = new List<GMapMarker>();
+            _storesOnScreen = new HashSet<Store>();
         }
 
         private void BtnStoreRegisterClick(object sender, EventArgs e)
@@ -56,15 +62,15 @@ namespace RateIt.Management.Forms
             }
         }
 
-
 #endregion
 
 #region Store markers methods
 
         private void AddStoreMarker(Store store, bool refresh)
         {
-            if (store != null)
+            if (store != null && !_storesOnScreen.Contains(store))
             {
+                _storesOnScreen.Add(store);
                 MapMarker_Store marker = new MapMarker_Store(map, store);
                 _mapMainOverlay.Markers.Add(marker);
                 if (refresh)

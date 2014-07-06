@@ -85,7 +85,6 @@ namespace Demo.WindowsForms
 
                MainMap.OnTileLoadStart += new TileLoadStart(MainMap_OnTileLoadStart);
                MainMap.OnTileLoadComplete += new TileLoadComplete(MainMap_OnTileLoadComplete);
-
                MainMap.OnMapZoomChanged += new MapZoomChanged(MainMap_OnMapZoomChanged);
                MainMap.OnMapTypeChanged += new MapTypeChanged(MainMap_OnMapTypeChanged);
 

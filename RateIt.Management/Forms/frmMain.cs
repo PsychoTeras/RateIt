@@ -9,7 +9,12 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using MongoDB.Driver;
 using RateIt.Common;
+using RateIt.Common.Classes;
 using RateIt.Common.Core.Controller;
+using RateIt.Common.Core.Entities.Stores;
+using RateIt.Common.Core.QueryParams;
+using RateIt.Common.Core.QueryResults;
+using RateIt.Management.Helpers;
 using RateIt.Management.Properties;
 
 namespace RateIt.Management.Forms
@@ -137,6 +142,49 @@ namespace RateIt.Management.Forms
 
 #region Map methods
 
+        private void map_OnTileLoaded(GPoint pos, int zoom)
+        {
+            lock (_onTileLoadedObject)
+            {
+                GSize tileSize = map.MapProvider.Projection.TileSize;
+                GPoint tilePos = map.MapProvider.Projection.FromTileXYToPixel(pos);
+
+                PointLatLng latLngLeftTop = map.MapProvider.Projection.FromPixelToLatLng(tilePos, zoom);
+                tilePos.Offset(tileSize.Width, tileSize.Height);
+                PointLatLng latLngRightBottom = map.MapProvider.Projection.FromPixelToLatLng(tilePos, zoom);
+
+                GeoRectangle rectangle = new GeoRectangle
+                    (
+                    latLngLeftTop.Lat,
+                    latLngLeftTop.Lng,
+                    latLngRightBottom.Lat - latLngLeftTop.Lat,
+                    latLngRightBottom.Lng - latLngLeftTop.Lng
+                    );
+                StoreListQueryResult result = _mainController.GetStoresAtLocationSys(QuerySysRequestID.Instance,
+                    rectangle);
+
+                //Something failed
+                if (!Helper.CheckOnValidQueryResult(result))
+                {
+                    return;
+                }
+
+                //Place each of the stores on screen
+                foreach (Store store in result.StoreList)
+                {
+                    AddStoreMarker(store, false);
+                }
+            }
+        }
+
+        private void map_OnTileLoadComplete(long ElapsedMilliseconds)
+        {
+            lock (_onTileLoadedObject)
+            {
+                //BeginInvoke(new Action(() => map.Refresh()));
+            }
+        }
+
         private void mapStores_OnMapZoomChanged()
         {
             trackMapZoom.Value = (int)map.Zoom;
@@ -201,7 +249,7 @@ namespace RateIt.Management.Forms
                     {
                         case 0:
                             {
-                                map.MapProvider = GMapProviders.YandexMap;
+                                map.MapProvider = GMapProviders.GoogleMap;
                                 break;
                             }
                     }

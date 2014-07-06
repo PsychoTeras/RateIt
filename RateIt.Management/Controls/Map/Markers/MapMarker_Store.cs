@@ -9,7 +9,7 @@ namespace RateIt.Management.Controls.Map.Markers
 {
     public class MapMarker_Store : GMapMarker
     {
-        private static readonly Pen _pen = new Pen(Brushes.Blue, 2);
+        private static readonly Pen _pen = new Pen(Brushes.Blue, 1);
 
         private Store _store;
         private readonly MapViewer _map;
@@ -34,7 +34,11 @@ namespace RateIt.Management.Controls.Map.Markers
 
         public override void OnRender(Graphics g)
         {
+            //double gndRes = Overlay.Control.MapProvider.Projection.GetGroundResolution((int)Overlay.Control.Zoom, Position.Lat);
+            _map.UpdateMarkerLocalPosition(this);
+            
             GeoArea storeArea = _store.Size.ToGeoArea(_store.Location);
+
             int cnt = storeArea.Points.Count;
 
             GPoint[] points = new GPoint[cnt];

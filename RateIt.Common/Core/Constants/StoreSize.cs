@@ -4,7 +4,7 @@
     public enum StoreSize : ushort
     {
         Small = 20,
-        Medium = 500,
+        Medium = 50,
         Large = 100,
         Huge = 250
     }

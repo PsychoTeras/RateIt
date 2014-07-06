@@ -30,7 +30,7 @@ namespace RateIt.Common.Core.Controller
             }
         }
 
-        private void AssertGetStoresAtLocation(QuerySysRequestID sysId, GeoPoint location, GeoSize areaSize)
+        private void AssertGetStoresAtLocation(QuerySysRequestID sysId, GeoRectangle rectangle)
         {
             //Check system request id
             if (sysId != QuerySysRequestID.Instance)
@@ -39,17 +39,10 @@ namespace RateIt.Common.Core.Controller
                     ECGeneral.InvalidSysRequestId);
             }
 
-            //Check location on null-reference
-            if (location == null)
+            //Check rectangle on null-reference
+            if (rectangle == null)
             {
-                throw BaseQueryResult.Throw("Location is null-reference",
-                    ECGeneral.NullReference);
-            }
-
-            //Check areaSize on null-reference
-            if (location == null)
-            {
-                throw BaseQueryResult.Throw("Area size is null-reference",
+                throw BaseQueryResult.Throw("Rectangle is null-reference",
                     ECGeneral.NullReference);
             }
         }
@@ -146,17 +139,17 @@ namespace RateIt.Common.Core.Controller
             }
         }
 
-        public StoreListQueryResult GetStoresAtLocationSys(QuerySysRequestID sysId, GeoPoint location, GeoSize areaSize)
+        public StoreListQueryResult GetStoresAtLocationSys(QuerySysRequestID sysId, GeoRectangle rectangle)
         {
             try
             {
                 //Assert location information
-                AssertGetStoresAtLocation(sysId, location, areaSize);
+                AssertGetStoresAtLocation(sysId, rectangle);
 
                 //Get stores at location
                 try
                 {
-                    Store[] stores = _storeDAL.GetStoresAtLocation(location, areaSize);
+                    Store[] stores = _storeDAL.GetStoresAtLocation(rectangle);
                     return new StoreListQueryResult(stores);
                 }
                 catch (Exception dbEx)

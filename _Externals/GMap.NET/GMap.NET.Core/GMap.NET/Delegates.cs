@@ -5,6 +5,7 @@ namespace GMap.NET
 
    public delegate void PositionChanged(PointLatLng point);
 
+   public delegate void TileLoaded(GPoint pos, int zoom);
    public delegate void TileLoadComplete(long ElapsedMilliseconds);
    public delegate void TileLoadStart();
 

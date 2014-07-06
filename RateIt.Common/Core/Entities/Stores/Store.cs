@@ -36,6 +36,11 @@ namespace RateIt.Common.Core.Entities.Stores
             return string.Format("{0} ({1})", StoreName, Address);
         }
 
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
 #endregion
 
     }
