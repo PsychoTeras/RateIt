@@ -39,7 +39,7 @@ namespace RateIt.Management.Forms
             DoMapNavigate(true);
 
             //Create map overlays
-            _mapMainOverlay = new GMapOverlay();
+            _mapMainOverlay = new GMapOverlay(map, null);
             map.Overlays.Add(_mapMainOverlay);
 
             //Initialize main marker

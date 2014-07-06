@@ -575,9 +575,7 @@ namespace RateIt.Management.Forms
             this.map.Bearing = 0F;
             this.map.CanDragMap = true;
             this.map.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.map.EmptyTileColor = System.Drawing.Color.Navy;
             this.map.GrayScaleMode = false;
-            this.map.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.map.LevelsKeepInMemmory = 5;
             this.map.Location = new System.Drawing.Point(0, 0);
             this.map.MarkersEnabled = true;
@@ -589,8 +587,6 @@ namespace RateIt.Management.Forms
             this.map.PolygonsEnabled = false;
             this.map.RetryLoadTile = 0;
             this.map.RoutesEnabled = false;
-            this.map.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
-            this.map.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.map.ShowTileGridLines = false;
             this.map.Size = new System.Drawing.Size(459, 365);
             this.map.TabIndex = 0;
