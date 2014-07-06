@@ -6,7 +6,7 @@ using RateIt.Common.Core.Entities.Users;
 
 namespace RateIt.Common.Core.DAL
 {
-    internal sealed class UserDAL : BaseDAL<User>
+    internal sealed class UserDAL : BaseDAL<Entities.Users.User>
     {
 
 #region Constants
@@ -59,16 +59,16 @@ namespace RateIt.Common.Core.DAL
         public ObjectId GetUserId(string userName, string password)
         {
             string qsName = string.Format("/^({0})$/(si)", userName);
-            IMongoQuery query = new QueryBuilder<User>().And(new[]
+            IMongoQuery query = new QueryBuilder<Entities.Users.User>().And(new[]
                         {
                             Query.Matches("UserName", qsName),
                             Query.EQ("Password", password)
                         });
-            User user = DataCollection.FindOne(query);
+            Entities.Users.User user = DataCollection.FindOne(query);
             return user != null ? user.Id : ObjectId.Empty;
         }
 
-        public User GetUser(string userName)
+        public Entities.Users.User GetUser(string userName)
         {
             //Search by user name (^...$), SingleLine+CI (see Regex standart)
             string queryString = string.Format("/^({0})$/(si)", userName);
@@ -83,7 +83,7 @@ namespace RateIt.Common.Core.DAL
             return GetUser(userName) != null;
         }
 
-        public void UserRegister(User registrationInfo)
+        public void UserRegister(Entities.Users.User registrationInfo)
         {
             //Register new user
             WriteConcernResult concernResult = DataCollection.Insert(registrationInfo);

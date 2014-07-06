@@ -55,7 +55,7 @@ namespace RateIt.Management.Forms
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
             this.gbMapMarker = new System.Windows.Forms.GroupBox();
-            this.tbMapMarkerLongtitude = new System.Windows.Forms.TextBox();
+            this.tbMapMarkerLongitude = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tbMapMarkerLatitude = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -67,8 +67,8 @@ namespace RateIt.Management.Forms
             this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnMapNavigate = new System.Windows.Forms.Button();
-            this.tbMapLongtitude = new System.Windows.Forms.TextBox();
-            this.lblMapLongtitude = new System.Windows.Forms.Label();
+            this.tbMapLongitude = new System.Windows.Forms.TextBox();
+            this.lblMapLongitude = new System.Windows.Forms.Label();
             this.tbMapLatitude = new System.Windows.Forms.TextBox();
             this.lblMapLatitude = new System.Windows.Forms.Label();
             this.pMap = new System.Windows.Forms.Panel();
@@ -385,7 +385,7 @@ namespace RateIt.Management.Forms
             // gbMapMarker
             // 
             this.gbMapMarker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbMapMarker.Controls.Add(this.tbMapMarkerLongtitude);
+            this.gbMapMarker.Controls.Add(this.tbMapMarkerLongitude);
             this.gbMapMarker.Controls.Add(this.label3);
             this.gbMapMarker.Controls.Add(this.tbMapMarkerLatitude);
             this.gbMapMarker.Controls.Add(this.label4);
@@ -397,13 +397,13 @@ namespace RateIt.Management.Forms
             this.gbMapMarker.TabStop = false;
             this.gbMapMarker.Text = "Marker";
             // 
-            // tbMapMarkerLongtitude
+            // tbMapMarkerLongitude
             // 
-            this.tbMapMarkerLongtitude.Location = new System.Drawing.Point(72, 45);
-            this.tbMapMarkerLongtitude.Name = "tbMapMarkerLongtitude";
-            this.tbMapMarkerLongtitude.ReadOnly = true;
-            this.tbMapMarkerLongtitude.Size = new System.Drawing.Size(140, 20);
-            this.tbMapMarkerLongtitude.TabIndex = 7;
+            this.tbMapMarkerLongitude.Location = new System.Drawing.Point(72, 45);
+            this.tbMapMarkerLongitude.Name = "tbMapMarkerLongitude";
+            this.tbMapMarkerLongitude.ReadOnly = true;
+            this.tbMapMarkerLongitude.Size = new System.Drawing.Size(140, 20);
+            this.tbMapMarkerLongitude.TabIndex = 7;
             // 
             // label3
             // 
@@ -412,7 +412,7 @@ namespace RateIt.Management.Forms
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 13);
             this.label3.TabIndex = 6;
-            this.label3.Text = "Longtitude:";
+            this.label3.Text = "Longitude:";
             // 
             // tbMapMarkerLatitude
             // 
@@ -450,8 +450,8 @@ namespace RateIt.Management.Forms
             this.gbMapNavigation.Controls.Add(this.label5);
             this.gbMapNavigation.Controls.Add(this.panel1);
             this.gbMapNavigation.Controls.Add(this.btnMapNavigate);
-            this.gbMapNavigation.Controls.Add(this.tbMapLongtitude);
-            this.gbMapNavigation.Controls.Add(this.lblMapLongtitude);
+            this.gbMapNavigation.Controls.Add(this.tbMapLongitude);
+            this.gbMapNavigation.Controls.Add(this.lblMapLongitude);
             this.gbMapNavigation.Controls.Add(this.tbMapLatitude);
             this.gbMapNavigation.Controls.Add(this.lblMapLatitude);
             this.gbMapNavigation.Location = new System.Drawing.Point(473, 6);
@@ -522,23 +522,23 @@ namespace RateIt.Management.Forms
             this.btnMapNavigate.UseVisualStyleBackColor = true;
             this.btnMapNavigate.Click += new System.EventHandler(this.BtnMapNavigateClick);
             // 
-            // tbMapLongtitude
+            // tbMapLongitude
             // 
-            this.tbMapLongtitude.Location = new System.Drawing.Point(72, 44);
-            this.tbMapLongtitude.Name = "tbMapLongtitude";
-            this.tbMapLongtitude.Size = new System.Drawing.Size(140, 20);
-            this.tbMapLongtitude.TabIndex = 3;
-            this.tbMapLongtitude.Text = "36.260140681508";
-            this.tbMapLongtitude.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbMapLatitude_KeyDown);
+            this.tbMapLongitude.Location = new System.Drawing.Point(72, 44);
+            this.tbMapLongitude.Name = "tbMapLongitude";
+            this.tbMapLongitude.Size = new System.Drawing.Size(140, 20);
+            this.tbMapLongitude.TabIndex = 3;
+            this.tbMapLongitude.Text = "36.260140681508";
+            this.tbMapLongitude.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbMapLatitude_KeyDown);
             // 
-            // lblMapLongtitude
+            // lblMapLongitude
             // 
-            this.lblMapLongtitude.AutoSize = true;
-            this.lblMapLongtitude.Location = new System.Drawing.Point(6, 47);
-            this.lblMapLongtitude.Name = "lblMapLongtitude";
-            this.lblMapLongtitude.Size = new System.Drawing.Size(60, 13);
-            this.lblMapLongtitude.TabIndex = 2;
-            this.lblMapLongtitude.Text = "Longtitude:";
+            this.lblMapLongitude.AutoSize = true;
+            this.lblMapLongitude.Location = new System.Drawing.Point(6, 47);
+            this.lblMapLongitude.Name = "lblMapLongitude";
+            this.lblMapLongitude.Size = new System.Drawing.Size(60, 13);
+            this.lblMapLongitude.TabIndex = 2;
+            this.lblMapLongitude.Text = "Longitude:";
             // 
             // tbMapLatitude
             // 
@@ -688,8 +688,8 @@ namespace RateIt.Management.Forms
         private System.Windows.Forms.TabPage tpStores;
         private System.Windows.Forms.Panel pMap;
         private System.Windows.Forms.GroupBox gbMapNavigation;
-        private System.Windows.Forms.TextBox tbMapLongtitude;
-        private System.Windows.Forms.Label lblMapLongtitude;
+        private System.Windows.Forms.TextBox tbMapLongitude;
+        private System.Windows.Forms.Label lblMapLongitude;
         private System.Windows.Forms.TextBox tbMapLatitude;
         private System.Windows.Forms.Label lblMapLatitude;
         private System.Windows.Forms.Button btnMapNavigate;
@@ -703,7 +703,7 @@ namespace RateIt.Management.Forms
         private MapViewer map;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox tbMapMarkerLongtitude;
+        private System.Windows.Forms.TextBox tbMapMarkerLongitude;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbMapMarkerLatitude;
         private System.Windows.Forms.Label label4;

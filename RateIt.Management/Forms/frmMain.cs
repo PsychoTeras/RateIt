@@ -171,7 +171,7 @@ namespace RateIt.Management.Forms
         private void map_OnPositionChanged(PointLatLng point)
         {
             tbMapLatitude.Text = point.Lat.ToString(CultureInfo.InvariantCulture);
-            tbMapLongtitude.Text = point.Lng.ToString(CultureInfo.InvariantCulture);
+            tbMapLongitude.Text = point.Lng.ToString(CultureInfo.InvariantCulture);
         }
 
         private void DoMapNavigate(bool force = false)
@@ -183,18 +183,18 @@ namespace RateIt.Management.Forms
                 {
                     string[] latLng = tbMapLatitude.Text.Split(new[] { "x" }, StringSplitOptions.None);
                     tbMapLatitude.Text = latLng[0].Replace("{", "").Trim();
-                    tbMapLongtitude.Text = latLng[1].Replace("}", "").Trim();
+                    tbMapLongitude.Text = latLng[1].Replace("}", "").Trim();
                 }
                 //or load as is
                 else
                 {
                     tbMapLatitude.Text = tbMapLatitude.Text.Trim();
-                    tbMapLongtitude.Text = tbMapLongtitude.Text.Trim();
+                    tbMapLongitude.Text = tbMapLongitude.Text.Trim();
                 }
 
-                double latitude, longtitude;
+                double latitude, longitude;
                 if (double.TryParse(tbMapLatitude.Text, out latitude) &&
-                    double.TryParse(tbMapLongtitude.Text, out longtitude))
+                    double.TryParse(tbMapLongitude.Text, out longitude))
                 {
                     //Apply map style
                     switch (cbMapStyle.SelectedIndex)
@@ -207,7 +207,7 @@ namespace RateIt.Management.Forms
                     }
 
                     //Set map coordinates
-                    map.Position = new PointLatLng(latitude, longtitude);
+                    map.Position = new PointLatLng(latitude, longitude);
                     map.MinZoom = trackMapZoom.Minimum;
                     map.MaxZoom = trackMapZoom.Maximum;
                     map.Zoom = trackMapZoom.Value;
@@ -240,7 +240,7 @@ namespace RateIt.Management.Forms
         private void UpdateMapMarkerTbValues()
         {
             tbMapMarkerLatitude.Text = _mapMainMarker.Position.Lat.ToString(CultureInfo.InvariantCulture);
-            tbMapMarkerLongtitude.Text = _mapMainMarker.Position.Lng.ToString(CultureInfo.InvariantCulture);
+            tbMapMarkerLongitude.Text = _mapMainMarker.Position.Lng.ToString(CultureInfo.InvariantCulture);
         }
 
         private void SetMapMarkerPosition(MouseEventArgs e)

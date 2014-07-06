@@ -52,6 +52,7 @@ namespace RateIt.Common.Classes
                                 {
                                     topLeft.Longitude = geoPoint.Longitude;
                                 }
+
                                 //Bottom-right
                                 if (geoPoint.Latitude < bottomRight.Latitude)
                                 {
@@ -62,6 +63,7 @@ namespace RateIt.Common.Classes
                                     bottomRight.Longitude = geoPoint.Longitude;
                                 }
                             }
+
                             double lat = (topLeft.Latitude + bottomRight.Latitude) / 2;
                             double lng = (topLeft.Longitude + bottomRight.Longitude) / 2;
                             return new GeoPoint(lat, lng);
@@ -94,6 +96,47 @@ namespace RateIt.Common.Classes
         public void AddPoint(GeoPoint geoPoint)
         {
             Points.Add(geoPoint);
+        }
+
+        public GeoRectangle ToRectangle()
+        {
+            if (Points.Count < 4)
+            {
+                throw new Exception("Error while create georectangle: at least 4 geopoints are required");
+            }
+
+            GeoPoint topLeft = new GeoPoint(Points[0]);
+            GeoPoint bottomRight = new GeoPoint(Points[0]);
+            foreach (GeoPoint geoPoint in Points)
+            {
+                //Top-left
+                if (geoPoint.Latitude > topLeft.Latitude)
+                {
+                    topLeft.Latitude = geoPoint.Latitude;
+                }
+                if (geoPoint.Longitude < topLeft.Longitude)
+                {
+                    topLeft.Longitude = geoPoint.Longitude;
+                }
+
+                //Bottom-right
+                if (geoPoint.Latitude < bottomRight.Latitude)
+                {
+                    bottomRight.Latitude = geoPoint.Latitude;
+                }
+                if (geoPoint.Longitude > bottomRight.Longitude)
+                {
+                    bottomRight.Longitude = geoPoint.Longitude;
+                }
+            }
+
+            return new GeoRectangle
+                (
+                    topLeft.Latitude, 
+                    topLeft.Longitude,
+                    bottomRight.Latitude - topLeft.Latitude,
+                    bottomRight.Longitude - topLeft.Longitude
+                );
         }
 
 #endregion

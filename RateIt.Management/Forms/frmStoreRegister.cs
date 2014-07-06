@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using RateIt.Common.Classes;
+using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Controller;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Common.Core.ErrorCodes;
@@ -39,36 +40,36 @@ namespace RateIt.Management.Forms
         public frmStoreRegister()
         {
             InitializeComponent();
-            cbSize.SelectedIndex = 2;
+            cbSize.SelectedIndex = 1;
         }
 
         private GeoSize GetSelectedStoreSizeInMeters()
         {
-            uint size = 0;
+            ushort size = 0;
             switch (cbSize.SelectedIndex)
             {
                     //Small
                 case 0:
                 {
-                    size = 20;
+                    size = (ushort) StoreSize.Small;
                     break;
                 }
                     //Medium
                 case 1:
                 {
-                    size = 50;
+                    size = (ushort) StoreSize.Medium;
                     break;
                 }
                     //Large
                 case 2:
                 {
-                    size = 100;
+                    size = (ushort) StoreSize.Large;
                     break;
                 }
-                    //Extra large
+                    //Huge
                 case 3:
                 {
-                    size = 250;
+                    size = (ushort) StoreSize.Huge;
                     break;
                 }
             }

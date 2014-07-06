@@ -3,11 +3,8 @@ using System.Text.RegularExpressions;
 
 namespace RateIt.Common.Helpers
 {
-    internal static class Helper
+    internal static class CommonHelper
     {
-
-#region Class static methods
-
         public static bool IsValidEmail(string email)
         {
             return new Regex(@"^.+@.+\..+$").IsMatch(email ?? string.Empty);
@@ -42,8 +39,5 @@ namespace RateIt.Common.Helpers
             }
             return false;
         }
-
-#endregion
-
     }
 }

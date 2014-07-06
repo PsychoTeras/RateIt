@@ -1,7 +1,9 @@
 ﻿using System;
 using RateIt.Common.Classes;
+using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Common.Core.ErrorCodes;
+using RateIt.Common.Core.QueryParams;
 using RateIt.Common.Core.QueryResults;
 
 namespace RateIt.Common.Core.Controller
@@ -9,11 +11,18 @@ namespace RateIt.Common.Core.Controller
     public sealed partial class MainController
     {
 
+#region Constants
+
+        private const byte MIN_STORE_NAME_LENGTH = 3 ;
+        private const byte MAX_STORE_NAME_LENGTH = 50;
+
+#endregion
+
 #region Private methods
 
         private void AssertGetStoresAtLocation(GeoPoint location)
         {
-            //Check on null-reference
+            //Check location on null-reference
             if (location == null)
             {
                 throw BaseQueryResult.Throw("Location is null-reference",
@@ -21,9 +30,33 @@ namespace RateIt.Common.Core.Controller
             }
         }
 
+        private void AssertGetStoresAtLocation(QuerySysRequestID sysId, GeoPoint location, GeoSize areaSize)
+        {
+            //Check system request id
+            if (sysId != QuerySysRequestID.Instance)
+            {
+                throw BaseQueryResult.Throw("Invalid system request id",
+                    ECGeneral.InvalidSysRequestId);
+            }
+
+            //Check location on null-reference
+            if (location == null)
+            {
+                throw BaseQueryResult.Throw("Location is null-reference",
+                    ECGeneral.NullReference);
+            }
+
+            //Check areaSize on null-reference
+            if (location == null)
+            {
+                throw BaseQueryResult.Throw("Area size is null-reference",
+                    ECGeneral.NullReference);
+            }
+        }
+
         private void AssertRegistrationInfo(Store registrationInfo)
         {
-            //Check on null-reference
+            //Check registrationInfo on null-reference
             if (registrationInfo == null)
             {
                 throw BaseQueryResult.Throw("Registration info is null-reference", 
@@ -36,6 +69,24 @@ namespace RateIt.Common.Core.Controller
             {
                 throw BaseQueryResult.Throw("Store name cannot be blank",
                     ECStoreRegistration.NameIsBlank);
+            }
+
+            //Validate minimal store name length
+            if (registrationInfo.StoreName.Length < MIN_STORE_NAME_LENGTH)
+            {
+                string errMsg = string.Format("Store name should have {0} letters at least", 
+                                              MIN_STORE_NAME_LENGTH);
+                throw BaseQueryResult.Throw(errMsg, 
+                    ECStoreRegistration.MinNameLengthRequired);
+            }
+
+            //Validate maximal store name length
+            if (registrationInfo.StoreName.Length > MAX_STORE_NAME_LENGTH)
+            {
+                string errMsg = string.Format("Store name should not have more than {0} letters", 
+                                              MAX_STORE_NAME_LENGTH);
+                throw BaseQueryResult.Throw(errMsg, 
+                    ECStoreRegistration.MaxNameLengthExceeded);
             }
         }
 
@@ -70,12 +121,49 @@ namespace RateIt.Common.Core.Controller
             return BaseQueryResult.Successful;
         }
 
-        public StoreListQueryResult GetStoresAtLocation(GeoPoint location)
+        public StoreListQueryResult GetStoresAtLocation(GeoPoint location, StoreQueryAreaLevel areaLevel)
         {
             try
             {
-                Store[] storesList = null;
-                return new StoreListQueryResult(storesList);
+                //Assert location information
+                AssertGetStoresAtLocation(location);
+
+                //Get stores at location
+                try
+                {
+                    Store[] stores = _storeDAL.GetStoresAtLocation(location, areaLevel);
+                    return new StoreListQueryResult(stores);
+                }
+                catch (Exception dbEx)
+                {
+                    //Something failed in DB
+                    return BaseQueryResult.FromException<StoreListQueryResult>(dbEx, ECGeneral.DBError);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BaseQueryResult.FromException<StoreListQueryResult>(ex);
+            }
+        }
+
+        public StoreListQueryResult GetStoresAtLocationSys(QuerySysRequestID sysId, GeoPoint location, GeoSize areaSize)
+        {
+            try
+            {
+                //Assert location information
+                AssertGetStoresAtLocation(sysId, location, areaSize);
+
+                //Get stores at location
+                try
+                {
+                    Store[] stores = _storeDAL.GetStoresAtLocation(location, areaSize);
+                    return new StoreListQueryResult(stores);
+                }
+                catch (Exception dbEx)
+                {
+                    //Something failed in DB
+                    return BaseQueryResult.FromException<StoreListQueryResult>(dbEx, ECGeneral.DBError);
+                }
             }
             catch (Exception ex)
             {

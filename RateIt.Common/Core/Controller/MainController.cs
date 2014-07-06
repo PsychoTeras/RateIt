@@ -19,9 +19,9 @@ namespace RateIt.Common.Core.Controller
 
         public void Dispose()
         {
-            Helper.SafeDispose(ref _userDAL);
-            Helper.SafeDispose(ref _userLoginDAL);
-            Helper.SafeDispose(ref _storeDAL);
+            CommonHelper.SafeDispose(ref _userDAL);
+            CommonHelper.SafeDispose(ref _userLoginDAL);
+            CommonHelper.SafeDispose(ref _storeDAL);
         }
 
 #endregion

@@ -1,6 +1,8 @@
-﻿using MongoDB.Driver;
+﻿using System.Linq;
+using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using RateIt.Common.Classes;
+using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Common.Core.QueryResults;
 using RateIt.Common.Helpers;
@@ -56,8 +58,6 @@ namespace RateIt.Common.Core.DAL
 
         public void StoreRegister(Store registrationInfo)
         {
-            GetStoresByNameTemplateAndLocation(registrationInfo.StoreName, registrationInfo.Location);
-
             //Register new store
             WriteConcernResult concernResult = DataCollection.Insert(registrationInfo);
 
@@ -65,10 +65,11 @@ namespace RateIt.Common.Core.DAL
             AssertErrorMessage(concernResult.ErrorMessage);
         }
 
-        public StoreListQueryResult GetStoresByNameTemplateAndLocation(string storeName, GeoPoint location)
+        public StoreListQueryResult GetStoresByNameFuzzyAndLocation(string storeName, GeoPoint location)
         {
-            const double searchRadius = 0.2d; //In km, 200m
-            double searchRadiusRad = searchRadius / GeoHelper.EARTH_RADIUS_KM;
+            //Calculate search criteria
+            const double searchRadius = (double)StoreSize.Huge / 1000; //In km
+            const double searchRadiusRad = searchRadius / GeoConstants.EARTH_RADIUS_KM;
 
             //Search by location
             IMongoQuery qStoresAtLocation = Query.WithinCircle(GEOPOINT_FIELD_NAME,
@@ -79,11 +80,56 @@ namespace RateIt.Common.Core.DAL
                 Find(qStoresAtLocation).
                 SetHint(IDX_T_STORES_LOCATION);
             
-            //
+            //Get stores, which names are very similar to the template store name
             Store[] stores = cursor.ByStoreNameFuzzy(storeName);
 
-            //Return result
+            //Return list of stores
             return new StoreListQueryResult(stores);
+        }
+
+        public Store[] GetStoresAtLocation(GeoPoint location, StoreQueryAreaLevel areaLevel)
+        {
+            double searchRadius = (double)areaLevel / 1000;
+            double searchRadiusRad = searchRadius / GeoConstants.EARTH_RADIUS_KM;
+
+            //Search by location
+            IMongoQuery qStoresAtLocation = Query.WithinCircle(GEOPOINT_FIELD_NAME,
+                location.Latitude, location.Longitude, searchRadiusRad, true);
+
+            //Do search
+            MongoCursor<Store> cursor = StoreListDataCollection.
+                Find(qStoresAtLocation).
+                SetHint(IDX_T_STORES_LOCATION);
+
+            //Get stores
+            Store[] stores = cursor.ToArray();
+
+            //Return list of stores
+            return stores;
+        }
+
+        public Store[] GetStoresAtLocation(GeoPoint location, GeoSize areaSize)
+        {
+            //Calculate area rectangle
+            GeoArea geoArea = areaSize.ToGeoArea(location);
+            GeoRectangle geoRectangle = geoArea.ToRectangle();
+
+            //Search by area
+            IMongoQuery qStoresAtLocation = Query.WithinRectangle(GEOPOINT_FIELD_NAME,
+                geoRectangle.Latitude, geoRectangle.Longitude,
+                geoRectangle.Latitude + geoRectangle.LatitudeShift,
+                geoRectangle.Longitude + geoRectangle.LongitudeShift);
+
+            //Do search
+            MongoCursor<Store> cursor = StoreListDataCollection.
+                Find(qStoresAtLocation).
+                SetHint(IDX_T_STORES_LOCATION);
+
+            //Get stores
+            Store[] stores = cursor.ToArray();
+
+            //Return list of stores
+            return stores;
         }
 
 #endregion

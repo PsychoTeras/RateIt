@@ -1,7 +1,9 @@
 ﻿using MongoDB.Bson;
 using RateIt.Common.Classes;
+using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Common.Core.Entities.Users;
+using RateIt.Common.Core.QueryParams;
 using RateIt.Common.Core.QueryResults;
 
 namespace RateIt.Common.Core.Controller
@@ -21,8 +23,8 @@ namespace RateIt.Common.Core.Controller
 #region Store action
 
         BaseQueryResult StoreRegister(Store registrationInfo);
-        StoreListQueryResult GetStoresAtLocation(GeoPoint location);
-
+        StoreListQueryResult GetStoresAtLocation(GeoPoint location, StoreQueryAreaLevel areaLevel);
+        StoreListQueryResult GetStoresAtLocationSys(QuerySysRequestID sysId, GeoPoint location, GeoSize areaSize);
 
 #endregion
 

@@ -5,56 +5,57 @@ namespace RateIt.Common.Classes
     [Serializable]
     public sealed class GeoRectangle
     {
-        public int X;
-        public int Y;
-        public int Width;
-        public int Height;
+
+#region Public fields
+
+        public double Latitude;
+        public double Longitude;
+        public double LatitudeShift;
+        public double LongitudeShift;
+
+#endregion
+
+#region Ctor
 
         public GeoRectangle() { }
 
-        public GeoRectangle(int x, int y, int width, int height)
+        public GeoRectangle(double latitude, double longitude, double latitudeShift, 
+                            double longitudeShift)
         {
-            X = x;
-            Y = y;
-            Width = width;
-            Height = height;
+            Latitude = latitude;
+            Longitude = longitude;
+            LatitudeShift = latitudeShift;
+            LongitudeShift = longitudeShift;
         }
 
-        public static GeoRectangle FromLTRB(int left, int top, int right, int bottom)
+#endregion
+
+#region Class methods
+
+        private bool Equals(GeoRectangle other)
         {
-            return new GeoRectangle(left,
-                top,
-                right - left,
-                bottom - top);
+            return Math.Abs(Latitude - other.Latitude) < double.Epsilon &&
+                   Math.Abs(Longitude - other.Longitude) < double.Epsilon &&
+                   Math.Abs(LatitudeShift - other.LatitudeShift) < double.Epsilon &&
+                   Math.Abs(LongitudeShift - other.LongitudeShift) < double.Epsilon;
         }
-        
+
         public override bool Equals(object obj)
         {
-            if (!(obj is GeoRectangle))
+            if (ReferenceEquals(null, obj))
+            {
                 return false;
-
-            GeoRectangle comp = (GeoRectangle) obj;
-
-            return (comp.X == X) &&
-                   (comp.Y == Y) &&
-                   (comp.Width == Width) &&
-                   (comp.Height == Height);
-        }
-
-        public static bool operator ==(GeoRectangle left, GeoRectangle right)
-        {
-            if (left == null && right == null)
+            }
+            if (ReferenceEquals(this, obj))
             {
                 return true;
             }
-            if ((left != null && right == null) || left == null)
-            {
-                return false;
-            }
-            return (left.X == right.X
-                    && left.Y == right.Y
-                    && left.Width == right.Width
-                    && left.Height == right.Height);
+            return obj is GeoRectangle && Equals((GeoRectangle)obj);
+        }
+
+        public static bool operator ==(GeoRectangle rect1, GeoRectangle rect2)
+        {
+            return !ReferenceEquals(rect1, null) && !ReferenceEquals(rect2, null) && rect1.Equals(rect2);
         }
 
         public static bool operator !=(GeoRectangle left, GeoRectangle right)
@@ -62,7 +63,29 @@ namespace RateIt.Common.Classes
             return !(left == right);
         }
 
-        public bool Contains(int x, int y)
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = Latitude.GetHashCode();
+                hashCode = (hashCode * 397) ^ Longitude.GetHashCode();
+                hashCode = (hashCode * 397) ^ LatitudeShift.GetHashCode();
+                hashCode = (hashCode * 397) ^ LongitudeShift.GetHashCode();
+                return hashCode;
+            }
+        }
+
+        public override string ToString()
+        {
+            return "Latitude =" + Latitude + 
+                   ", longtitude = " + Longitude +
+                   ", latitude shift = " + LatitudeShift + 
+                   ", longitude shift = " + LongitudeShift;
+        }
+
+#endregion
+
+        /*public bool Contains(GeoPoint geoPoint)
         {
             return X <= x &&
                    x < X + Width &&
@@ -148,12 +171,7 @@ namespace RateIt.Common.Classes
         {
             X += x;
             Y += y;
-        }
-
-        public override string ToString()
-        {
-            return "{X=" + X + ",Y=" + Y + ",Width=" + Width + ",Height=" + Height + "}";
-        }
+        }*/
     }
 
 }

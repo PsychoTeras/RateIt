@@ -39,7 +39,7 @@ namespace RateIt.Common.Core.Controller
             //Validate email
             registrationInfo.Email = (registrationInfo.Email ?? string.Empty).Trim();
             if (!string.IsNullOrEmpty(registrationInfo.Email) &&
-                !Helper.IsValidEmail(registrationInfo.Email))
+                !CommonHelper.IsValidEmail(registrationInfo.Email))
             {
                 throw BaseQueryResult.Throw("Email address not valid", 
                     ECUserRegistration.InvalidEmail);

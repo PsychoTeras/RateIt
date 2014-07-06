@@ -6,39 +6,13 @@ namespace RateIt.Common.Classes
     [Serializable]
     public sealed class GeoSize
     {
+#region Public fields
 
-#region Private fields
+        [XmlIgnore] 
+        public uint Width;
 
-        private uint _width;
-        private uint _height;
-
-        private GeoArea _cachedGeoArea;
-
-#endregion
-
-#region Properties
-
-        [XmlIgnore]
-        public uint Width
-        {
-            get { return _width; }
-            set
-            {
-                _width = value;
-                _cachedGeoArea = null;
-            }
-        }
-
-        [XmlIgnore]
-        public uint Height
-        {
-            get { return _height; }
-            set
-            {
-                _height = value;
-                _cachedGeoArea = null;
-            }
-        }
+        [XmlIgnore] 
+        public uint Height;
 
 #endregion
 
@@ -48,8 +22,8 @@ namespace RateIt.Common.Classes
 
         public GeoSize(uint width, uint height)
         {
-            _width = width;
-            _height = height;
+            Width = width;
+            Height = height;
         }
 
 #endregion
@@ -58,7 +32,7 @@ namespace RateIt.Common.Classes
 
         public GeoArea ToGeoArea(GeoPoint centerPoint)
         {
-            return _cachedGeoArea ?? (_cachedGeoArea = GeoArea.Rectangle(centerPoint, _width, _height));
+            return GeoArea.Rectangle(centerPoint, Width, Height);
         }
 
         public override bool Equals(object obj)
@@ -68,18 +42,17 @@ namespace RateIt.Common.Classes
                 return false;
             }
             GeoSize comp = (GeoSize)obj;
-            return (comp._width == _width) &&
-                   (comp._height == _height);
+            return comp.Width == Width && comp.Height == Height;
         }
 
         public override int GetHashCode()
         {
-            return (int)(_width ^ (_height << 13) | (_height >> 19));
+            return (int)(Width ^ (Height << 13) | (Height >> 19));
         }
 
         public override string ToString()
         {
-            return string.Format("{0}x{1}", _width, _height);
+            return string.Format("{0}x{1}", Width, Height);
         }
 
 #endregion

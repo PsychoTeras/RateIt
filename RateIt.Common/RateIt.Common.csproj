@@ -65,6 +65,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Constants\GeoConstants.cs" />
+    <Compile Include="Core\Constants\StoreQueryAreaLevel.cs" />
+    <Compile Include="Core\Constants\StoreSize.cs" />
+    <Compile Include="Core\QueryParams\QuerySysRequestID.cs" />
     <Compile Include="Properties\AssemblyVersion.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -94,14 +98,14 @@
     <Compile Include="Core\Entities\Users\User.cs" />
     <Compile Include="Core\ErrorCodes\ECGeneral.cs" />
     <Compile Include="Core\ErrorCodes\ECUserRegistration.cs" />
-    <Compile Include="Helpers\Helper.cs" />
+    <Compile Include="Helpers\CommonHelper.cs" />
     <Compile Include="Core\Controller\IController.cs" />
     <Compile Include="Core\Entities\Users\UserLoginInfo.cs" />
     <Compile Include="Core\Entities\Products\Product.cs" />
     <Compile Include="Core\Controller\MainController.cs" />
     <Compile Include="Core\Controller\MainController_User.cs" />
     <Compile Include="Core\DAL\BaseDAL.cs" />
-    <Compile Include="SupplyClasses\MongoDBConnection.cs" />
+    <Compile Include="Core\System\MongoDBConnection.cs" />
     <Compile Include="Core\DAL\UserDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\QueryResults\UserQueryResult.cs" />
@@ -119,6 +123,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -1,7 +1,7 @@
 ﻿using System;
 using MongoDB.Driver;
 
-namespace RateIt.Common.SupplyClasses
+namespace RateIt.Common.Core.System
 {
     internal abstract class MongoDBConnection : IDisposable
     {
