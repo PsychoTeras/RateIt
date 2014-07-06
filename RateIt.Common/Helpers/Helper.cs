@@ -22,6 +22,27 @@ namespace RateIt.Common.Helpers
             }
         }
 
+        public static bool FuzzyMatchingForTwoString(string string1, string string2, int treshold)
+        {
+            int len, matching = 0;
+            if ((len = string1.Length) == string2.Length)
+            {
+                for (int i = 0; i < len; i++)
+                {
+                    if (string1[i] != string2[i])
+                    {
+                        matching++;
+                        if (matching > treshold)
+                        {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
 #endregion
 
     }

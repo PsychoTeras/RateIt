@@ -23,6 +23,7 @@ namespace RateIt.Common.Core.Controller
         BaseQueryResult StoreRegister(Store registrationInfo);
         StoreListQueryResult GetStoresAtLocation(GeoPoint location);
 
+
 #endregion
 
     }
