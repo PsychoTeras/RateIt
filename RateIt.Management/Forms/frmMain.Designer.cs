@@ -72,9 +72,9 @@ namespace RateIt.Management.Forms
             this.tbMapLatitude = new System.Windows.Forms.TextBox();
             this.lblMapLatitude = new System.Windows.Forms.Label();
             this.pMap = new System.Windows.Forms.Panel();
-            this.map = new RateIt.Management.Controls.Map.MapViewer();
             this.gbOutput = new System.Windows.Forms.GroupBox();
             this.tbOutput = new System.Windows.Forms.TextBox();
+            this.map = new RateIt.Management.Controls.Map.MapViewer();
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
@@ -529,7 +529,7 @@ namespace RateIt.Management.Forms
             this.tbMapLongitude.Size = new System.Drawing.Size(140, 20);
             this.tbMapLongitude.TabIndex = 3;
             this.tbMapLongitude.Text = "36.260140681508";
-            this.tbMapLongitude.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbMapLatitude_KeyDown);
+            this.tbMapLongitude.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TbMapLatitudeKeyDown);
             // 
             // lblMapLongitude
             // 
@@ -547,7 +547,7 @@ namespace RateIt.Management.Forms
             this.tbMapLatitude.Size = new System.Drawing.Size(140, 20);
             this.tbMapLatitude.TabIndex = 1;
             this.tbMapLatitude.Text = "49.9513903316245";
-            this.tbMapLatitude.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbMapLatitude_KeyDown);
+            this.tbMapLatitude.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TbMapLatitudeKeyDown);
             // 
             // lblMapLatitude
             // 
@@ -569,35 +569,6 @@ namespace RateIt.Management.Forms
             this.pMap.Name = "pMap";
             this.pMap.Size = new System.Drawing.Size(461, 367);
             this.pMap.TabIndex = 0;
-            // 
-            // map
-            // 
-            this.map.Bearing = 0F;
-            this.map.CanDragMap = true;
-            this.map.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.map.GrayScaleMode = false;
-            this.map.LevelsKeepInMemmory = 5;
-            this.map.Location = new System.Drawing.Point(0, 0);
-            this.map.MarkersEnabled = true;
-            this.map.MaxZoom = 2;
-            this.map.MinZoom = 2;
-            this.map.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.map.Name = "map";
-            this.map.NegativeMode = false;
-            this.map.PolygonsEnabled = false;
-            this.map.RetryLoadTile = 0;
-            this.map.RoutesEnabled = false;
-            this.map.ShowTileGridLines = false;
-            this.map.Size = new System.Drawing.Size(459, 365);
-            this.map.TabIndex = 0;
-            this.map.Zoom = 0D;
-            this.map.OnPositionChanged += new GMap.NET.PositionChanged(this.map_OnPositionChanged);
-            this.map.OnTileLoaded += new GMap.NET.TileLoaded(this.map_OnTileLoaded);
-            this.map.OnTileLoadComplete += new GMap.NET.TileLoadComplete(this.map_OnTileLoadComplete);
-            this.map.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.mapStores_OnMapZoomChanged);
-            this.map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MapMouseDown);
-            this.map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MapMouseMove);
-            this.map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MapMouseUp);
             // 
             // gbOutput
             // 
@@ -624,6 +595,37 @@ namespace RateIt.Management.Forms
             this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbOutput.Size = new System.Drawing.Size(693, 166);
             this.tbOutput.TabIndex = 2;
+            // 
+            // map
+            // 
+            this.map.Bearing = 0F;
+            this.map.CanDragMap = true;
+            this.map.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.map.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.map.GrayScaleMode = false;
+            this.map.LevelsKeepInMemmory = 5;
+            this.map.Location = new System.Drawing.Point(0, 0);
+            this.map.MarkersEnabled = true;
+            this.map.MaxZoom = 2;
+            this.map.MinZoom = 2;
+            this.map.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.map.Name = "map";
+            this.map.NegativeMode = false;
+            this.map.PolygonsEnabled = false;
+            this.map.RetryLoadTile = 0;
+            this.map.RoutesEnabled = false;
+            this.map.ShowTileGridLines = false;
+            this.map.Size = new System.Drawing.Size(459, 365);
+            this.map.TabIndex = 0;
+            this.map.Zoom = 0D;
+            this.map.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.map_OnMarkerClick);
+            this.map.OnPositionChanged += new GMap.NET.PositionChanged(this.map_OnPositionChanged);
+            this.map.OnTileLoaded += new GMap.NET.TileLoaded(this.map_OnTileLoaded);
+            this.map.OnTileLoadComplete += new GMap.NET.TileLoadComplete(this.map_OnTileLoadComplete);
+            this.map.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.mapStores_OnMapZoomChanged);
+            this.map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MapMouseDown);
+            this.map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MapMouseMove);
+            this.map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MapMouseUp);
             // 
             // frmMain
             // 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GMap.NET;
 using GMap.NET.WindowsForms;
 using RateIt.Common.Classes;
 using RateIt.Common.Core.Entities.Stores;
@@ -18,8 +19,9 @@ namespace RateIt.Management.Forms
         private GMapOverlay _mapMainOverlay;
         private GMapMarker _mapMainMarker;
 
-        private List<GMapMarker> _mapStoreMarkers;
-        private HashSet<Store> _storesOnScreen;
+        private GMapOverlay _mapStoreOverlay;
+        private HashSet<int> _storesOnScreen;
+        private HashSet<PointLatLng> _processedTiles;
 
         private bool _mapIsMouseDown;
 
@@ -39,6 +41,8 @@ namespace RateIt.Management.Forms
             DoMapNavigate(true);
 
             //Create map overlays
+            _mapStoreOverlay = new GMapOverlay(map, null);
+            map.Overlays.Add(_mapStoreOverlay);
             _mapMainOverlay = new GMapOverlay(map, null);
             map.Overlays.Add(_mapMainOverlay);
 
@@ -48,8 +52,8 @@ namespace RateIt.Management.Forms
             UpdateMapMarkerTbValues();
 
             //Initialize store markers
-            _mapStoreMarkers = new List<GMapMarker>();
-            _storesOnScreen = new HashSet<Store>();
+            _storesOnScreen = new HashSet<int>();
+            _processedTiles = new HashSet<PointLatLng>();
         }
 
         private void BtnStoreRegisterClick(object sender, EventArgs e)
@@ -68,14 +72,18 @@ namespace RateIt.Management.Forms
 
         private void AddStoreMarker(Store store, bool refresh)
         {
-            if (store != null && !_storesOnScreen.Contains(store))
+            if (store != null)
             {
-                _storesOnScreen.Add(store);
-                MapMarker_Store marker = new MapMarker_Store(map, store);
-                _mapMainOverlay.Markers.Add(marker);
-                if (refresh)
+                int storeHash = store.GetHashCode();
+                if (!_storesOnScreen.Contains(storeHash))
                 {
-                    map.Refresh();
+                    _storesOnScreen.Add(storeHash);
+                    MapMarker_Store marker = new MapMarker_Store(map, store);
+                    _mapStoreOverlay.Markers.Add(marker);
+                    if (refresh)
+                    {
+                        map.Refresh();
+                    }
                 }
             }
         }

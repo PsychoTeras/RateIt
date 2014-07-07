@@ -1,4 +1,6 @@
 ﻿using System.Drawing;
+using System.IO;
+using System.Reflection;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 
@@ -6,7 +8,30 @@ namespace RateIt.Management.Controls.Map.Markers
 {
     public class MapMarker_Cross : GMapMarker
     {
-        private static readonly Pen _pen = new Pen(Brushes.Red, 1);
+
+#region Static private fields
+
+        private static readonly Bitmap _markerIcon;
+
+#endregion
+
+#region Static ctor
+
+        static MapMarker_Cross()
+        {
+            string imageResName = "RateIt.Management.Resources.marker_main.png";
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(imageResName))
+            {
+                if (stream != null)
+                {
+                    _markerIcon = new Bitmap(stream);
+                }
+            }
+        }
+
+#endregion
+
+#region Ctor
 
         public MapMarker_Cross(PointLatLng p) 
             : base(p)
@@ -14,20 +39,18 @@ namespace RateIt.Management.Controls.Map.Markers
             IsHitTestVisible = false;
         }
 
+#endregion
+
+#region Class methods
+
         public override void OnRender(Graphics g)
         {
-            Point p1 = new Point(LocalPosition.X, LocalPosition.Y);
-            p1.Offset(0, -10);
-            Point p2 = new Point(LocalPosition.X, LocalPosition.Y);
-            p2.Offset(0, 10);
-
-            Point p3 = new Point(LocalPosition.X, LocalPosition.Y);
-            p3.Offset(-10, 0);
-            Point p4 = new Point(LocalPosition.X, LocalPosition.Y);
-            p4.Offset(10, 0);
-
-            g.DrawLine(_pen, p1.X, p1.Y, p2.X, p2.Y);
-            g.DrawLine(_pen, p3.X, p3.Y, p4.X, p4.Y);
+            g.DrawImageUnscaled(_markerIcon,
+                                LocalPosition.X - _markerIcon.Width/2,
+                                LocalPosition.Y - _markerIcon.Height/2);
         }
+
+#endregion
+
     }
 }

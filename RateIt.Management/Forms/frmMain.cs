@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using GMap.NET;
 using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
 using MongoDB.Driver;
 using RateIt.Common;
 using RateIt.Common.Classes;
@@ -14,6 +15,7 @@ using RateIt.Common.Core.Controller;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Common.Core.QueryParams;
 using RateIt.Common.Core.QueryResults;
+using RateIt.Management.Controls.Map.Markers;
 using RateIt.Management.Helpers;
 using RateIt.Management.Properties;
 
@@ -142,59 +144,93 @@ namespace RateIt.Management.Forms
 
 #region Map methods
 
+        private void map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
+        {
+            MapMarker_Store marker = item as MapMarker_Store;
+            if (marker != null)
+            {
+                
+            }
+        }
+
         private void map_OnTileLoaded(GPoint pos, int zoom)
         {
             lock (_onTileLoadedObject)
             {
+                //Get tile position
                 GSize tileSize = map.MapProvider.Projection.TileSize;
                 GPoint tilePos = map.MapProvider.Projection.FromTileXYToPixel(pos);
 
+                //Get geoposition on top-left tile point
                 PointLatLng latLngLeftTop = map.MapProvider.Projection.FromPixelToLatLng(tilePos, zoom);
-                tilePos.Offset(tileSize.Width, tileSize.Height);
-                PointLatLng latLngRightBottom = map.MapProvider.Projection.FromPixelToLatLng(tilePos, zoom);
-
-                GeoRectangle rectangle = new GeoRectangle
-                    (
-                    latLngLeftTop.Lat,
-                    latLngLeftTop.Lng,
-                    latLngRightBottom.Lat - latLngLeftTop.Lat,
-                    latLngRightBottom.Lng - latLngLeftTop.Lng
-                    );
-                StoreListQueryResult result = _mainController.GetStoresAtLocationSys(QuerySysRequestID.Instance,
-                    rectangle);
-
-                //Something failed
-                if (!Helper.CheckOnValidQueryResult(result))
+                if (!_processedTiles.Contains(latLngLeftTop))
                 {
-                    return;
-                }
+                    //Get geoposition on bottom-right tile point
+                    tilePos.Offset(tileSize.Width, tileSize.Height);
+                    PointLatLng latLngRightBottom = map.MapProvider.Projection.FromPixelToLatLng(tilePos, zoom);
 
-                //Place each of the stores on screen
-                foreach (Store store in result.StoreList)
-                {
-                    AddStoreMarker(store, false);
+                    //Calculate georectangle from tile area
+                    GeoRectangle rectangle = new GeoRectangle
+                        (
+                        latLngLeftTop.Lat,
+                        latLngLeftTop.Lng,
+                        latLngRightBottom.Lat - latLngLeftTop.Lat,
+                        latLngRightBottom.Lng - latLngLeftTop.Lng
+                        );
+                    StoreListQueryResult result = _mainController.GetStoresAtLocationSys(
+                        QuerySysRequestID.Instance, rectangle);
+
+                    //Something failed
+                    if (!Helper.CheckOnValidQueryResult(result))
+                    {
+                        return;
+                    }
+
+                    //Place each of the stores on screen
+                    foreach (Store store in result.StoreList)
+                    {
+                        AddStoreMarker(store, false);
+                    }
+
+                    //Add current tile to the list of processed tiles
+                    _processedTiles.Add(latLngLeftTop);
                 }
             }
         }
 
-        private void map_OnTileLoadComplete(long ElapsedMilliseconds)
+        private void map_OnTileLoadComplete(long elapsedMilliseconds)
         {
-            lock (_onTileLoadedObject)
+            /*lock (_onTileLoadedObject)
             {
-                //BeginInvoke(new Action(() => map.Refresh()));
-            }
+                BeginInvoke(new Action(() => map.Refresh()));
+            }*/
         }
 
         private void mapStores_OnMapZoomChanged()
         {
-            trackMapZoom.Value = (int)map.Zoom;
+            trackMapZoom.Value = (int) map.Zoom;
             lblMapZoom.Text = string.Format("Zoom [{0}]:", trackMapZoom.Value);
+
+            foreach (MapMarker_Store m in _mapStoreOverlay.Markers)
+            {
+                m.IsVisible = trackMapZoom.Value >= MapMarker_Store.MIN_ZOOM_LEVEL_FOR_VISIBILITY;
+            }
+            
+            map.Refresh();
         }
 
         private void MapMouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
+                //Check if a shop marker is under cursor
+                foreach (GMapMarker m in _mapStoreOverlay.Markers)
+                {
+                    if (m.IsVisible && m.LocalArea.Contains(e.X, e.Y))
+                    {
+                        return;
+                    }
+                }
                 _mapIsMouseDown = true;
                 SetMapMarkerPosition(e);
             }
@@ -298,7 +334,7 @@ namespace RateIt.Management.Forms
             map.Refresh();
         }
 
-        private void tbMapLatitude_KeyDown(object sender, KeyEventArgs e)
+        private void TbMapLatitudeKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
             {
