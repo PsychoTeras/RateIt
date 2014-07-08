@@ -9,7 +9,7 @@ namespace RateIt.Common.Core.QueryResults
 
 #region Properties
 
-        public Store[] StoreList { get; internal set; }
+        public Store[] Stores { get; internal set; }
 
 #endregion
 
@@ -17,9 +17,9 @@ namespace RateIt.Common.Core.QueryResults
 
         public StoreListQueryResult() { }
 
-        public StoreListQueryResult(Store[] storeList)
+        public StoreListQueryResult(Store[] stores)
         {
-            StoreList = storeList;
+            Stores = stores;
         }
 
 #endregion

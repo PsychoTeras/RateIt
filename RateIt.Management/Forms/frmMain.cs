@@ -11,6 +11,7 @@ using GMap.NET.WindowsForms;
 using MongoDB.Driver;
 using RateIt.Common;
 using RateIt.Common.Classes;
+using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Controller;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Common.Core.QueryParams;
@@ -125,14 +126,7 @@ namespace RateIt.Management.Forms
             {
                 logMessage = string.Format("[{0}] {1}", DateTime.Now, logMessage ?? string.Empty);
             }
-            if (writeLine)
-            {
-                tbOutput.Text += string.Format("{0}{1}", logMessage, Environment.NewLine);
-            }
-            else
-            {
-                tbOutput.Text += logMessage;
-            }
+            tbOutput.AppendText(writeLine ? string.Format("{0}{1}", logMessage, Environment.NewLine) : logMessage);
         }
 
         private void FrmMainFormClosed(object sender, FormClosedEventArgs e)
@@ -187,7 +181,7 @@ namespace RateIt.Management.Forms
                     }
 
                     //Place each of the stores on screen
-                    foreach (Store store in result.StoreList)
+                    foreach (Store store in result.Stores)
                     {
                         AddStoreMarker(store, false);
                     }
@@ -211,11 +205,12 @@ namespace RateIt.Management.Forms
             trackMapZoom.Value = (int) map.Zoom;
             lblMapZoom.Text = string.Format("Zoom [{0}]:", trackMapZoom.Value);
 
-            foreach (MapMarker_Store m in _mapStoreOverlay.Markers)
+            foreach (GMapMarker gMapMarker in _mapStoreOverlay.Markers)
             {
+                MapMarker_Store m = (MapMarker_Store) gMapMarker;
                 m.IsVisible = trackMapZoom.Value >= MapMarker_Store.MIN_ZOOM_LEVEL_FOR_VISIBILITY;
             }
-            
+
             map.Refresh();
         }
 
@@ -223,14 +218,14 @@ namespace RateIt.Management.Forms
         {
             if (e.Button == MouseButtons.Left)
             {
-                //Check if a shop marker is under cursor
+                /*//Check if a shop marker is under cursor
                 foreach (GMapMarker m in _mapStoreOverlay.Markers)
                 {
                     if (m.IsVisible && m.LocalArea.Contains(e.X, e.Y))
                     {
                         return;
                     }
-                }
+                }*/
                 _mapIsMouseDown = true;
                 SetMapMarkerPosition(e);
             }
@@ -340,6 +335,61 @@ namespace RateIt.Management.Forms
             {
                 BtnMapNavigateClick(null, null);
             }
+        }
+
+#endregion
+
+#region Store methods
+
+        private void PrintStoresInfo(Store[] stores)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (stores.Length == 0)
+            {
+                sb.Append("There are no stores found");
+            }
+            else
+            {
+                sb.AppendFormat("There are {0} store(s) found:", stores.Length);
+                for (int i = 0; i < stores.Length; i++)
+                {
+                    sb.AppendFormat("{0}   {1}. {2}", Environment.NewLine, i + 1, stores[i]);
+                }
+            }
+            WriteLog(sb.ToString());
+            WriteLog(LOG_SEPARATOR, true, false);
+        }
+
+        private void btnStoresFindAllInLevel_Click(object sender, EventArgs e)
+        {
+            //Get selected area level
+            StoreQueryAreaLevel areaLevel;
+            if (sender == btnStoresFindAllInL1)
+            {
+                areaLevel = StoreQueryAreaLevel.Level1;
+            }
+            else 
+            if (sender == btnStoresFindAllInL2)
+            {
+                areaLevel = StoreQueryAreaLevel.Level2;
+            }
+            else 
+            {
+                areaLevel = StoreQueryAreaLevel.Level3;
+            }
+            
+            //Get stores at location by area level
+            GeoPoint centerPoint = _mapMainMarker.Position.ToGeoPoint();
+            StoreListQueryResult result = _mainController.GetStoresAtLocation(centerPoint, areaLevel);
+
+            //Something failed
+            if (!Helper.CheckOnValidQueryResult(result))
+            {
+                return;
+            }
+
+            //Print stores information
+            PrintStoresInfo(result.Stores);
         }
 
 #endregion

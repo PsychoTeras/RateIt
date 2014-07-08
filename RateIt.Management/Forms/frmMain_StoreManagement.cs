@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using RateIt.Common.Classes;
@@ -47,13 +48,18 @@ namespace RateIt.Management.Forms
             map.Overlays.Add(_mapMainOverlay);
 
             //Initialize main marker
-            _mapMainMarker = new MapMarker_Cross(map.Position);
+            _mapMainMarker = new MapMarker_Cross(map, map.Position);
             _mapMainOverlay.Markers.Add(_mapMainMarker);
             UpdateMapMarkerTbValues();
 
             //Initialize store markers
             _storesOnScreen = new HashSet<int>();
             _processedTiles = new HashSet<PointLatLng>();
+
+            //Initialize GUI controls
+            btnStoresFindAllInL1.BackColor = Color.FromArgb(50, MapMarker_Cross.AreaLevel1Color);
+            btnStoresFindAllInL2.BackColor = Color.FromArgb(50, MapMarker_Cross.AreaLevel2Color);
+            btnStoresFindAllInL3.BackColor = Color.FromArgb(50, MapMarker_Cross.AreaLevel3Color);
         }
 
         private void BtnStoreRegisterClick(object sender, EventArgs e)

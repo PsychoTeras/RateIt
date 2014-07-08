@@ -1,4 +1,5 @@
-﻿using GMap.NET;
+﻿using System.Drawing;
+using GMap.NET;
 using RateIt.Common.Classes;
 
 namespace RateIt.Management.Helpers
@@ -18,6 +19,11 @@ namespace RateIt.Management.Helpers
         public static PointLatLng ToPointLatLng(this GeoPoint geoPoint)
         {
             return new PointLatLng(geoPoint.Latitude, geoPoint.Longitude);
+        }
+
+        public static PointF ToPointF(this GPoint gPoint)
+        {
+            return new PointF(gPoint.X, gPoint.Y);
         }
     }
 }

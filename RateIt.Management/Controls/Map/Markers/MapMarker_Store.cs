@@ -25,6 +25,7 @@ namespace RateIt.Management.Controls.Map.Markers
         private static readonly Pen _pen;
         private static readonly Brush _brush;
         private static readonly GraphicsPath _graphicsPath;
+
         private static readonly Bitmap _storeIconBig;
         private static readonly Bitmap _storeIconSmall;
 
