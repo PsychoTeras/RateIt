@@ -1,7 +1,6 @@
 ﻿using System;
 using MongoDB.Driver;
 using RateIt.Common.Core.System;
-using RateIt.Common.SupplyClasses;
 
 namespace RateIt.Common.Core.DAL
 {
