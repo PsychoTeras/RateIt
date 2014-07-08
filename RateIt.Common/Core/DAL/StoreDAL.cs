@@ -46,14 +46,14 @@ namespace RateIt.Common.Core.DAL
                 Ascending("StoreName");
             IndexOptionsBuilder indexOptions = IndexOptions.
                 SetName(IDX_T_STORES_STORENAME);
-            DataCollection.EnsureIndex(indexKeys, indexOptions);
+            DataCollection.CreateIndex(indexKeys, indexOptions);
 
             //IDX_T_STORES_STORENAME
             indexKeys = IndexKeys.
                 GeoSpatial(GEOPOINT_FIELD_NAME);
             indexOptions = IndexOptions.
                 SetName(IDX_T_STORES_LOCATION);
-            DataCollection.EnsureIndex(indexKeys, indexOptions);
+            DataCollection.CreateIndex(indexKeys, indexOptions);
         }
 
         public void StoreRegister(Store registrationInfo)

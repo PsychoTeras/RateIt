@@ -33,7 +33,7 @@ namespace RateIt.Common.Core.DAL
             IndexOptionsBuilder indexOptions = IndexOptions.
                 SetName(IDX_T_LOGGED_USERS_USER_ID).
                 SetUnique(true);
-            DataCollection.EnsureIndex(indexKeys, indexOptions);
+            DataCollection.CreateIndex(indexKeys, indexOptions);
         }
 
         public bool IsUserLogged(ObjectId userId)

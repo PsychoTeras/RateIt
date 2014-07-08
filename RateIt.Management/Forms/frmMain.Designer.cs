@@ -79,6 +79,7 @@ namespace RateIt.Management.Forms
             this.map = new RateIt.Management.Controls.Map.MapViewer();
             this.gbOutput = new System.Windows.Forms.GroupBox();
             this.tbOutput = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
             this.scMain.SuspendLayout();
@@ -207,7 +208,7 @@ namespace RateIt.Management.Forms
             this.btnUserLogout.Name = "btnUserLogout";
             this.btnUserLogout.Size = new System.Drawing.Size(206, 23);
             this.btnUserLogout.TabIndex = 1;
-            this.btnUserLogout.Text = "Logout selected user";
+            this.btnUserLogout.Text = "Logout selected user (n/a)";
             this.btnUserLogout.UseVisualStyleBackColor = true;
             this.btnUserLogout.Click += new System.EventHandler(this.BtnUserLogoutClick);
             // 
@@ -421,11 +422,12 @@ namespace RateIt.Management.Forms
             // 
             // btnStoreSearchByName
             // 
+            this.btnStoreSearchByName.Enabled = false;
             this.btnStoreSearchByName.Location = new System.Drawing.Point(6, 19);
             this.btnStoreSearchByName.Name = "btnStoreSearchByName";
             this.btnStoreSearchByName.Size = new System.Drawing.Size(206, 23);
             this.btnStoreSearchByName.TabIndex = 0;
-            this.btnStoreSearchByName.Text = "Search store by name";
+            this.btnStoreSearchByName.Text = "Search store by name (n/a)";
             this.btnStoreSearchByName.UseVisualStyleBackColor = true;
             // 
             // gbMapMarker
@@ -686,6 +688,7 @@ namespace RateIt.Management.Forms
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMainFormClosed);
             this.scMain.Panel1.ResumeLayout(false);
             this.scMain.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scMain)).EndInit();
             this.scMain.ResumeLayout(false);
             this.tcMain.ResumeLayout(false);
             this.tpUsers.ResumeLayout(false);

@@ -6,7 +6,7 @@ using RateIt.Common.Core.Entities.Users;
 
 namespace RateIt.Common.Core.DAL
 {
-    internal sealed class UserDAL : BaseDAL<Entities.Users.User>
+    internal sealed class UserDAL : BaseDAL<User>
     {
 
 #region Constants
@@ -42,7 +42,7 @@ namespace RateIt.Common.Core.DAL
             IndexOptionsBuilder indexOptions = IndexOptions.
                 SetName(IDX_T_USERS_USERNAME).
                 SetUnique(true);
-            DataCollection.EnsureIndex(indexKeys, indexOptions);
+            DataCollection.CreateIndex(indexKeys, indexOptions);
 
             //IDX_T_USERS_CREDENTIAL
             indexKeys = IndexKeys.
@@ -50,7 +50,7 @@ namespace RateIt.Common.Core.DAL
                 Ascending("Password");
             indexOptions = IndexOptions.
                 SetName(IDX_T_USERS_CREDENTIAL);
-            DataCollection.EnsureIndex(indexKeys, indexOptions);
+            DataCollection.CreateIndex(indexKeys, indexOptions);
             
             //!!! What is it?
             //Server.IndexCache.Add()
@@ -59,16 +59,16 @@ namespace RateIt.Common.Core.DAL
         public ObjectId GetUserId(string userName, string password)
         {
             string qsName = string.Format("/^({0})$/(si)", userName);
-            IMongoQuery query = new QueryBuilder<Entities.Users.User>().And(new[]
+            IMongoQuery query = new QueryBuilder<User>().And(new[]
                         {
                             Query.Matches("UserName", qsName),
                             Query.EQ("Password", password)
                         });
-            Entities.Users.User user = DataCollection.FindOne(query);
+            User user = DataCollection.FindOne(query);
             return user != null ? user.Id : ObjectId.Empty;
         }
 
-        public Entities.Users.User GetUser(string userName)
+        public User GetUser(string userName)
         {
             //Search by user name (^...$), SingleLine+CI (see Regex standart)
             string queryString = string.Format("/^({0})$/(si)", userName);
@@ -83,7 +83,7 @@ namespace RateIt.Common.Core.DAL
             return GetUser(userName) != null;
         }
 
-        public void UserRegister(Entities.Users.User registrationInfo)
+        public void UserRegister(User registrationInfo)
         {
             //Register new user
             WriteConcernResult concernResult = DataCollection.Insert(registrationInfo);

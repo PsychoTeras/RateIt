@@ -21,14 +21,18 @@ namespace RateIt.Common.Core.DAL
                                                                        CheckElementNames = true,
                                                                        Flags = InsertFlags.ContinueOnError
                                                                    };
+        private readonly MongoDatabaseSettings _dbSettings = new MongoDatabaseSettings();
 
 #endregion
 
 #region Properties
 
         internal abstract string CollectionName { get; }
+
         internal MongoDatabase Database { get; private set; }
         internal MongoCollection<T> DataCollection { get; private set; }
+
+        protected virtual MongoDatabaseSettings DBSettings { get { return _dbSettings; } }
         protected virtual MongoInsertOptions InsertOptions { get { return _dbInsertOptions; } }
 
 #endregion
@@ -48,11 +52,9 @@ namespace RateIt.Common.Core.DAL
         protected BaseDAL() : base(Configuration.DBHost, Configuration.DBPort)
         {
             //Open or create database
-            if (!Server.DatabaseExists(DATABASE_NAME))
-            {
-                Server.CreateDatabaseSettings(DATABASE_NAME);
-            }
-            Database = Server.GetDatabase(DATABASE_NAME);
+            Database = !Server.DatabaseExists(DATABASE_NAME)
+                ? new MongoDatabase(Server, DATABASE_NAME, DBSettings)
+                : Server.GetDatabase(DATABASE_NAME);
 
             //Open or create collection
             bool collectionExists = Database.CollectionExists(CollectionName);
