@@ -1,6 +1,7 @@
 ﻿using System;
 using RateIt.Common.Classes;
 using RateIt.Common.Core.Constants;
+using RateIt.Common.Core.Entities.Session;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Common.Core.ErrorCodes;
 using RateIt.Common.Core.QueryParams;
@@ -8,7 +9,7 @@ using RateIt.Common.Core.QueryResults;
 
 namespace RateIt.Common.Core.Controller
 {
-    public sealed partial class MainController
+    public sealed partial class RateItController
     {
 
 #region Constants
@@ -87,10 +88,13 @@ namespace RateIt.Common.Core.Controller
 
 #region Public methods
 
-        public BaseQueryResult StoreRegister(Store registrationInfo)
+        public BaseQueryResult StoreRegister(SessionInfo sessionInfo, Store registrationInfo)
         {
             try
             {
+                //Assert session information
+                AssertSessionInfo(sessionInfo);
+
                 //Assert registration information
                 AssertRegistrationInfo(registrationInfo);
 
@@ -114,10 +118,14 @@ namespace RateIt.Common.Core.Controller
             return BaseQueryResult.Successful;
         }
 
-        public StoreListQueryResult GetStoresAtLocation(GeoPoint location, StoreQueryAreaLevel areaLevel)
+        public StoreListQueryResult GetStoresAtLocation(SessionInfo sessionInfo, GeoPoint location, 
+                                                        StoreQueryAreaLevel areaLevel)
         {
             try
             {
+                //Assert session information
+                AssertSessionInfo(sessionInfo);
+
                 //Assert location information
                 AssertGetStoresAtLocation(location);
 
@@ -138,6 +146,10 @@ namespace RateIt.Common.Core.Controller
                 return BaseQueryResult.FromException<StoreListQueryResult>(ex);
             }
         }
+
+#endregion
+
+#region System methods
 
         public StoreListQueryResult GetStoresAtLocationSys(QuerySysRequestID sysId, GeoRectangle rectangle)
         {

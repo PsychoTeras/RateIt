@@ -65,7 +65,7 @@ namespace RateIt.Management.Forms
         private void BtnStoreRegisterClick(object sender, EventArgs e)
         {
             GeoPoint atLocation = _mapMainMarker.Position.ToGeoPoint();
-            Store store = frmStoreRegister.DoRegister(_mainController, atLocation);
+            Store store = frmStoreRegister.DoRegister(_mainController, _loggedUserSession, atLocation);
             if (store != null)
             {
                 AddStoreMarker(store, true);

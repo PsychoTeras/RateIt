@@ -47,7 +47,7 @@ namespace RateIt.Common.Core.DAL
             //IDX_T_USERS_CREDENTIAL
             indexKeys = IndexKeys.
                 Ascending("UserName").
-                Ascending("Password");
+                Ascending("PasswordHash");
             indexOptions = IndexOptions.
                 SetName(IDX_T_USERS_CREDENTIAL);
             DataCollection.CreateIndex(indexKeys, indexOptions);
@@ -62,7 +62,7 @@ namespace RateIt.Common.Core.DAL
             IMongoQuery query = new QueryBuilder<User>().And(new[]
                         {
                             Query.Matches("UserName", qsName),
-                            Query.EQ("Password", password)
+                            Query.EQ("PasswordHash", password)
                         });
             User user = DataCollection.FindOne(query);
             return user != null ? user.Id : ObjectId.Empty;
@@ -92,8 +92,8 @@ namespace RateIt.Common.Core.DAL
             AssertErrorMessage(concernResult.ErrorMessage);
         }
 
-        public UserListItem[] GetUserList(UserLoginDAL userLoginDAL, 
-            string userNamePart, int maxCount)
+        public UserListItem[] GetUserList(UserSessionDAL userLoginDAL,
+            string userNamePart, uint maxCount)
         {
             //Search by part of user name
             string queryString = string.Format("/({0})/(si)", userNamePart);
@@ -107,7 +107,7 @@ namespace RateIt.Common.Core.DAL
             //Set TOP (N) limit
             if (maxCount > 0)
             {
-                cursor = cursor.SetLimit(maxCount);
+                cursor = cursor.SetLimit((int) maxCount);
             }
 
             //Get result list

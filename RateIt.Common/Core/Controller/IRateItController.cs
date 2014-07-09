@@ -1,7 +1,7 @@
 ﻿using System.ServiceModel;
-using MongoDB.Bson;
 using RateIt.Common.Classes;
 using RateIt.Common.Core.Constants;
+using RateIt.Common.Core.Entities.Session;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Common.Core.Entities.Users;
 using RateIt.Common.Core.QueryResults;
@@ -15,22 +15,21 @@ namespace RateIt.Common.Core.Controller
 #region User actions
 
         [OperationContract]
-        BaseQueryResult UserRegister(User registrationInfo);
+        BaseQueryResult      UserRegister(User registrationInfo);
         [OperationContract]
-        UserQueryResult UserLogin(UserLoginInfo loginInfo);
+        UserLoginQueryResult UserLogin(UserLoginInfo loginInfo);
         [OperationContract]
-        BaseQueryResult UserLogout(ObjectId userId);
-        [OperationContract]
-        UserListQueryResult GetUserList(string userNamePart, int maxCount);
+        BaseQueryResult      UserLogout(SessionInfo sessionInfo);
 
 #endregion
 
 #region Store action
 
         [OperationContract]
-        BaseQueryResult StoreRegister(Store registrationInfo);
+        BaseQueryResult      StoreRegister(SessionInfo sessionInfo, Store registrationInfo);
         [OperationContract]
-        StoreListQueryResult GetStoresAtLocation(GeoPoint location, StoreQueryAreaLevel areaLevel);
+        StoreListQueryResult GetStoresAtLocation(SessionInfo sessionInfo, GeoPoint location, 
+                                                 StoreQueryAreaLevel areaLevel);
 
 #endregion
 

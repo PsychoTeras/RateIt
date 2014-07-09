@@ -1,5 +1,6 @@
 ﻿using System;
 using MongoDB.Bson;
+using RateIt.Common.Core.Constants;
 
 namespace RateIt.Common.Core.Entities.Users
 {
@@ -7,10 +8,20 @@ namespace RateIt.Common.Core.Entities.Users
     internal class UserLogged : BaseDocument
     {
 
-#region Fields
+#region Public fields
 
+        public string UserName;
         public ObjectId UserId;
-        public DateTime LastLoginTime;
+        public DateTime LastAccessTime;
+
+#endregion
+
+#region Properties
+
+        public string SessionId
+        {
+            get { return Id.ToString(); }
+        }
 
 #endregion
 
@@ -18,21 +29,39 @@ namespace RateIt.Common.Core.Entities.Users
 
         public UserLogged()
         {
-            LastLoginTime = DateTime.Now.ToUniversalTime();
+            ResetLastAccessTime();
         }
 
-        public UserLogged(ObjectId userId) : this()
+        public UserLogged(string userName, ObjectId userId)
+            : this()
         {
+            if (string.IsNullOrEmpty(userName))
+            {
+                throw new ArgumentException("User name is empty");
+            }
+            UserName = userName;
             UserId = userId;
         }
 
-        public UserLogged(User user) : this()
+        public UserLogged(User user) 
+            : this()
         {
             if (user == null)
             {
-                throw new NullReferenceException("User is null-reference");
+                throw new ArgumentException("User is null-reference");
             }
+            if (string.IsNullOrEmpty(user.UserName))
+            {
+                throw new ArgumentException("User name is empty");
+            }
+            UserName = user.UserName;
             UserId = user.Id;
+        }
+
+        public void ResetLastAccessTime()
+        {
+            double min = GenericConstants.USER_SESSION_TTL_MIN;
+            LastAccessTime = DateTime.Now.AddMinutes(min).ToUniversalTime();
         }
 
 #endregion

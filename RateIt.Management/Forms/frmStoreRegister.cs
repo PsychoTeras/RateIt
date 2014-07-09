@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using RateIt.Common.Classes;
 using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Controller;
+using RateIt.Common.Core.Entities.Session;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Common.Core.ErrorCodes;
 using RateIt.Common.Core.QueryResults;
@@ -16,6 +17,7 @@ namespace RateIt.Management.Forms
 #region Private members
 
         private IRateItController _controller;
+        private SessionInfo _sessionInfo;
         private GeoPoint _atLocation;
         private Store _store;
 
@@ -23,11 +25,13 @@ namespace RateIt.Management.Forms
 
 #region DoRegister method
 
-        public static Store DoRegister(IRateItController controller, GeoPoint atLocation)
+        public static Store DoRegister(IRateItController controller, SessionInfo sessionInfo,
+                                       GeoPoint atLocation)
         {
             using (frmStoreRegister form = new frmStoreRegister())
             {
                 form._controller = controller;
+                form._sessionInfo = sessionInfo;
                 form._atLocation = atLocation;
                 return form.ShowDialog() == DialogResult.OK ? form._store : null;
             }
@@ -81,7 +85,7 @@ namespace RateIt.Management.Forms
             GeoSize storeSize = GetSelectedStoreSizeInMeters();
             Store store = new Store(tbName.Text, tbAddress.Text, tbDescription.Text,
                                     _atLocation, storeSize);
-            BaseQueryResult result = _controller.StoreRegister(store);
+            BaseQueryResult result = _controller.StoreRegister(_sessionInfo, store);
             if (!Helper.CheckOnValidQueryResult(result))
             {
                 switch (result.ErrorCode)

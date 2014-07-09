@@ -1,16 +1,28 @@
 ﻿using System;
 using MongoDB.Bson;
+using RateIt.Common.Core.Entities.Session;
 using RateIt.Common.Core.Entities.Users;
 using RateIt.Common.Core.ErrorCodes;
+using RateIt.Common.Core.QueryParams;
 using RateIt.Common.Core.QueryResults;
 using RateIt.Common.Helpers;
 
 namespace RateIt.Common.Core.Controller
 {
-    public sealed partial class MainController
+    public sealed partial class RateItController
     {
 
 #region Private methods
+
+        private void AssertQuerySysRequestID(QuerySysRequestID sysId)
+        {
+            //Check system request id
+            if (sysId != QuerySysRequestID.Instance)
+            {
+                throw BaseQueryResult.Throw("Invalid system request id",
+                    ECGeneral.InvalidSysRequestId);
+            }
+        }
 
         private void AssertRegistrationInfo(User registrationInfo)
         {
@@ -30,7 +42,7 @@ namespace RateIt.Common.Core.Controller
             }
 
             //Validate user password
-            if (string.IsNullOrEmpty(registrationInfo.Password))
+            if (string.IsNullOrEmpty(registrationInfo.PasswordHash))
             {
                 throw BaseQueryResult.Throw("Password cannot be blank", 
                     ECUserRegistration.PasswordIsBlank);
@@ -39,7 +51,7 @@ namespace RateIt.Common.Core.Controller
             //Validate email
             registrationInfo.Email = (registrationInfo.Email ?? string.Empty).Trim();
             if (!string.IsNullOrEmpty(registrationInfo.Email) &&
-                !CommonHelper.IsValidEmail(registrationInfo.Email))
+                !InternalHelper.IsValidEmail(registrationInfo.Email))
             {
                 throw BaseQueryResult.Throw("Email address not valid", 
                     ECUserRegistration.InvalidEmail);
@@ -71,7 +83,7 @@ namespace RateIt.Common.Core.Controller
             }
 
             //Validate user password
-            if (string.IsNullOrEmpty(loginInfo.Password))
+            if (string.IsNullOrEmpty(loginInfo.PasswordHash))
             {
                 throw BaseQueryResult.Throw("Password cannot be blank",
                     ECLogin.PasswordIsBlank);
@@ -79,37 +91,51 @@ namespace RateIt.Common.Core.Controller
 
             //Validate crenedtials
             ObjectId userId = _userDAL.GetUserId(loginInfo.UserName, 
-                                                              loginInfo.Password);
+                                                              loginInfo.PasswordHash);
             if (userId.IsEmpty())
             {
                 throw BaseQueryResult.Throw("Invalid user name or/and password",
                     ECLogin.InvalidCrenedtials);
             }
 
-            //Check if the user logged for now
-            if (_userLoginDAL.IsUserLogged(userId))
+            //Check if the user is logged for now
+            if (_userSessionDAL.IsUserLogged(userId))
             {
-                throw BaseQueryResult.Throw("This user has logged for now",
+                throw BaseQueryResult.Throw("This user is currently logged",
                     ECLogin.UserIsLogged);
             }
 
             return userId;
         }
 
-        private void AssertLogoutInfo(ObjectId userId)
+        private void AssertSessionInfo(SessionInfo sessionInfo)
         {
-            //Validate user ID
-            if (userId == ObjectId.Empty)
+            //Validate session info
+            if (sessionInfo == null)
             {
-                throw BaseQueryResult.Throw("User ID is invalid or empty",
-                    ECLogout.UserIdIsInvalid);
+                throw BaseQueryResult.Throw("Session info is null-reference",
+                    ECGeneral.InvalidSessionInfo);
             }
 
-            //Check if the user logged for now
-            if (!_userLoginDAL.IsUserLogged(userId))
+            //Check user name
+            if (string.IsNullOrEmpty(sessionInfo.UserName))
             {
-                throw BaseQueryResult.Throw("This user doesn't logged for now",
-                    ECLogout.UserDoesNotLogged);
+                throw BaseQueryResult.Throw("User name is empty",
+                    ECGeneral.InvalidSessionInfo);
+            }
+
+            //Check user name
+            if (string.IsNullOrEmpty(sessionInfo.SessionId))
+            {
+                throw BaseQueryResult.Throw("Session ID is empty",
+                    ECGeneral.InvalidSessionInfo);
+            }
+
+            //Validate session
+            if (!_userSessionDAL.IsValidSession(sessionInfo))
+            {
+                throw BaseQueryResult.Throw("Session is invalid",
+                    ECGeneral.InvalidSessionInfo);
             }
         }
 
@@ -144,7 +170,7 @@ namespace RateIt.Common.Core.Controller
             return BaseQueryResult.Successful;
         }
 
-        public UserQueryResult UserLogin(UserLoginInfo loginInfo)
+        public UserLoginQueryResult UserLogin(UserLoginInfo loginInfo)
         {
             try
             {
@@ -154,63 +180,97 @@ namespace RateIt.Common.Core.Controller
                 //Login the user
                 try
                 {
-                    _userLoginDAL.UserLogin(userId);
+                    string loggedUserId = _userSessionDAL.UserLogin(loginInfo.UserName, userId);
+                    return new UserLoginQueryResult(loginInfo.UserName, loggedUserId);
                 }
                 catch (Exception dbEx)
                 {
                     //Something failed in DB
-                    return BaseQueryResult.FromException<UserQueryResult>(dbEx, ECGeneral.DBError);
+                    return BaseQueryResult.FromException<UserLoginQueryResult>(dbEx, ECGeneral.DBError);
                 }
             }
             catch (Exception ex)
             {
-                return BaseQueryResult.FromException<UserQueryResult>(ex);
+                return BaseQueryResult.FromException<UserLoginQueryResult>(ex);
             }
-
-            //Done
-            return UserQueryResult.Successful;
         }
 
-        public BaseQueryResult UserLogout(ObjectId userId)
+        public BaseQueryResult UserLogout(SessionInfo sessionInfo)
         {
             try
             {
-                //Assert logout information
-                AssertLogoutInfo(userId);
+                //Assert session information
+                AssertSessionInfo(sessionInfo);
 
                 //Logout the user
                 try
                 {
-                    _userLoginDAL.UserLogout(userId);
+                    _userSessionDAL.UserLogout(sessionInfo);
                 }
                 catch (Exception dbEx)
                 {
-                    return BaseQueryResult.FromException<UserQueryResult>(dbEx, ECGeneral.DBError);
+                    //Something failed in DB
+                    return BaseQueryResult.FromException<BaseQueryResult>(dbEx, ECGeneral.DBError);
                 }
             }
             catch (Exception ex)
             {
-                return BaseQueryResult.FromException<UserQueryResult>(ex);
+                return BaseQueryResult.FromException<BaseQueryResult>(ex);
             }
 
             //Done
-            return UserQueryResult.Successful;
+            return BaseQueryResult.Successful;
         }
 
-        public UserListQueryResult GetUserList(string userNamePart, int maxCount)
+#endregion
+
+#region System methods
+
+        public BaseQueryResult UserLogoutSys(QuerySysRequestID sysId, string userName)
         {
+            try
+            {
+                //Assert QuerySysRequestID
+                AssertQuerySysRequestID(sysId);
+
+                //Logout the user
+                try
+                {
+                    _userSessionDAL.UserLogout(userName);
+                }
+                catch (Exception dbEx)
+                {
+                    //Something failed in DB
+                    return BaseQueryResult.FromException<BaseQueryResult>(dbEx, ECGeneral.DBError);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BaseQueryResult.FromException<BaseQueryResult>(ex);
+            }
+
+            //Done
+            return BaseQueryResult.Successful;
+
+        }
+
+        public UserListQueryResult GetUserListSys(QuerySysRequestID sysId, string userNamePart, uint maxCount)
+        {
+            //Assert QuerySysRequestID
+            AssertQuerySysRequestID(sysId);
+
             //Normalize input parameters
             userNamePart = userNamePart ?? string.Empty;
-            maxCount = maxCount < 0 ? 0 : maxCount;
 
             //Get list of users
             try
             {
-                UserListItem[] userList = _userDAL.GetUserList(_userLoginDAL, userNamePart, maxCount);
+                UserListItem[] userList = _userDAL.GetUserList(_userSessionDAL, userNamePart, maxCount);
                 return new UserListQueryResult(userList);
             }
             catch (Exception ex)
             {
+                //Something failed in DB
                 return BaseQueryResult.FromException<UserListQueryResult>(ex, ECGeneral.DBError);
             }
         }

@@ -9,7 +9,7 @@ namespace RateIt.Common.Core.Entities.Users
 #region Properties
 
         public string UserName;
-        public string Password;
+        public string PasswordHash;
 
 #endregion
 
@@ -17,10 +17,10 @@ namespace RateIt.Common.Core.Entities.Users
 
         public UserLoginInfo() : this(string.Empty, string.Empty) {}
 
-        public UserLoginInfo(string userName, string password)
+        public UserLoginInfo(string userName, string passwordHash)
         {
             UserName = userName;
-            Password = password;
+            PasswordHash = passwordHash;
         }
 
 #endregion

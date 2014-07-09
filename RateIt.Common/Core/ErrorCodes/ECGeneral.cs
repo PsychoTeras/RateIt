@@ -4,6 +4,7 @@
     {
         public const int NullReference = -1;
         public const int DBError = -2;
-        public const int InvalidSysRequestId = -3;
+        public const int InvalidSessionInfo = -3;
+        public const int InvalidSysRequestId = -4;
     }
 }

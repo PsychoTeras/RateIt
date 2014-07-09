@@ -6,10 +6,10 @@ namespace RateIt.Common.Core.Entities.Users
     public class User : BaseDocument
     {
 
-#region Fields
+#region Public fields
 
         public string UserName;
-        public string Password;
+        public string PasswordHash;
         public string Email;
 
 #endregion
@@ -18,10 +18,10 @@ namespace RateIt.Common.Core.Entities.Users
 
         public User() : this(string.Empty, string.Empty, string.Empty) { }
 
-        public User(string userName, string password, string email)
+        public User(string userName, string passwordHash, string email)
         {
             UserName = userName ?? string.Empty;
-            Password = password ?? string.Empty;
+            PasswordHash = passwordHash ?? string.Empty;
             Email = email ?? string.Empty;
         }
 

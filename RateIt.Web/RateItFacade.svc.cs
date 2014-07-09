@@ -1,7 +1,7 @@
-﻿using MongoDB.Bson;
-using RateIt.Common.Classes;
+﻿using RateIt.Common.Classes;
 using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Controller;
+using RateIt.Common.Core.Entities.Session;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Common.Core.Entities.Users;
 using RateIt.Common.Core.QueryResults;
@@ -10,34 +10,51 @@ namespace RateIt.Web
 {
     public class RateItFacade : IRateItController
     {
+
+#region Private fields
+
+        private readonly RateItController _controller;
+
+#endregion
+
+#region Class methods
+
+        public RateItFacade()
+        {
+            _controller = new RateItController();
+        }
+
+#endregion
+
+#region IRateItController methods
+
         public BaseQueryResult UserRegister(User registrationInfo)
         {
-            throw new System.NotImplementedException();
+            return _controller.UserRegister(registrationInfo);
         }
 
-        public UserQueryResult UserLogin(UserLoginInfo loginInfo)
+        public UserLoginQueryResult UserLogin(UserLoginInfo loginInfo)
         {
-            throw new System.NotImplementedException();
+            return _controller.UserLogin(loginInfo);
         }
 
-        public UserListQueryResult GetUserList(string userNamePart, int maxCount)
+        public BaseQueryResult StoreRegister(SessionInfo sessionInfo, Store registrationInfo)
         {
-            throw new System.NotImplementedException();
+            return _controller.StoreRegister(sessionInfo, registrationInfo);
         }
 
-        public BaseQueryResult StoreRegister(Store registrationInfo)
+        public StoreListQueryResult GetStoresAtLocation(SessionInfo sessionInfo, GeoPoint location, 
+                                                        StoreQueryAreaLevel areaLevel)
         {
-            throw new System.NotImplementedException();
+            return _controller.GetStoresAtLocation(sessionInfo, location, areaLevel);
         }
 
-        public StoreListQueryResult GetStoresAtLocation(GeoPoint location, StoreQueryAreaLevel areaLevel)
+        public BaseQueryResult UserLogout(SessionInfo sessionInfo)
         {
-            throw new System.NotImplementedException();
+            return _controller.UserLogout(sessionInfo);
         }
 
-        public BaseQueryResult UserLogout(ObjectId userId)
-        {
-            throw new System.NotImplementedException();
-        }
+#endregion
+
     }
 }

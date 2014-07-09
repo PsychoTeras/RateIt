@@ -7,7 +7,7 @@ namespace RateIt.Common.Core.Entities.Products
     public sealed class Product : BaseDocument
     {
 
-#region Fields
+#region Public fields
 
         //MongoDB reflected properties
         public string Name;

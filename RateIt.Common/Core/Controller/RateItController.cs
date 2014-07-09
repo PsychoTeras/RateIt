@@ -4,13 +4,13 @@ using RateIt.Common.Helpers;
 
 namespace RateIt.Common.Core.Controller
 {
-    public sealed partial class MainController : IRateItController, IRateItControllerSys, IDisposable
+    public sealed partial class RateItController : IRateItController, IRateItControllerSys, IDisposable
     {
 
 #region Private members
 
         private UserDAL _userDAL = new UserDAL();
-        private UserLoginDAL _userLoginDAL = new UserLoginDAL();
+        private UserSessionDAL _userSessionDAL = new UserSessionDAL();
         private StoreDAL _storeDAL = new StoreDAL();
 
 #endregion
@@ -19,9 +19,9 @@ namespace RateIt.Common.Core.Controller
 
         public void Dispose()
         {
-            CommonHelper.SafeDispose(ref _userDAL);
-            CommonHelper.SafeDispose(ref _userLoginDAL);
-            CommonHelper.SafeDispose(ref _storeDAL);
+            InternalHelper.SafeDispose(ref _userDAL);
+            InternalHelper.SafeDispose(ref _userSessionDAL);
+            InternalHelper.SafeDispose(ref _storeDAL);
         }
 
 #endregion

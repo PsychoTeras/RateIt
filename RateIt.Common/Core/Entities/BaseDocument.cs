@@ -8,10 +8,10 @@ namespace RateIt.Common.Core.Entities
     public class BaseDocument
     {
 
-#region Properties
+#region Internal fields
 
         [BsonId]
-        public ObjectId Id { get; set; }
+        internal ObjectId Id;
 
 #endregion
 

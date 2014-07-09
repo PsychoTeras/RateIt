@@ -3,6 +3,7 @@ using RateIt.Common.Core.Controller;
 using RateIt.Common.Core.Entities.Users;
 using RateIt.Common.Core.ErrorCodes;
 using RateIt.Common.Core.QueryResults;
+using RateIt.Common.Helpers;
 using RateIt.Management.Helpers;
 
 namespace RateIt.Management.Forms
@@ -16,23 +17,27 @@ namespace RateIt.Management.Forms
 
 #endregion
 
+#region Properties
+
+        public string UserName { get; private set; }
+        public string SessionId { get; private set; }
+
+#endregion
+
 #region DoLogin method
 
-        public static bool DoLogin(IRateItController controller, User user)
+        public bool Execute(IRateItController controller, User user)
         {
-            using (frmUserLogin form = new frmUserLogin())
-            {
-                form._controller = controller;
-                form.tbUserName.Text = user.UserName;
-                return form.ShowDialog() == DialogResult.OK;
-            }
+            _controller = controller;
+            tbUserName.Text = user.UserName;
+            return ShowDialog() == DialogResult.OK;
         }
 
 #endregion
 
 #region Class methods
 
-        private frmUserLogin()
+        public frmUserLogin()
         {
             InitializeComponent();
             tbPassword.Select();
@@ -40,22 +45,31 @@ namespace RateIt.Management.Forms
 
         private void BtnOkClick(object sender, System.EventArgs e)
         {
-            UserLoginInfo loginInfo = new UserLoginInfo(tbUserName.Text, tbPassword.Text);
-            UserQueryResult result = _controller.UserLogin(loginInfo);
+            string passwordHash = CommonHelper.GetHashSum(tbPassword.Text);
+            UserLoginInfo loginInfo = new UserLoginInfo(tbUserName.Text, passwordHash);
+
+            UserLoginQueryResult result = _controller.UserLogin(loginInfo);
             if (!Helper.CheckOnValidQueryResult(result))
             {
                 switch (result.ErrorCode)
                 {
                     case ECLogin.UserNameIsBlank:
-                        tbUserName.Focus();
-                        break;
+                        {
+                            tbUserName.Focus();
+                            break;
+                        }
                     case ECLogin.PasswordIsBlank:
                     case ECLogin.InvalidCrenedtials:
-                        tbPassword.Focus();
-                        break;
+                        {
+                            tbPassword.Focus();
+                            break;
+                        }
                 }
                 return;
             }
+
+            UserName = result.UserName;
+            SessionId = result.SessionId;
             DialogResult = DialogResult.OK;
         }
 

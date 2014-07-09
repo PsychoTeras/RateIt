@@ -6,7 +6,7 @@ namespace RateIt.Common.Core.Entities.Users
     public sealed class UserListItem : User
     {
 
-#region Fields
+#region Public fields
 
         public bool IsUserLogged;
 

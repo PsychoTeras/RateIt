@@ -1,9 +1,23 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace RateIt.Common.Helpers
 {
-    internal static class CommonHelper
+    public static class CommonHelper
+    {
+        private static readonly HashAlgorithm _hashAlgorithm = new SHA1Managed();
+
+        public static string GetHashSum(string utf8Str)
+        {
+            byte[] strBytes = Encoding.Unicode.GetBytes(utf8Str);
+            byte[] hash = _hashAlgorithm.ComputeHash(strBytes, 0, strBytes.Length);
+            return BitConverter.ToString(hash).Replace("-", "").ToLower();
+        }
+    }
+
+    internal static class InternalHelper
     {
         public static bool IsValidEmail(string email)
         {

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-using MongoDB.Bson;
+using RateIt.Common.Core.Entities.Session;
 using RateIt.Common.Core.Entities.Users;
+using RateIt.Common.Core.QueryParams;
 using RateIt.Common.Core.QueryResults;
 using RateIt.Management.Helpers;
 
@@ -13,7 +14,7 @@ namespace RateIt.Management.Forms
 
 #region Private members
 
-        private UserListItem _loggedUser;
+        private SessionInfo _loggedUserSession;
 
 #endregion
 
@@ -29,13 +30,31 @@ namespace RateIt.Management.Forms
             }
         }
 
+        private UserListItem LoggedUserListItem
+        {
+            get
+            {
+                if (_loggedUserSession != null)
+                {
+                    ListViewItem item = lvUsers.Items.Cast<ListViewItem>().FirstOrDefault
+                        (
+                            li => ((UserListItem) li.Tag).UserName.Equals
+                                      (
+                                          _loggedUserSession.UserName, StringComparison.InvariantCultureIgnoreCase
+                                      )
+                        );
+                    return (UserListItem) (item != null ? item.Tag : null);
+                }
+                return null;
+            }
+        }
+
 #endregion
 
 #region User management methods
 
         public void InitializeUserManagement()
         {
-            _loggedUser = null;
             LvUsersSelectedIndexChanged(lvUsers, null);
             RefreshUserList();
         }
@@ -63,8 +82,9 @@ namespace RateIt.Management.Forms
         private void RefreshUserList()
         {
             //Get list of users
-            UserListQueryResult result = _mainController.GetUserList(
-                tbUserSearch.Text.Trim(), (int) ntbUsersCount.Value);
+            UserListQueryResult result = _mainControllerSys.GetUserListSys(
+                QuerySysRequestID.Instance, tbUserSearch.Text.Trim(), 
+                (uint) ntbUsersCount.Value);
 
             //Something failed
             if (!Helper.CheckOnValidQueryResult(result))
@@ -106,9 +126,9 @@ namespace RateIt.Management.Forms
         private void LvUsersSelectedIndexChanged(object sender, EventArgs e)
         {
             btnUserLogin.Enabled = SelectedUserListItem != null && 
-                                   _loggedUser == null;
+                                   _loggedUserSession == null;
             btnUserLogout.Enabled = SelectedUserListItem != null &&
-                                    SelectedUserListItem != _loggedUser &&
+                                    SelectedUserListItem != LoggedUserListItem &&
                                     SelectedUserListItem.IsUserLogged;
         }
 
@@ -120,8 +140,8 @@ namespace RateIt.Management.Forms
         private void AfterSelectedUserHasLoggedIn()
         {
             gbUserLogged.Enabled = true;
-            tbLoggedUserName.Text = _loggedUser.UserName;
-            WriteLog(string.Format("User {0} successfully logged in", _loggedUser));
+            tbLoggedUserName.Text = _loggedUserSession.UserName;
+            WriteLog(string.Format("User {0} successfully logged in", _loggedUserSession));
             UpdateSelectedUserListRecord();
         }
 
@@ -129,18 +149,21 @@ namespace RateIt.Management.Forms
         {
             if (btnUserLogin.Enabled && SelectedUserListItem != null)
             {
-                if (frmUserLogin.DoLogin(_mainController, SelectedUserListItem))
+                using (frmUserLogin form = new frmUserLogin())
                 {
-                    _loggedUser = SelectedUserListItem;
-                    _loggedUser.IsUserLogged = true;
-                    AfterSelectedUserHasLoggedIn();
+                    if (form.Execute(_mainController, SelectedUserListItem))
+                    {
+                        _loggedUserSession = new SessionInfo(form.UserName, form.SessionId);
+                        SelectedUserListItem.IsUserLogged = true;
+                        AfterSelectedUserHasLoggedIn();
+                    }
                 }
             }
         }
 
         private void AfterSelectedUserHasLoggedOut()
         {
-            WriteLog(string.Format("User {0} successfully logged out", 
+            WriteLog(string.Format("User {0} successfully logged out",
                      SelectedUserListItem.UserName));
             UpdateSelectedUserListRecord();
         }
@@ -149,7 +172,8 @@ namespace RateIt.Management.Forms
         {
             if (btnUserLogout.Enabled && SelectedUserListItem != null)
             {
-                BaseQueryResult result = _mainController.UserLogout(SelectedUserListItem.Id);
+                BaseQueryResult result = _mainControllerSys.UserLogoutSys(
+                    QuerySysRequestID.Instance, SelectedUserListItem.UserName);
                 if (Helper.CheckOnValidQueryResult(result))
                 {
                     SelectedUserListItem.IsUserLogged = false;
@@ -158,27 +182,31 @@ namespace RateIt.Management.Forms
             }
         }
 
-        private void AfterCurrentUserHasLoggedOut(string userName, ObjectId userId)
+        private void AfterCurrentUserHasLoggedOut(string userName)
         {
             gbUserLogged.Enabled = false;
             tbLoggedUserName.Text = string.Empty;
             WriteLog(string.Format("User {0} successfully logged out", userName));
             UpdateUserListRecord(lvUsers.Items.Cast<ListViewItem>().FirstOrDefault
-                                     (i => ((UserListItem) i.Tag).Id == userId));
+                (
+                    i => ((UserListItem) i.Tag).UserName == userName)
+                );
         }
 
         private void BtnCurrentUserLogoutClick(object sender, EventArgs e)
         {
-            if (btnCurrentUserLogout.Enabled && _loggedUser != null)
+            if (btnCurrentUserLogout.Enabled && _loggedUserSession != null)
             {
-                BaseQueryResult result = _mainController.UserLogout(_loggedUser.Id);
+                BaseQueryResult result = _mainController.UserLogout(_loggedUserSession);
                 if (Helper.CheckOnValidQueryResult(result))
                 {
-                    _loggedUser.IsUserLogged = false;
-                    string userName = _loggedUser.UserName;
-                    ObjectId userId = _loggedUser.Id;
-                    _loggedUser = null;
-                    AfterCurrentUserHasLoggedOut(userName, userId);
+                    UserListItem loggedUserListItem = LoggedUserListItem;
+                    if (loggedUserListItem != null)
+                    {
+                        loggedUserListItem.IsUserLogged = false;
+                        _loggedUserSession = null;
+                        AfterCurrentUserHasLoggedOut(loggedUserListItem.UserName);
+                    }
                 }
             }
         }

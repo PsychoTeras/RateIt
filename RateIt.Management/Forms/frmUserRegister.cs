@@ -4,6 +4,7 @@ using RateIt.Common.Core.Controller;
 using RateIt.Common.Core.Entities.Users;
 using RateIt.Common.Core.ErrorCodes;
 using RateIt.Common.Core.QueryResults;
+using RateIt.Common.Helpers;
 using RateIt.Management.Helpers;
 
 namespace RateIt.Management.Forms
@@ -39,7 +40,8 @@ namespace RateIt.Management.Forms
 
         private void BtnOkClick(object sender, EventArgs e)
         {
-            User user = new User(tbUserName.Text, tbPassword.Text, tbEmail.Text);
+            string passwordHash = CommonHelper.GetHashSum(tbPassword.Text);
+            User user = new User(tbUserName.Text, passwordHash, tbEmail.Text);
             BaseQueryResult result = _controller.UserRegister(user);
             if (!Helper.CheckOnValidQueryResult(result))
             {

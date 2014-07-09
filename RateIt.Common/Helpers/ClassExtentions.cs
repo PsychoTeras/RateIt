@@ -22,7 +22,7 @@ namespace RateIt.Common.Helpers
             {
                 foreach (Store store in cursor)
                 {
-                    if (CommonHelper.FuzzyMatchingForTwoString(store.StoreName, storeName, fuzzyMatchingTreshold))
+                    if (InternalHelper.FuzzyMatchingForTwoString(store.StoreName, storeName, fuzzyMatchingTreshold))
                     {
                         stores.Add(store);
                     }

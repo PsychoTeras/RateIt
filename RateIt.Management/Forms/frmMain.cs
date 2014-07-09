@@ -33,7 +33,7 @@ namespace RateIt.Management.Forms
 
 #region Private members
 
-        private IRateItController _mainController;
+        private RateItController _mainController;
         private IRateItControllerSys _mainControllerSys;
 
 #endregion
@@ -106,8 +106,8 @@ namespace RateIt.Management.Forms
 
         public void InitializeApplication()
         {
-            _mainController = new MainController();
-            _mainControllerSys = (IRateItControllerSys) _mainController;
+            _mainController = new RateItController();
+            _mainControllerSys = _mainController;
             InitializeUserManagement();
             InitializeStoreManagement();
         }
@@ -382,7 +382,7 @@ namespace RateIt.Management.Forms
             
             //Get stores at location by area level
             GeoPoint centerPoint = _mapMainMarker.Position.ToGeoPoint();
-            StoreListQueryResult result = _mainController.GetStoresAtLocation(centerPoint, areaLevel);
+            StoreListQueryResult result = _mainController.GetStoresAtLocation(_loggedUserSession, centerPoint, areaLevel);
 
             //Something failed
             if (!Helper.CheckOnValidQueryResult(result))

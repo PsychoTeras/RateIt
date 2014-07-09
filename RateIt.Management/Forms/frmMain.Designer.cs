@@ -167,7 +167,7 @@ namespace RateIt.Management.Forms
             this.btnCurrentUserLogout.Name = "btnCurrentUserLogout";
             this.btnCurrentUserLogout.Size = new System.Drawing.Size(206, 23);
             this.btnCurrentUserLogout.TabIndex = 2;
-            this.btnCurrentUserLogout.Text = "Logout this user";
+            this.btnCurrentUserLogout.Text = "Logout me";
             this.btnCurrentUserLogout.UseVisualStyleBackColor = true;
             this.btnCurrentUserLogout.Click += new System.EventHandler(this.BtnCurrentUserLogoutClick);
             // 
@@ -208,7 +208,7 @@ namespace RateIt.Management.Forms
             this.btnUserLogout.Name = "btnUserLogout";
             this.btnUserLogout.Size = new System.Drawing.Size(206, 23);
             this.btnUserLogout.TabIndex = 1;
-            this.btnUserLogout.Text = "Logout selected user (n/a)";
+            this.btnUserLogout.Text = "Logout selected user";
             this.btnUserLogout.UseVisualStyleBackColor = true;
             this.btnUserLogout.Click += new System.EventHandler(this.BtnUserLogoutClick);
             // 
