@@ -1,33 +1,30 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace RateIt.Common.Core.QueryResults
 {
-    [Serializable]
+    [Serializable, DataContract]
     public class BaseQueryResult
     {
 
-#region Private members
-
-        private string _errorMessage;
-
-#endregion
-
 #region Properties
-
-        public string ErrorMessage
+            
+        public bool HasError
         {
-            get { return _errorMessage; }
-            set
-            {
-                _errorMessage = value;
-                HasError = !string.IsNullOrEmpty(_errorMessage);
-            }
+            get { return !string.IsNullOrEmpty(ErrorMessage); }
         }
-        public int ErrorCode { get; set; }
-        public bool HasError { get; private set; }
 
 #endregion
+
+#region Public fields
+
+        [DataMember]
+        public int ErrorCode;
+        [DataMember]
+        public string ErrorMessage;
+
+#endregion 
         
 #region Static methods
 
@@ -40,10 +37,7 @@ namespace RateIt.Common.Core.QueryResults
 
 #region Class methods
 
-        public BaseQueryResult()
-        {
-            _errorMessage = string.Empty;
-        }
+        public BaseQueryResult() {}
 
         public BaseQueryResult(string errorMessage) : this(errorMessage, 0) { }
 

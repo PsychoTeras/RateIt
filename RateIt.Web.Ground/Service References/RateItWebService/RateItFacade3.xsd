@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Stores" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Stores" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:65312/RateItFacade.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Classes" />
-  <xs:import schemaLocation="http://localhost:65312/RateItFacade.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities" />
-  <xs:complexType name="Store">
-    <xs:complexContent mixed="false">
-      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities" base="q1:BaseDocument">
-        <xs:sequence>
-          <xs:element name="Address" nillable="true" type="xs:string" />
-          <xs:element name="Description" nillable="true" type="xs:string" />
-          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/RateIt.Common.Classes" name="Location" nillable="true" type="q2:GeoPoint" />
-          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/RateIt.Common.Classes" name="Size" nillable="true" type="q3:GeoSize" />
-          <xs:element name="StoreName" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="BaseDocument">
+    <xs:sequence />
   </xs:complexType>
-  <xs:element name="Store" nillable="true" type="tns:Store" />
-  <xs:complexType name="ArrayOfStore">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Store" nillable="true" type="tns:Store" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfStore" nillable="true" type="tns:ArrayOfStore" />
+  <xs:element name="BaseDocument" nillable="true" type="tns:BaseDocument" />
 </xs:schema>

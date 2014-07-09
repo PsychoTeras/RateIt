@@ -9,6 +9,8 @@ namespace RateIt.Common.Core.Entities.Stores
 
 #region Public fields
 
+        public string StoreId;
+
         public string StoreName;
         public string Address;
         public string Description;
@@ -17,9 +19,13 @@ namespace RateIt.Common.Core.Entities.Stores
 
 #endregion
 
-#region Class methods
+#region Properties
 
-        public Store() { }
+#endregion
+
+#region Ctor
+
+        public Store() {}
 
         public Store(string storeName, string address, string description,
                      GeoPoint location, GeoSize size)
@@ -29,6 +35,15 @@ namespace RateIt.Common.Core.Entities.Stores
             Description = description ?? string.Empty;
             Location = location ?? new GeoPoint();
             Size = size ?? new GeoSize();
+        }
+
+#endregion
+
+#region Class methods
+
+        protected override void IdHasChanged()
+        {
+            StoreId = Id.ToString();
         }
 
         public override string ToString()

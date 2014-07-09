@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RateIt.Web.Ground</RootNamespace>
     <AssemblyName>RateIt.Web.Ground</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,6 +31,15 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -54,7 +64,9 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\DataSources\RateIt.Common.Core.QueryResults.BaseQueryResult.datasource" />
     <None Include="Properties\DataSources\RateIt.Common.Core.QueryResults.StoreListQueryResult.datasource" />
     <None Include="Properties\DataSources\RateIt.Common.Core.QueryResults.UserLoginQueryResult.datasource" />
@@ -86,19 +98,15 @@
     <None Include="Service References\RateItWebService\RateItFacade8.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\RateItWebService\RateItFacade9.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\RateItWebService\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RateIt.Common\RateIt.Common.csproj">
       <Project>{991A400E-16D2-476F-A7D2-C6B30972AF47}</Project>
       <Name>RateIt.Common</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\RateItWebService\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\RateItWebService\RateItFacade.disco" />

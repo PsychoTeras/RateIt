@@ -7,9 +7,9 @@ namespace RateIt.Common.Core.QueryResults
     public sealed class StoreListQueryResult : BaseQueryResult
     {
 
-#region Properties
+#region Public fields
 
-        public Store[] Stores { get; internal set; }
+        public Store[] Stores;
 
 #endregion
 

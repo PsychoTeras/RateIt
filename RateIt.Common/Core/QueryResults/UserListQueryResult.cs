@@ -7,9 +7,9 @@ namespace RateIt.Common.Core.QueryResults
     public sealed class UserListQueryResult : BaseQueryResult
     {
 
-#region Properties
+#region Public fields
 
-        public UserListItem[] UserList { get; internal set; }
+        public UserListItem[] UserList;
 
 #endregion
 

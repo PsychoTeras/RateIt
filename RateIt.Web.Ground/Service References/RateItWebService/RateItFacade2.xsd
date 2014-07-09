@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.QueryResults" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.QueryResults" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:65312/RateItFacade.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Stores" />
-  <xs:complexType name="BaseQueryResult">
-    <xs:sequence>
-      <xs:element name="_errorMessage" nillable="true" type="xs:string" />
-      <xs:element name="_x003C_ErrorCode_x003E_k__BackingField" type="xs:int" />
-      <xs:element name="_x003C_HasError_x003E_k__BackingField" type="xs:boolean" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BaseQueryResult" nillable="true" type="tns:BaseQueryResult" />
-  <xs:complexType name="UserLoginQueryResult">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BaseQueryResult">
-        <xs:sequence>
-          <xs:element name="SessionId" nillable="true" type="xs:string" />
-          <xs:element name="UserName" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="UserLoginQueryResult" nillable="true" type="tns:UserLoginQueryResult" />
-  <xs:complexType name="StoreListQueryResult">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BaseQueryResult">
-        <xs:sequence>
-          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Stores" name="_x003C_Stores_x003E_k__BackingField" nillable="true" type="q1:ArrayOfStore" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="StoreListQueryResult" nillable="true" type="tns:StoreListQueryResult" />
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Constants" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Constants" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:simpleType name="StoreQueryAreaLevel">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedShort" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Level1">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">25</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Level2">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">50</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Level3">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">100</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="StoreQueryAreaLevel" nillable="true" type="tns:StoreQueryAreaLevel" />
 </xs:schema>
