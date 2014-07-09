@@ -2,6 +2,6 @@
 {
     internal static class GenericConstants
     {
-        public const int USER_SESSION_TTL_MIN = 1;
+        public const double USER_SESSION_TTL_MIN = 120; //2 hours
     }
 }

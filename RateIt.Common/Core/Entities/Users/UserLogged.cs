@@ -58,10 +58,11 @@ namespace RateIt.Common.Core.Entities.Users
             UserId = user.Id;
         }
 
-        public void ResetLastAccessTime()
+        public DateTime ResetLastAccessTime()
         {
             double min = GenericConstants.USER_SESSION_TTL_MIN;
             LastAccessTime = DateTime.Now.AddMinutes(min).ToUniversalTime();
+            return LastAccessTime;
         }
 
 #endregion

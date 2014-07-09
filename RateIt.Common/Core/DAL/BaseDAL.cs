@@ -41,6 +41,8 @@ namespace RateIt.Common.Core.DAL
 
         protected virtual void CreateCollectionStructure() { }
 
+        protected virtual void InitializeDB() { }
+
         protected void AssertErrorMessage(string message)
         {
             if (!string.IsNullOrEmpty(message))
@@ -67,6 +69,7 @@ namespace RateIt.Common.Core.DAL
             {
                 CreateCollectionStructure();
             }
+            InitializeDB();
         }
 
 #endregion

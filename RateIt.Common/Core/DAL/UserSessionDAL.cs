@@ -63,14 +63,37 @@ namespace RateIt.Common.Core.DAL
             return DataCollection.FindOne(qUserById) != null;
         }
 
-        public bool IsValidSession(SessionInfo sessionInfo)
+        public bool UpdateUserSession(SessionInfo sessionInfo)
         {
+            //Get a logged user record by session info
             IMongoQuery qUserBySessionInfo = new QueryBuilder<UserLogged>().And(new[]
                 {
                     Query.Matches("UserName", sessionInfo.UserName),
                     Query.EQ("_id", new ObjectId(sessionInfo.SessionId))
                 });
-            return DataCollection.FindOne(qUserBySessionInfo) != null;
+            UserLogged userLogged = DataCollection.FindOne(qUserBySessionInfo);
+
+            //If a logged user record doesn`t exist, return false
+            if (userLogged == null)
+            {
+                return false;
+            }
+
+            //Update last access time for the user record, create an update query
+            DateTime newLastAccessTime = userLogged.ResetLastAccessTime();
+            UpdateBuilder<UserLogged> update = Update<UserLogged>.Set
+                (
+                    ul => ul.LastAccessTime, newLastAccessTime
+                );
+
+            //Update the logged user record
+            WriteConcernResult concernResult = DataCollection.Update(qUserBySessionInfo, update);
+
+            //Assert possible internal DB error
+            AssertErrorMessage(concernResult.ErrorMessage);
+
+            //Return result
+            return concernResult.DocumentsAffected > 0;
         }
 
         public string UserLogin(string userName, ObjectId userId)

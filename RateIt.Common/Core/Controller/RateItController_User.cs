@@ -132,7 +132,7 @@ namespace RateIt.Common.Core.Controller
             }
 
             //Validate session
-            if (!_userSessionDAL.IsValidSession(sessionInfo))
+            if (!_userSessionDAL.UpdateUserSession(sessionInfo))
             {
                 throw BaseQueryResult.Throw("Session is invalid",
                     ECGeneral.InvalidSessionInfo);
