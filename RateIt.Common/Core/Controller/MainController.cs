@@ -4,7 +4,7 @@ using RateIt.Common.Helpers;
 
 namespace RateIt.Common.Core.Controller
 {
-    public sealed partial class MainController : IController, IDisposable
+    public sealed partial class MainController : IRateItController, IRateItControllerSys, IDisposable
     {
 
 #region Private members

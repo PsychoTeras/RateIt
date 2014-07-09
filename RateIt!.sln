@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RateIt.Common", "RateIt.Common\RateIt.Common.csproj", "{991A400E-16D2-476F-A7D2-C6B30972AF47}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RateIt.Management", "RateIt.Management\RateIt.Management.csproj", "{C1A8E727-79E3-47DF-9A04-27B6E6E330F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RateIt.Web", "RateIt.Web\RateIt.Web.csproj", "{AF4BA847-BF47-48AD-835A-120BABFE3002}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +31,12 @@ Global
 		{C1A8E727-79E3-47DF-9A04-27B6E6E330F1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C1A8E727-79E3-47DF-9A04-27B6E6E330F1}.Release|x86.ActiveCfg = Release|x86
 		{C1A8E727-79E3-47DF-9A04-27B6E6E330F1}.Release|x86.Build.0 = Release|x86
+		{AF4BA847-BF47-48AD-835A-120BABFE3002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF4BA847-BF47-48AD-835A-120BABFE3002}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF4BA847-BF47-48AD-835A-120BABFE3002}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AF4BA847-BF47-48AD-835A-120BABFE3002}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF4BA847-BF47-48AD-835A-120BABFE3002}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF4BA847-BF47-48AD-835A-120BABFE3002}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

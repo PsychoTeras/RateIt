@@ -1,30 +1,36 @@
-﻿using MongoDB.Bson;
+﻿using System.ServiceModel;
+using MongoDB.Bson;
 using RateIt.Common.Classes;
 using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Common.Core.Entities.Users;
-using RateIt.Common.Core.QueryParams;
 using RateIt.Common.Core.QueryResults;
 
 namespace RateIt.Common.Core.Controller
 {
-    public interface IController
+    [ServiceContract]
+    public interface IRateItController
     {
 
 #region User actions
 
-        BaseQueryResult     UserRegister(User registrationInfo);
-        UserQueryResult     UserLogin(UserLoginInfo loginInfo);
-        BaseQueryResult     UserLogout(ObjectId userId);
+        [OperationContract]
+        BaseQueryResult UserRegister(User registrationInfo);
+        [OperationContract]
+        UserQueryResult UserLogin(UserLoginInfo loginInfo);
+        [OperationContract]
+        BaseQueryResult UserLogout(ObjectId userId);
+        [OperationContract]
         UserListQueryResult GetUserList(string userNamePart, int maxCount);
 
 #endregion
 
 #region Store action
 
+        [OperationContract]
         BaseQueryResult StoreRegister(Store registrationInfo);
+        [OperationContract]
         StoreListQueryResult GetStoresAtLocation(GeoPoint location, StoreQueryAreaLevel areaLevel);
-        StoreListQueryResult GetStoresAtLocationSys(QuerySysRequestID sysId, GeoRectangle rectangle);
 
 #endregion
 

@@ -13,13 +13,13 @@ namespace RateIt.Management.Forms
 
 #region Private members
 
-        private IController _controller;
+        private IRateItController _controller;
 
 #endregion
 
 #region DoRegister method
 
-        public static bool DoRegister(IController controller)
+        public static bool DoRegister(IRateItController controller)
         {
             using (frmUserRegister form = new frmUserRegister())
             {

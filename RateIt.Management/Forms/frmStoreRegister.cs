@@ -15,7 +15,7 @@ namespace RateIt.Management.Forms
 
 #region Private members
 
-        private IController _controller;
+        private IRateItController _controller;
         private GeoPoint _atLocation;
         private Store _store;
 
@@ -23,7 +23,7 @@ namespace RateIt.Management.Forms
 
 #region DoRegister method
 
-        public static Store DoRegister(IController controller, GeoPoint atLocation)
+        public static Store DoRegister(IRateItController controller, GeoPoint atLocation)
         {
             using (frmStoreRegister form = new frmStoreRegister())
             {

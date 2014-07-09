@@ -67,12 +67,14 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Constants\GeoConstants.cs" />
     <Compile Include="Core\Constants\StoreQueryAreaLevel.cs" />
     <Compile Include="Core\Constants\StoreSize.cs" />
+    <Compile Include="Core\Controller\IRateItControllerSys.cs" />
     <Compile Include="Core\QueryParams\QuerySysRequestID.cs" />
     <Compile Include="Properties\AssemblyVersion.cs">
       <AutoGen>True</AutoGen>
@@ -104,7 +106,7 @@
     <Compile Include="Core\ErrorCodes\ECGeneral.cs" />
     <Compile Include="Core\ErrorCodes\ECUserRegistration.cs" />
     <Compile Include="Helpers\CommonHelper.cs" />
-    <Compile Include="Core\Controller\IController.cs" />
+    <Compile Include="Core\Controller\IRateItController.cs" />
     <Compile Include="Core\Entities\Users\UserLoginInfo.cs" />
     <Compile Include="Core\Entities\Products\Product.cs" />
     <Compile Include="Core\Controller\MainController.cs" />
@@ -130,12 +132,12 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
+  <!--<PropertyGroup>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <TransformOutOfDateOnly>false</TransformOutOfDateOnly>
     <TransformOnBuild>true</TransformOnBuild>
   </PropertyGroup>
-  <Import Project="$(VSToolsPath)\TextTemplating\Microsoft.TextTemplating.targets" />
+  <Import Project="$(VSToolsPath)\TextTemplating\Microsoft.TextTemplating.targets" />-->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

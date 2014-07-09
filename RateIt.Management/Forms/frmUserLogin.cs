@@ -12,13 +12,13 @@ namespace RateIt.Management.Forms
 
 #region Private members
 
-        private IController _controller;
+        private IRateItController _controller;
 
 #endregion
 
 #region DoLogin method
 
-        public static bool DoLogin(IController controller, User user)
+        public static bool DoLogin(IRateItController controller, User user)
         {
             using (frmUserLogin form = new frmUserLogin())
             {

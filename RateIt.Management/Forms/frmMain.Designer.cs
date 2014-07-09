@@ -390,7 +390,7 @@ namespace RateIt.Management.Forms
             this.btnStoresFindAllInL3.TabIndex = 9;
             this.btnStoresFindAllInL3.Text = "L3";
             this.btnStoresFindAllInL3.UseVisualStyleBackColor = true;
-            this.btnStoresFindAllInL3.Click += new System.EventHandler(this.btnStoresFindAllInLevel_Click);
+            this.btnStoresFindAllInL3.Click += new System.EventHandler(this.BtnStoresFindAllInLevelClick);
             // 
             // btnStoresFindAllInL2
             // 
@@ -400,7 +400,7 @@ namespace RateIt.Management.Forms
             this.btnStoresFindAllInL2.TabIndex = 8;
             this.btnStoresFindAllInL2.Text = "L2";
             this.btnStoresFindAllInL2.UseVisualStyleBackColor = true;
-            this.btnStoresFindAllInL2.Click += new System.EventHandler(this.btnStoresFindAllInLevel_Click);
+            this.btnStoresFindAllInL2.Click += new System.EventHandler(this.BtnStoresFindAllInLevelClick);
             // 
             // btnStoresFindAllInL1
             // 
@@ -410,7 +410,7 @@ namespace RateIt.Management.Forms
             this.btnStoresFindAllInL1.TabIndex = 7;
             this.btnStoresFindAllInL1.Text = "Find all stores in L1";
             this.btnStoresFindAllInL1.UseVisualStyleBackColor = true;
-            this.btnStoresFindAllInL1.Click += new System.EventHandler(this.btnStoresFindAllInLevel_Click);
+            this.btnStoresFindAllInL1.Click += new System.EventHandler(this.BtnStoresFindAllInLevelClick);
             // 
             // panel2
             // 

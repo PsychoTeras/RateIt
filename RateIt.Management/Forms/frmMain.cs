@@ -33,7 +33,8 @@ namespace RateIt.Management.Forms
 
 #region Private members
 
-        private IController _mainController;
+        private IRateItController _mainController;
+        private IRateItControllerSys _mainControllerSys;
 
 #endregion
 
@@ -106,6 +107,7 @@ namespace RateIt.Management.Forms
         public void InitializeApplication()
         {
             _mainController = new MainController();
+            _mainControllerSys = (IRateItControllerSys) _mainController;
             InitializeUserManagement();
             InitializeStoreManagement();
         }
@@ -171,7 +173,7 @@ namespace RateIt.Management.Forms
                         latLngRightBottom.Lat - latLngLeftTop.Lat,
                         latLngRightBottom.Lng - latLngLeftTop.Lng
                         );
-                    StoreListQueryResult result = _mainController.GetStoresAtLocationSys(
+                    StoreListQueryResult result = _mainControllerSys.GetStoresAtLocationSys(
                         QuerySysRequestID.Instance, rectangle);
 
                     //Something failed
@@ -360,7 +362,7 @@ namespace RateIt.Management.Forms
             WriteLog(LOG_SEPARATOR, true, false);
         }
 
-        private void btnStoresFindAllInLevel_Click(object sender, EventArgs e)
+        private void BtnStoresFindAllInLevelClick(object sender, EventArgs e)
         {
             //Get selected area level
             StoreQueryAreaLevel areaLevel;
