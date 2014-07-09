@@ -56,7 +56,25 @@ namespace RateIt.Management.Forms
         public void InitializeUserManagement()
         {
             LvUsersSelectedIndexChanged(lvUsers, null);
+            Helper.UserSessionExpired += UserSessionExpired;
             RefreshUserList();
+        }
+
+
+        private void UnloginCurrentUser(bool isSessionExpired)
+        {
+            UserListItem loggedUserListItem = LoggedUserListItem;
+            if (loggedUserListItem != null)
+            {
+                loggedUserListItem.IsUserLogged = false;
+                _loggedUserSession = null;
+                AfterCurrentUserHasLoggedOut(loggedUserListItem.UserName, isSessionExpired);
+            }
+        }
+
+        private void UserSessionExpired()
+        {
+            UnloginCurrentUser(true);
         }
 
         private void UpdateSelectedUserListRecord()
@@ -182,11 +200,13 @@ namespace RateIt.Management.Forms
             }
         }
 
-        private void AfterCurrentUserHasLoggedOut(string userName)
+        private void AfterCurrentUserHasLoggedOut(string userName, bool isSessionExpired)
         {
             gbUserLogged.Enabled = false;
             tbLoggedUserName.Text = string.Empty;
-            WriteLog(string.Format("User {0} successfully logged out", userName));
+            WriteLog(isSessionExpired
+                ? string.Format("User {0} successfully logged out", userName)
+                : string.Format("Session for user {0} has expired", userName));
             UpdateUserListRecord(lvUsers.Items.Cast<ListViewItem>().FirstOrDefault
                 (
                     i => ((UserListItem) i.Tag).UserName == userName)
@@ -200,19 +220,12 @@ namespace RateIt.Management.Forms
                 BaseQueryResult result = _mainController.UserLogout(_loggedUserSession);
                 if (Helper.CheckOnValidQueryResult(result))
                 {
-                    UserListItem loggedUserListItem = LoggedUserListItem;
-                    if (loggedUserListItem != null)
-                    {
-                        loggedUserListItem.IsUserLogged = false;
-                        _loggedUserSession = null;
-                        AfterCurrentUserHasLoggedOut(loggedUserListItem.UserName);
-                    }
+                    UnloginCurrentUser(false);
                 }
             }
         }
 
 #endregion
-
 
     }
 }

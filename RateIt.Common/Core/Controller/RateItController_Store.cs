@@ -27,7 +27,7 @@ namespace RateIt.Common.Core.Controller
             if (location == null)
             {
                 throw BaseQueryResult.Throw("Location is null-reference",
-                                            ECGeneral.NullReference);
+                                            ECGeneric.NullReference);
             }
         }
 
@@ -37,14 +37,14 @@ namespace RateIt.Common.Core.Controller
             if (sysId != QuerySysRequestID.Instance)
             {
                 throw BaseQueryResult.Throw("Invalid system request id",
-                    ECGeneral.InvalidSysRequestId);
+                    ECGeneric.InvalidSysRequestId);
             }
 
             //Check rectangle on null-reference
             if (rectangle == null)
             {
                 throw BaseQueryResult.Throw("Rectangle is null-reference",
-                    ECGeneral.NullReference);
+                    ECGeneric.NullReference);
             }
         }
 
@@ -54,7 +54,7 @@ namespace RateIt.Common.Core.Controller
             if (registrationInfo == null)
             {
                 throw BaseQueryResult.Throw("Registration info is null-reference", 
-                    ECGeneral.NullReference);
+                    ECGeneric.NullReference);
             }
 
             //Validate store name
@@ -106,7 +106,7 @@ namespace RateIt.Common.Core.Controller
                 catch (Exception dbEx)
                 {
                     //Something failed in DB
-                    return BaseQueryResult.FromException<BaseQueryResult>(dbEx, ECGeneral.DBError);
+                    return BaseQueryResult.FromException<BaseQueryResult>(dbEx, ECGeneric.DBError);
                 }
             }
             catch (Exception ex)
@@ -138,7 +138,7 @@ namespace RateIt.Common.Core.Controller
                 catch (Exception dbEx)
                 {
                     //Something failed in DB
-                    return BaseQueryResult.FromException<StoreListQueryResult>(dbEx, ECGeneral.DBError);
+                    return BaseQueryResult.FromException<StoreListQueryResult>(dbEx, ECGeneric.DBError);
                 }
             }
             catch (Exception ex)
@@ -167,7 +167,7 @@ namespace RateIt.Common.Core.Controller
                 catch (Exception dbEx)
                 {
                     //Something failed in DB
-                    return BaseQueryResult.FromException<StoreListQueryResult>(dbEx, ECGeneral.DBError);
+                    return BaseQueryResult.FromException<StoreListQueryResult>(dbEx, ECGeneric.DBError);
                 }
             }
             catch (Exception ex)

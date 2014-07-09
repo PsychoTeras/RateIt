@@ -105,7 +105,7 @@
     <Compile Include="Core\QueryResults\BaseQueryResult.cs" />
     <Compile Include="Core\QueryResults\UserListQueryResult.cs" />
     <Compile Include="Core\Entities\Users\User.cs" />
-    <Compile Include="Core\ErrorCodes\ECGeneral.cs" />
+    <Compile Include="Core\ErrorCodes\ECGeneric.cs" />
     <Compile Include="Core\ErrorCodes\ECUserRegistration.cs" />
     <Compile Include="Helpers\CommonHelper.cs" />
     <Compile Include="Core\Controller\IRateItController.cs" />

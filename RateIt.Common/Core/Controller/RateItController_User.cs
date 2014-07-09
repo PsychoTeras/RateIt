@@ -20,7 +20,7 @@ namespace RateIt.Common.Core.Controller
             if (sysId != QuerySysRequestID.Instance)
             {
                 throw BaseQueryResult.Throw("Invalid system request id",
-                    ECGeneral.InvalidSysRequestId);
+                    ECGeneric.InvalidSysRequestId);
             }
         }
 
@@ -30,7 +30,7 @@ namespace RateIt.Common.Core.Controller
             if (registrationInfo == null)
             {
                 throw BaseQueryResult.Throw("Registration info is null-reference", 
-                    ECGeneral.NullReference);
+                    ECGeneric.NullReference);
             }
 
             //Validate user name
@@ -71,7 +71,7 @@ namespace RateIt.Common.Core.Controller
             if (loginInfo == null)
             {
                 throw BaseQueryResult.Throw("Login info is null-reference",
-                    ECGeneral.NullReference);
+                    ECGeneric.NullReference);
             }
 
             //Validate user name
@@ -113,29 +113,29 @@ namespace RateIt.Common.Core.Controller
             //Validate session info
             if (sessionInfo == null)
             {
-                throw BaseQueryResult.Throw("Session info is null-reference",
-                    ECGeneral.InvalidSessionInfo);
+                throw BaseQueryResult.Throw("Session info is null-reference. Do login before continue",
+                    ECGeneric.InvalidSessionInfo);
             }
 
             //Check user name
             if (string.IsNullOrEmpty(sessionInfo.UserName))
             {
                 throw BaseQueryResult.Throw("User name is empty",
-                    ECGeneral.InvalidSessionInfo);
+                    ECGeneric.InvalidSessionInfo);
             }
 
             //Check user name
             if (string.IsNullOrEmpty(sessionInfo.SessionId))
             {
                 throw BaseQueryResult.Throw("Session ID is empty",
-                    ECGeneral.InvalidSessionInfo);
+                    ECGeneric.InvalidSessionInfo);
             }
 
             //Validate session
             if (!_userSessionDAL.UpdateUserSession(sessionInfo))
             {
-                throw BaseQueryResult.Throw("Session is invalid",
-                    ECGeneral.InvalidSessionInfo);
+                throw BaseQueryResult.Throw("User session is expired or invalid. Please re-login",
+                    ECGeneric.InvalidSessionInfo);
             }
         }
 
@@ -158,7 +158,7 @@ namespace RateIt.Common.Core.Controller
                 catch (Exception dbEx)
                 {
                     //Something failed in DB
-                    return BaseQueryResult.FromException<BaseQueryResult>(dbEx, ECGeneral.DBError);
+                    return BaseQueryResult.FromException<BaseQueryResult>(dbEx, ECGeneric.DBError);
                 }
             }
             catch (Exception ex)
@@ -186,7 +186,7 @@ namespace RateIt.Common.Core.Controller
                 catch (Exception dbEx)
                 {
                     //Something failed in DB
-                    return BaseQueryResult.FromException<UserLoginQueryResult>(dbEx, ECGeneral.DBError);
+                    return BaseQueryResult.FromException<UserLoginQueryResult>(dbEx, ECGeneric.DBError);
                 }
             }
             catch (Exception ex)
@@ -210,7 +210,7 @@ namespace RateIt.Common.Core.Controller
                 catch (Exception dbEx)
                 {
                     //Something failed in DB
-                    return BaseQueryResult.FromException<BaseQueryResult>(dbEx, ECGeneral.DBError);
+                    return BaseQueryResult.FromException<BaseQueryResult>(dbEx, ECGeneric.DBError);
                 }
             }
             catch (Exception ex)
@@ -241,7 +241,7 @@ namespace RateIt.Common.Core.Controller
                 catch (Exception dbEx)
                 {
                     //Something failed in DB
-                    return BaseQueryResult.FromException<BaseQueryResult>(dbEx, ECGeneral.DBError);
+                    return BaseQueryResult.FromException<BaseQueryResult>(dbEx, ECGeneric.DBError);
                 }
             }
             catch (Exception ex)
@@ -271,7 +271,7 @@ namespace RateIt.Common.Core.Controller
             catch (Exception ex)
             {
                 //Something failed in DB
-                return BaseQueryResult.FromException<UserListQueryResult>(ex, ECGeneral.DBError);
+                return BaseQueryResult.FromException<UserListQueryResult>(ex, ECGeneric.DBError);
             }
         }
 

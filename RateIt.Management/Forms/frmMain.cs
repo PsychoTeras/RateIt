@@ -106,10 +106,17 @@ namespace RateIt.Management.Forms
 
         public void InitializeApplication()
         {
+            Helper.QueryResultError += QueryResultError;
             _mainController = new RateItController();
             _mainControllerSys = _mainController;
             InitializeUserManagement();
             InitializeStoreManagement();
+        }
+
+        private void QueryResultError(string message, int errorCode)
+        {
+            WriteLog(string.Format("Operation error: {0}{1}Error code: {2}",
+                message, Environment.NewLine, errorCode));
         }
 
         private void WriteLog(string logMessage)
@@ -343,23 +350,22 @@ namespace RateIt.Management.Forms
 
 #region Store methods
 
-        private void PrintStoresInfo(Store[] stores)
+        private void PrintStoresInfo(Store[] stores, GeoPoint atLocation)
         {
             StringBuilder sb = new StringBuilder();
             if (stores.Length == 0)
             {
-                sb.Append("There are no stores found");
+                sb.AppendFormat("There are no stores found at location {0}", atLocation);
             }
             else
             {
-                sb.AppendFormat("There are {0} store(s) found:", stores.Length);
+                sb.AppendFormat("There are {0} store(s) found at location {1}:", stores.Length, atLocation);
                 for (int i = 0; i < stores.Length; i++)
                 {
                     sb.AppendFormat("{0}   {1}. {2}", Environment.NewLine, i + 1, stores[i]);
                 }
             }
             WriteLog(sb.ToString());
-            WriteLog(LOG_SEPARATOR, true, false);
         }
 
         private void BtnStoresFindAllInLevelClick(object sender, EventArgs e)
@@ -391,7 +397,7 @@ namespace RateIt.Management.Forms
             }
 
             //Print stores information
-            PrintStoresInfo(result.Stores);
+            PrintStoresInfo(result.Stores, centerPoint);
         }
 
 #endregion
