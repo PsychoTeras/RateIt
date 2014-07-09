@@ -72,7 +72,7 @@ namespace RateIt.Common.Core.QueryResults
             if (HasError)
             {
                 StringBuilder sb = new StringBuilder();
-                sb.AppendFormat("Error message:\t{0}\n", ErrorMessage);
+                sb.AppendFormat("Error message:\t{0} \n", ErrorMessage);
                 sb.AppendFormat("Error code:\t{0}", ErrorCode);
                 return sb.ToString();
             }

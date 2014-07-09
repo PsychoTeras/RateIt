@@ -53,7 +53,6 @@ namespace RateIt.Common.Core.DAL
             DataCollection.CreateIndex(indexKeys, indexOptions);
             
             //!!! What is it?
-            //Server.IndexCache.Add()
         }
 
         public ObjectId GetUserId(string userName, string password)

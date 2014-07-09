@@ -89,7 +89,7 @@ namespace RateIt.Common.Core.DAL
 
         public Store[] GetStoresAtLocation(GeoPoint location, StoreQueryAreaLevel areaLevel)
         {
-            double searchRadius = (double)areaLevel; //In meters
+            double searchRadius = (double)areaLevel;
             double searchRadiusRad = searchRadius / GeoConstants.EARTH_RADIUS_M;
 
             //Search by location

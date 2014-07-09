@@ -12,7 +12,6 @@ namespace RateIt.Web.Ground
 {
     class Program
     {
-
         private static readonly RateItControllerClient _service = new RateItControllerClient();
 
         static void Main(string[] args)

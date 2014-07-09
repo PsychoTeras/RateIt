@@ -79,6 +79,7 @@ namespace RateIt.Management.Forms
             this.map = new RateIt.Management.Controls.Map.MapViewer();
             this.gbOutput = new System.Windows.Forms.GroupBox();
             this.tbOutput = new System.Windows.Forms.TextBox();
+            this.tpStore = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
@@ -124,6 +125,7 @@ namespace RateIt.Management.Forms
             // 
             this.tcMain.Controls.Add(this.tpUsers);
             this.tcMain.Controls.Add(this.tpStores);
+            this.tcMain.Controls.Add(this.tpStore);
             this.tcMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcMain.Location = new System.Drawing.Point(0, 0);
             this.tcMain.Name = "tcMain";
@@ -675,6 +677,16 @@ namespace RateIt.Management.Forms
             this.tbOutput.Size = new System.Drawing.Size(701, 166);
             this.tbOutput.TabIndex = 2;
             // 
+            // tpStore
+            // 
+            this.tpStore.Location = new System.Drawing.Point(4, 22);
+            this.tpStore.Name = "tpStore";
+            this.tpStore.Padding = new System.Windows.Forms.Padding(3);
+            this.tpStore.Size = new System.Drawing.Size(705, 436);
+            this.tpStore.TabIndex = 2;
+            this.tpStore.Text = "Selected store";
+            this.tpStore.UseVisualStyleBackColor = true;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -764,6 +776,7 @@ namespace RateIt.Management.Forms
         private System.Windows.Forms.Button btnStoresFindAllInL2;
         private System.Windows.Forms.Button btnStoresFindAllInL1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TabPage tpStore;
 
     }
 }
