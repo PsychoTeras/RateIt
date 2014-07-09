@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1b2d5ac0-61e8-4f0d-90bd-40536a1f682b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:65312/RateItFacade.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="RateItFacade.xsd" MetadataType="Schema" ID="fe72dae2-8a8f-4d4e-b6f9-37698d57e212" SourceId="1" SourceUrl="http://localhost:65312/RateItFacade.svc?xsd=xsd1" />
+    <MetadataFile FileName="RateItFacade1.xsd" MetadataType="Schema" ID="b6d24907-a8df-42fc-9a9a-d1d0a44c2ac0" SourceId="1" SourceUrl="http://localhost:65312/RateItFacade.svc?xsd=xsd3" />
+    <MetadataFile FileName="RateItFacade2.xsd" MetadataType="Schema" ID="79fe8120-02b3-426d-9cbc-3c546897a234" SourceId="1" SourceUrl="http://localhost:65312/RateItFacade.svc?xsd=xsd5" />
+    <MetadataFile FileName="RateItFacade3.xsd" MetadataType="Schema" ID="7919f128-ca36-4084-aa19-5a8024e9179e" SourceId="1" SourceUrl="http://localhost:65312/RateItFacade.svc?xsd=xsd7" />
+    <MetadataFile FileName="RateItFacade4.xsd" MetadataType="Schema" ID="d36eda7d-d408-4ff6-8326-84b67b4dbde7" SourceId="1" SourceUrl="http://localhost:65312/RateItFacade.svc?xsd=xsd9" />
+    <MetadataFile FileName="RateItFacade.disco" MetadataType="Disco" ID="f3182924-5559-4fe7-9d2d-d33ac15ac9ca" SourceId="1" SourceUrl="http://localhost:65312/RateItFacade.svc?disco" />
+    <MetadataFile FileName="RateItFacade5.xsd" MetadataType="Schema" ID="653fa289-6a1a-49bb-9c59-973d072b5129" SourceId="1" SourceUrl="http://localhost:65312/RateItFacade.svc?xsd=xsd0" />
+    <MetadataFile FileName="RateItFacade.wsdl" MetadataType="Wsdl" ID="76d74b06-d8b3-4f8b-8113-f6d2cf078b86" SourceId="1" SourceUrl="http://localhost:65312/RateItFacade.svc?wsdl" />
+    <MetadataFile FileName="RateItFacade6.xsd" MetadataType="Schema" ID="a1b4a5af-6081-47f5-8acb-b4ae21019f98" SourceId="1" SourceUrl="http://localhost:65312/RateItFacade.svc?xsd=xsd2" />
+    <MetadataFile FileName="RateItFacade7.xsd" MetadataType="Schema" ID="310fda19-9431-4810-b496-38876ccee055" SourceId="1" SourceUrl="http://localhost:65312/RateItFacade.svc?xsd=xsd4" />
+    <MetadataFile FileName="RateItFacade8.xsd" MetadataType="Schema" ID="7633838e-e556-4484-a5d5-98c5a83bf951" SourceId="1" SourceUrl="http://localhost:65312/RateItFacade.svc?xsd=xsd6" />
+    <MetadataFile FileName="RateItFacade9.xsd" MetadataType="Schema" ID="fc5da48f-6f84-47d1-8d84-c4638292ccc0" SourceId="1" SourceUrl="http://localhost:65312/RateItFacade.svc?xsd=xsd8" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

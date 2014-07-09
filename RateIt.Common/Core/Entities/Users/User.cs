@@ -16,13 +16,13 @@ namespace RateIt.Common.Core.Entities.Users
 
 #region Class methods
 
-        public User() : this(string.Empty, string.Empty, string.Empty) { }
+        public User() { }
 
         public User(string userName, string passwordHash, string email)
         {
-            UserName = userName ?? string.Empty;
-            PasswordHash = passwordHash ?? string.Empty;
-            Email = email ?? string.Empty;
+            UserName = userName;
+            PasswordHash = passwordHash;
+            Email = email;
         }
 
         public override string ToString()

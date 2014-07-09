@@ -15,7 +15,7 @@ namespace RateIt.Common.Core.Entities.Users
 
 #region Class methods
 
-        public UserLoginInfo() : this(string.Empty, string.Empty) {}
+        public UserLoginInfo() {}
 
         public UserLoginInfo(string userName, string passwordHash)
         {

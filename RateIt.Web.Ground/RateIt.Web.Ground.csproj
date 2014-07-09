@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1D32A13A-356A-421D-B47E-0B71E296BBBB}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RateIt.Web.Ground</RootNamespace>
+    <AssemblyName>RateIt.Web.Ground</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Service References\RateItWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\DataSources\RateIt.Common.Core.QueryResults.BaseQueryResult.datasource" />
+    <None Include="Properties\DataSources\RateIt.Common.Core.QueryResults.StoreListQueryResult.datasource" />
+    <None Include="Properties\DataSources\RateIt.Common.Core.QueryResults.UserLoginQueryResult.datasource" />
+    <None Include="Service References\RateItWebService\RateItFacade.wsdl" />
+    <None Include="Service References\RateItWebService\RateItFacade.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RateItWebService\RateItFacade1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RateItWebService\RateItFacade2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RateItWebService\RateItFacade3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RateItWebService\RateItFacade4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RateItWebService\RateItFacade5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RateItWebService\RateItFacade6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RateItWebService\RateItFacade7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RateItWebService\RateItFacade8.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RateItWebService\RateItFacade9.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\RateIt.Common\RateIt.Common.csproj">
+      <Project>{991A400E-16D2-476F-A7D2-C6B30972AF47}</Project>
+      <Name>RateIt.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\RateItWebService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RateItWebService\RateItFacade.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RateItWebService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RateItWebService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RateItWebService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

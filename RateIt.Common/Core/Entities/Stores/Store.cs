@@ -16,10 +16,10 @@ namespace RateIt.Common.Core.Entities.Stores
         public GeoSize Size;
 
 #endregion
-        
+
 #region Class methods
 
-        public Store() : this(string.Empty, string.Empty, string.Empty, null, null) { }
+        public Store() { }
 
         public Store(string storeName, string address, string description,
                      GeoPoint location, GeoSize size)

@@ -14,18 +14,18 @@ namespace RateIt.Common.Core.Entities.Session
 
 #region Class methods
 
-        public SessionInfo() : this(string.Empty, string.Empty) { }
+        public SessionInfo() { }
 
         public SessionInfo(string userName, string sessionId)
         {
             if (string.IsNullOrEmpty(UserName = userName))
             {
-                throw new ArgumentException("User name is null or empty");
+                throw new ArgumentException("User name is empty");
             }
 
             if (string.IsNullOrEmpty(SessionId = sessionId))
             {
-                throw new ArgumentException("Session ID is null or empty");
+                throw new ArgumentException("Session ID is empty");
             }
         }
 

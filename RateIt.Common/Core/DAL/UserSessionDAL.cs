@@ -108,7 +108,7 @@ namespace RateIt.Common.Core.DAL
             AssertErrorMessage(concernResult.ErrorMessage);            
 
             //Return session ID
-            return userLogged.SessionId;
+            return userLogged.Id.ToString();
         }
 
         public void UserLogout(SessionInfo sessionInfo)

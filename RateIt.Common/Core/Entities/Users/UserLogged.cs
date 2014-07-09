@@ -16,15 +16,6 @@ namespace RateIt.Common.Core.Entities.Users
 
 #endregion
 
-#region Properties
-
-        public string SessionId
-        {
-            get { return Id.ToString(); }
-        }
-
-#endregion
-
 #region Class methods
 
         public UserLogged()
