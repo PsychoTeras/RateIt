@@ -10,8 +10,8 @@
           <xs:element name="Description" nillable="true" type="xs:string" />
           <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/RateIt.Common.Classes" name="Location" nillable="true" type="q2:GeoPoint" />
           <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/RateIt.Common.Classes" name="Size" nillable="true" type="q3:GeoSize" />
+          <xs:element name="StoreId" nillable="true" type="xs:string" />
           <xs:element name="StoreName" nillable="true" type="xs:string" />
-          <xs:element name="_x003C_StoreId_x003E_k__BackingField" nillable="true" type="xs:string" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

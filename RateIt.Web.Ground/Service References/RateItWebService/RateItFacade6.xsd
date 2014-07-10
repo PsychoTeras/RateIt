@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Users" />
-  <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.QueryResults" />
-  <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Session" />
+  <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.QueryResults" />
   <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Stores" />
   <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Classes" />
-  <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Constants" />
+  <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Constants" />
   <xs:element name="UserRegister">
     <xs:complexType>
       <xs:sequence>
@@ -37,7 +36,7 @@
   <xs:element name="UserLogout">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Session" minOccurs="0" name="sessionInfo" nillable="true" type="q5:SessionInfo" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Users" minOccurs="0" name="sessionInfo" nillable="true" type="q5:UserSessionInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -51,7 +50,7 @@
   <xs:element name="StoreRegister">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Session" minOccurs="0" name="sessionInfo" nillable="true" type="q7:SessionInfo" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Users" minOccurs="0" name="sessionInfo" nillable="true" type="q7:UserSessionInfo" />
         <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Stores" minOccurs="0" name="registrationInfo" nillable="true" type="q8:Store" />
       </xs:sequence>
     </xs:complexType>
@@ -66,7 +65,7 @@
   <xs:element name="GetStoresAtLocation">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Session" minOccurs="0" name="sessionInfo" nillable="true" type="q10:SessionInfo" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Users" minOccurs="0" name="sessionInfo" nillable="true" type="q10:UserSessionInfo" />
         <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/RateIt.Common.Classes" minOccurs="0" name="location" nillable="true" type="q11:GeoPoint" />
         <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Constants" minOccurs="0" name="areaLevel" type="q12:StoreQueryAreaLevel" />
       </xs:sequence>

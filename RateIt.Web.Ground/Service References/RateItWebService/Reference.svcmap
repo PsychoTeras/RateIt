@@ -26,7 +26,6 @@
     <MetadataFile FileName="RateItFacade.xsd" MetadataType="Schema" ID="4a9ea6f5-51ab-494c-bf16-d3a23e32339f" SourceId="1" SourceUrl="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd5" />
     <MetadataFile FileName="RateItFacade1.xsd" MetadataType="Schema" ID="360afed2-956c-4d7b-88c3-35b3bb371bab" SourceId="1" SourceUrl="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd4" />
     <MetadataFile FileName="RateItFacade.disco" MetadataType="Disco" ID="b24cbdd1-35f7-43d0-88b3-f45c750bd78a" SourceId="1" SourceUrl="http://localhost/RateIt.Web/RateItFacade.svc?disco" />
-    <MetadataFile FileName="RateItFacade2.xsd" MetadataType="Schema" ID="bb99819e-b098-4ecc-8b38-8619a58a751c" SourceId="1" SourceUrl="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd8" />
     <MetadataFile FileName="RateItFacade.wsdl" MetadataType="Wsdl" ID="b82460cd-d8c6-4c5c-bd4e-585b6c245185" SourceId="1" SourceUrl="http://localhost/RateIt.Web/RateItFacade.svc?wsdl" />
     <MetadataFile FileName="RateItFacade3.xsd" MetadataType="Schema" ID="80d99c10-d1aa-4240-b115-b01392ae32fd" SourceId="1" SourceUrl="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd3" />
     <MetadataFile FileName="RateItFacade4.xsd" MetadataType="Schema" ID="bb779ae9-0e8a-4aa0-be47-8cfc511df904" SourceId="1" SourceUrl="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd2" />

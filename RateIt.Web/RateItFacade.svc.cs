@@ -1,8 +1,6 @@
 ﻿using RateIt.Common.Classes;
 using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Controller;
-using RateIt.Common.Core.Entities.Session;
-using RateIt.Common.Core.Entities.Sessions;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Common.Core.Entities.Users;
 using RateIt.Common.Core.QueryResults;
