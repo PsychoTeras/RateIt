@@ -1,4 +1,5 @@
 ﻿using System;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using RateIt.Common.Core.System;
 
@@ -51,6 +52,14 @@ namespace RateIt.Common.Core.DAL
             }
         }
 
+        protected virtual void RegisterClassMap()
+        {
+            if (!BsonClassMap.IsClassMapRegistered(typeof(T)))
+            {
+                BsonClassMap.RegisterClassMap<T>();
+            }
+        }
+
         protected BaseDAL() : base(Configuration.DBHost, Configuration.DBPort)
         {
             //Open or create database
@@ -69,6 +78,11 @@ namespace RateIt.Common.Core.DAL
             {
                 CreateCollectionStructure();
             }
+
+            //Register class map
+            RegisterClassMap();
+
+            //Post DB initialization
             InitializeDB();
         }
 
