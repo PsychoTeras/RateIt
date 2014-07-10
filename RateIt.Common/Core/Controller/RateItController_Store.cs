@@ -1,8 +1,8 @@
 ﻿using System;
 using RateIt.Common.Classes;
 using RateIt.Common.Core.Constants;
-using RateIt.Common.Core.Entities.Session;
 using RateIt.Common.Core.Entities.Stores;
+using RateIt.Common.Core.Entities.Users;
 using RateIt.Common.Core.ErrorCodes;
 using RateIt.Common.Core.QueryParams;
 using RateIt.Common.Core.QueryResults;
@@ -88,7 +88,7 @@ namespace RateIt.Common.Core.Controller
 
 #region Public methods
 
-        public BaseQueryResult StoreRegister(SessionInfo sessionInfo, Store registrationInfo)
+        public BaseQueryResult StoreRegister(UserSessionInfo sessionInfo, Store registrationInfo)
         {
             try
             {
@@ -102,6 +102,9 @@ namespace RateIt.Common.Core.Controller
                 try
                 {
                     _storeDAL.StoreRegister(registrationInfo);
+
+                    //Add log record
+                    AddActionLogRecord(ActionLogType.Store_Register, sessionInfo.UserId);
                 }
                 catch (Exception dbEx)
                 {
@@ -118,8 +121,8 @@ namespace RateIt.Common.Core.Controller
             return BaseQueryResult.Successful;
         }
 
-        public StoreListQueryResult GetStoresAtLocation(SessionInfo sessionInfo, GeoPoint location, 
-                                                        StoreQueryAreaLevel areaLevel)
+        public StoreListQueryResult GetStoresAtLocation(UserSessionInfo sessionInfo, 
+            GeoPoint location,  StoreQueryAreaLevel areaLevel)
         {
             try
             {

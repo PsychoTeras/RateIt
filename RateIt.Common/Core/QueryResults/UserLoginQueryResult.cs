@@ -8,6 +8,7 @@ namespace RateIt.Common.Core.QueryResults
 
 #region Properties
 
+        public string UserId;
         public string UserName;
         public string SessionId;
 
@@ -17,8 +18,9 @@ namespace RateIt.Common.Core.QueryResults
 
     public UserLoginQueryResult() { }
 
-    public UserLoginQueryResult(string userName, string sessionId)
+    public UserLoginQueryResult(string userId, string userName, string sessionId)
     {
+        UserId = userId;
         UserName = userName;
         SessionId = sessionId;
     }

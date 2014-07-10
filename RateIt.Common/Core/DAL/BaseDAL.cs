@@ -72,6 +72,11 @@ namespace RateIt.Common.Core.DAL
             InitializeDB();
         }
 
+        public void ReIndex()
+        {
+            DataCollection.ReIndex();
+        }
+
 #endregion
 
     }

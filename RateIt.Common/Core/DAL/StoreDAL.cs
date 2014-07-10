@@ -28,16 +28,9 @@ namespace RateIt.Common.Core.DAL
             get { return "T_STORES"; }
         }
 
-        internal MongoCollection<Store> StoreListDataCollection { get; private set; }
-
 #endregion
 
 #region Class methods
-
-        public StoreDAL()
-        {
-            StoreListDataCollection = Database.GetCollection<Store>(CollectionName);
-        }
 
         protected override void CreateCollectionStructure()
         {
@@ -69,14 +62,14 @@ namespace RateIt.Common.Core.DAL
         {
             //Calculate search criteria
             const double searchRadius = (double)StoreSize.Huge; //In meters
-            const double searchRadiusRad = searchRadius / GeoConstants.EARTH_RADIUS_M;
+            const double searchRadiusRad = searchRadius / GenericConstants.EARTH_RADIUS_M;
 
             //Search by location
             IMongoQuery qStoresAtLocation = Query.WithinCircle(GEOPOINT_FIELD_NAME,
                 location.Latitude, location.Longitude, searchRadiusRad, true);
 
             //Do search
-            MongoCursor<Store> cursor = StoreListDataCollection.
+            MongoCursor<Store> cursor = DataCollection.
                 Find(qStoresAtLocation).
                 SetHint(IDX_T_STORES_LOCATION);
             
@@ -90,14 +83,14 @@ namespace RateIt.Common.Core.DAL
         public Store[] GetStoresAtLocation(GeoPoint location, StoreQueryAreaLevel areaLevel)
         {
             double searchRadius = (double)areaLevel;
-            double searchRadiusRad = searchRadius / GeoConstants.EARTH_RADIUS_M;
+            double searchRadiusRad = searchRadius / GenericConstants.EARTH_RADIUS_M;
 
             //Search by location
             IMongoQuery qStoresAtLocation = Query.WithinCircle(GEOPOINT_FIELD_NAME,
                 location.Latitude, location.Longitude, searchRadiusRad, true);
 
             //Do search
-            MongoCursor<Store> cursor = StoreListDataCollection.
+            MongoCursor<Store> cursor = DataCollection.
                 Find(qStoresAtLocation).
                 SetHint(IDX_T_STORES_LOCATION);
 
@@ -117,7 +110,7 @@ namespace RateIt.Common.Core.DAL
                 rectangle.Longitude + rectangle.LongitudeShift);
 
             //Do search
-            MongoCursor<Store> cursor = StoreListDataCollection.
+            MongoCursor<Store> cursor = DataCollection.
                 Find(qStoresAtLocation).
                 SetHint(IDX_T_STORES_LOCATION);
 

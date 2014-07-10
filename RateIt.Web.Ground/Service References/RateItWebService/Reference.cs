@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using RateIt.Common.Core.Entities.Sessions;
+
 namespace RateIt.Web.Ground.RateItWebService {
     
     
@@ -26,15 +28,15 @@ namespace RateIt.Web.Ground.RateItWebService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateItController/UserLogout", ReplyAction="http://tempuri.org/IRateItController/UserLogoutResponse")]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.UserLoginQueryResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.StoreListQueryResult))]
-        RateIt.Common.Core.QueryResults.BaseQueryResult UserLogout(RateIt.Common.Core.Entities.Session.SessionInfo sessionInfo);
+        RateIt.Common.Core.QueryResults.BaseQueryResult UserLogout(UserSessionInfo sessionInfo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateItController/StoreRegister", ReplyAction="http://tempuri.org/IRateItController/StoreRegisterResponse")]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.UserLoginQueryResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.StoreListQueryResult))]
-        RateIt.Common.Core.QueryResults.BaseQueryResult StoreRegister(RateIt.Common.Core.Entities.Session.SessionInfo sessionInfo, RateIt.Common.Core.Entities.Stores.Store registrationInfo);
+        RateIt.Common.Core.QueryResults.BaseQueryResult StoreRegister(UserSessionInfo sessionInfo, RateIt.Common.Core.Entities.Stores.Store registrationInfo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateItController/GetStoresAtLocation", ReplyAction="http://tempuri.org/IRateItController/GetStoresAtLocationResponse")]
-        RateIt.Common.Core.QueryResults.StoreListQueryResult GetStoresAtLocation(RateIt.Common.Core.Entities.Session.SessionInfo sessionInfo, RateIt.Common.Classes.GeoPoint location, RateIt.Common.Core.Constants.StoreQueryAreaLevel areaLevel);
+        RateIt.Common.Core.QueryResults.StoreListQueryResult GetStoresAtLocation(UserSessionInfo sessionInfo, RateIt.Common.Classes.GeoPoint location, RateIt.Common.Core.Constants.StoreQueryAreaLevel areaLevel);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -72,15 +74,15 @@ namespace RateIt.Web.Ground.RateItWebService {
             return base.Channel.UserLogin(loginInfo);
         }
         
-        public RateIt.Common.Core.QueryResults.BaseQueryResult UserLogout(RateIt.Common.Core.Entities.Session.SessionInfo sessionInfo) {
+        public RateIt.Common.Core.QueryResults.BaseQueryResult UserLogout(UserSessionInfo sessionInfo) {
             return base.Channel.UserLogout(sessionInfo);
         }
         
-        public RateIt.Common.Core.QueryResults.BaseQueryResult StoreRegister(RateIt.Common.Core.Entities.Session.SessionInfo sessionInfo, RateIt.Common.Core.Entities.Stores.Store registrationInfo) {
+        public RateIt.Common.Core.QueryResults.BaseQueryResult StoreRegister(UserSessionInfo sessionInfo, RateIt.Common.Core.Entities.Stores.Store registrationInfo) {
             return base.Channel.StoreRegister(sessionInfo, registrationInfo);
         }
         
-        public RateIt.Common.Core.QueryResults.StoreListQueryResult GetStoresAtLocation(RateIt.Common.Core.Entities.Session.SessionInfo sessionInfo, RateIt.Common.Classes.GeoPoint location, RateIt.Common.Core.Constants.StoreQueryAreaLevel areaLevel) {
+        public RateIt.Common.Core.QueryResults.StoreListQueryResult GetStoresAtLocation(UserSessionInfo sessionInfo, RateIt.Common.Classes.GeoPoint location, RateIt.Common.Core.Constants.StoreQueryAreaLevel areaLevel) {
             return base.Channel.GetStoresAtLocation(sessionInfo, location, areaLevel);
         }
     }

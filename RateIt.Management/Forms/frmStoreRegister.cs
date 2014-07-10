@@ -3,8 +3,8 @@ using System.Windows.Forms;
 using RateIt.Common.Classes;
 using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Controller;
-using RateIt.Common.Core.Entities.Session;
 using RateIt.Common.Core.Entities.Stores;
+using RateIt.Common.Core.Entities.Users;
 using RateIt.Common.Core.ErrorCodes;
 using RateIt.Common.Core.QueryResults;
 using RateIt.Management.Helpers;
@@ -17,7 +17,7 @@ namespace RateIt.Management.Forms
 #region Private members
 
         private IRateItController _controller;
-        private SessionInfo _sessionInfo;
+        private UserSessionInfo _sessionInfo;
         private GeoPoint _atLocation;
         private Store _store;
 
@@ -25,7 +25,7 @@ namespace RateIt.Management.Forms
 
 #region DoRegister method
 
-        public static Store DoRegister(IRateItController controller, SessionInfo sessionInfo,
+        public static Store DoRegister(IRateItController controller, UserSessionInfo sessionInfo,
                                        GeoPoint atLocation)
         {
             using (frmStoreRegister form = new frmStoreRegister())

@@ -12,7 +12,7 @@ namespace RateIt.Common.Core.Entities
 
 #region Private fields
 
-        protected ObjectId _id;
+        private ObjectId _id;
 
 #endregion
 

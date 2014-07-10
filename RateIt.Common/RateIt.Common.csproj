@@ -72,12 +72,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Constants\ActionLogType.cs" />
     <Compile Include="Core\Constants\GenericConstants.cs" />
-    <Compile Include="Core\Constants\GeoConstants.cs" />
     <Compile Include="Core\Constants\StoreQueryAreaLevel.cs" />
     <Compile Include="Core\Constants\StoreSize.cs" />
+    <Compile Include="Core\Constants\UserState.cs" />
     <Compile Include="Core\Controller\IRateItControllerSys.cs" />
-    <Compile Include="Core\Entities\Session\SessionInfo.cs" />
+    <Compile Include="Core\Controller\RateItController_ActionLog.cs" />
+    <Compile Include="Core\DAL\ActionLogDAL.cs" />
+    <Compile Include="Core\Entities\ActionLogs\ActionLog.cs" />
+    <Compile Include="Core\Entities\Users\UserSessionInfo.cs" />
     <Compile Include="Core\QueryParams\QuerySysRequestID.cs" />
     <Compile Include="Properties\AssemblyVersion.cs">
       <AutoGen>True</AutoGen>
@@ -93,7 +97,6 @@
     <Compile Include="Core\DAL\UserSessionDAL.cs" />
     <Compile Include="Core\Entities\BaseDocument.cs" />
     <Compile Include="Core\Entities\Stores\Store.cs" />
-    <Compile Include="Core\Entities\Users\UserListItem.cs" />
     <Compile Include="Core\Entities\Users\UserLogged.cs" />
     <Compile Include="Core\ErrorCodes\ECLogin.cs" />
     <Compile Include="Core\ErrorCodes\ECLogout.cs" />

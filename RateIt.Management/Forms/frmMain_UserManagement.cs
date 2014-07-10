@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-using RateIt.Common.Core.Entities.Session;
 using RateIt.Common.Core.Entities.Users;
 using RateIt.Common.Core.QueryParams;
 using RateIt.Common.Core.QueryResults;
@@ -14,23 +13,23 @@ namespace RateIt.Management.Forms
 
 #region Private members
 
-        private SessionInfo _loggedUserSession;
+        private UserSessionInfo _loggedUserSession;
 
 #endregion
 
 #region Properties
 
-        private UserListItem SelectedUserListItem
+        private User SelectedUser
         {
             get
             {
                 return lvUsers.SelectedItems.Count > 0
-                           ? (UserListItem) lvUsers.SelectedItems[0].Tag
+                           ? (User)lvUsers.SelectedItems[0].Tag
                            : null;
             }
         }
 
-        private UserListItem LoggedUserListItem
+        private User LoggedUser
         {
             get
             {
@@ -38,12 +37,12 @@ namespace RateIt.Management.Forms
                 {
                     ListViewItem item = lvUsers.Items.Cast<ListViewItem>().FirstOrDefault
                         (
-                            li => ((UserListItem) li.Tag).UserName.Equals
+                            li => ((User)li.Tag).UserId.Equals
                                       (
-                                          _loggedUserSession.UserName, StringComparison.InvariantCultureIgnoreCase
+                                          _loggedUserSession.UserId, StringComparison.InvariantCultureIgnoreCase
                                       )
                         );
-                    return (UserListItem) (item != null ? item.Tag : null);
+                    return (User)(item != null ? item.Tag : null);
                 }
                 return null;
             }
@@ -63,12 +62,12 @@ namespace RateIt.Management.Forms
 
         private void UnloginCurrentUser(bool isSessionExpired)
         {
-            UserListItem loggedUserListItem = LoggedUserListItem;
-            if (loggedUserListItem != null)
+            User loggedUser = LoggedUser;
+            if (loggedUser != null)
             {
-                loggedUserListItem.IsUserLogged = false;
+                loggedUser.IsUserLogged = false;
                 _loggedUserSession = null;
-                AfterCurrentUserHasLoggedOut(loggedUserListItem.UserName, isSessionExpired);
+                AfterCurrentUserHasLoggedOut(loggedUser.UserName, isSessionExpired);
             }
         }
 
@@ -89,7 +88,7 @@ namespace RateIt.Management.Forms
         {
             if (item != null)
             {
-                UserListItem user = (UserListItem)item.Tag;
+                User user = (User)item.Tag;
                 item.SubItems[0].Text = user.UserName;
                 item.SubItems[1].Text = user.Email;
                 item.SubItems[2].Text = user.IsUserLogged.ToText();
@@ -114,7 +113,7 @@ namespace RateIt.Management.Forms
             lvUsers.BeginUpdate();
             lvUsers.Items.Clear();
 
-            foreach (UserListItem user in result.UserList)
+            foreach (User user in result.UserList)
             {
                 ListViewItem item = new ListViewItem(user.UserName);
                 item.SubItems.Add(user.Email);
@@ -143,11 +142,11 @@ namespace RateIt.Management.Forms
 
         private void LvUsersSelectedIndexChanged(object sender, EventArgs e)
         {
-            btnUserLogin.Enabled = SelectedUserListItem != null && 
+            btnUserLogin.Enabled = SelectedUser != null && 
                                    _loggedUserSession == null;
-            btnUserLogout.Enabled = SelectedUserListItem != null &&
-                                    SelectedUserListItem != LoggedUserListItem &&
-                                    SelectedUserListItem.IsUserLogged;
+            btnUserLogout.Enabled = SelectedUser != null &&
+                                    SelectedUser != LoggedUser &&
+                                    SelectedUser.IsUserLogged;
         }
 
         private void LvUsersMouseDoubleClick(object sender, MouseEventArgs e)
@@ -155,25 +154,25 @@ namespace RateIt.Management.Forms
             BtnUserLoginClick(this, null);
         }
 
-        private void AfterSelectedUserHasLoggedIn()
+        private void AfterSelectedUserHasLoggedIn(string userName)
         {
             gbUserLogged.Enabled = true;
-            tbLoggedUserName.Text = _loggedUserSession.UserName;
+            tbLoggedUserName.Text = userName;
             WriteLog(string.Format("User {0} successfully logged in", _loggedUserSession));
             UpdateSelectedUserListRecord();
         }
 
         private void BtnUserLoginClick(object sender, EventArgs e)
         {
-            if (btnUserLogin.Enabled && SelectedUserListItem != null)
+            if (btnUserLogin.Enabled && SelectedUser != null)
             {
                 using (frmUserLogin form = new frmUserLogin())
                 {
-                    if (form.Execute(_mainController, SelectedUserListItem))
+                    if (form.Execute(_mainController, SelectedUser))
                     {
-                        _loggedUserSession = new SessionInfo(form.UserName, form.SessionId);
-                        SelectedUserListItem.IsUserLogged = true;
-                        AfterSelectedUserHasLoggedIn();
+                        _loggedUserSession = new UserSessionInfo(form.UserId, form.SessionId);
+                        SelectedUser.IsUserLogged = true;
+                        AfterSelectedUserHasLoggedIn(SelectedUser.UserName);
                     }
                 }
             }
@@ -182,19 +181,19 @@ namespace RateIt.Management.Forms
         private void AfterSelectedUserHasLoggedOut()
         {
             WriteLog(string.Format("User {0} successfully logged out",
-                     SelectedUserListItem.UserName));
+                     SelectedUser.UserName));
             UpdateSelectedUserListRecord();
         }
 
         private void BtnUserLogoutClick(object sender, EventArgs e)
         {
-            if (btnUserLogout.Enabled && SelectedUserListItem != null)
+            if (btnUserLogout.Enabled && SelectedUser != null)
             {
                 BaseQueryResult result = _mainControllerSys.UserLogoutSys(
-                    QuerySysRequestID.Instance, SelectedUserListItem.UserName);
+                    QuerySysRequestID.Instance, SelectedUser.UserName);
                 if (Helper.CheckOnValidQueryResult(result))
                 {
-                    SelectedUserListItem.IsUserLogged = false;
+                    SelectedUser.IsUserLogged = false;
                     AfterSelectedUserHasLoggedOut();
                 }
             }
@@ -209,7 +208,7 @@ namespace RateIt.Management.Forms
                 : string.Format("Session for user {0} has expired", userName));
             UpdateUserListRecord(lvUsers.Items.Cast<ListViewItem>().FirstOrDefault
                 (
-                    i => ((UserListItem) i.Tag).UserName == userName)
+                    i => ((User)i.Tag).UserName == userName)
                 );
         }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using MongoDB.Bson;
-using RateIt.Common.Core.Entities.Session;
+using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Entities.Users;
 using RateIt.Common.Core.ErrorCodes;
 using RateIt.Common.Core.QueryParams;
@@ -90,8 +90,7 @@ namespace RateIt.Common.Core.Controller
             }
 
             //Validate crenedtials
-            ObjectId userId = _userDAL.GetUserId(loginInfo.UserName, 
-                                                              loginInfo.PasswordHash);
+            ObjectId userId = _userDAL.GetUserId(loginInfo.UserName, loginInfo.PasswordHash);
             if (userId.IsEmpty())
             {
                 throw BaseQueryResult.Throw("Invalid user name or/and password",
@@ -99,7 +98,7 @@ namespace RateIt.Common.Core.Controller
             }
 
             //Check if the user is logged for now
-            if (_userSessionDAL.IsUserLogged(userId))
+            if (_userSessionDAL.IsUserLogged(userId.ToString()))
             {
                 throw BaseQueryResult.Throw("This user is currently logged",
                     ECLogin.UserIsLogged);
@@ -108,7 +107,12 @@ namespace RateIt.Common.Core.Controller
             return userId;
         }
 
-        private void AssertSessionInfo(SessionInfo sessionInfo)
+        private void AssertSessionInfo(UserSessionInfo sessionInfo)
+        {
+            AssertSessionInfo(sessionInfo, false);
+        }
+
+        private void AssertSessionInfo(UserSessionInfo sessionInfo, bool assertOnly)
         {
             //Validate session info
             if (sessionInfo == null)
@@ -117,14 +121,7 @@ namespace RateIt.Common.Core.Controller
                     ECGeneric.InvalidSessionInfo);
             }
 
-            //Check user name
-            if (string.IsNullOrEmpty(sessionInfo.UserName))
-            {
-                throw BaseQueryResult.Throw("User name is empty",
-                    ECGeneric.InvalidSessionInfo);
-            }
-
-            //Check user name
+            //Check user ID
             if (string.IsNullOrEmpty(sessionInfo.SessionId))
             {
                 throw BaseQueryResult.Throw("Session ID is empty",
@@ -132,7 +129,7 @@ namespace RateIt.Common.Core.Controller
             }
 
             //Validate session
-            if (!_userSessionDAL.UpdateUserSession(sessionInfo))
+            if (!_userSessionDAL.UpdateUserSession(sessionInfo, assertOnly))
             {
                 throw BaseQueryResult.Throw("User session is expired or invalid. Please re-login",
                     ECGeneric.InvalidSessionInfo);
@@ -154,6 +151,9 @@ namespace RateIt.Common.Core.Controller
                 try
                 {
                     _userDAL.UserRegister(registrationInfo);
+
+                    //Add log record
+                    AddActionLogRecord(ActionLogType.User_Register, registrationInfo.Id.ToString());
                 }
                 catch (Exception dbEx)
                 {
@@ -180,8 +180,15 @@ namespace RateIt.Common.Core.Controller
                 //Login the user
                 try
                 {
-                    string loggedUserId = _userSessionDAL.UserLogin(loginInfo.UserName, userId);
-                    return new UserLoginQueryResult(loginInfo.UserName, loggedUserId);
+                    UserLogged userLogged = _userSessionDAL.UserLogin(loginInfo.UserName, 
+                                                                      userId.ToString());
+                    
+                    //Add log record
+                    AddActionLogRecord(ActionLogType.User_Login, userId.ToString());
+
+                    //Return login info
+                    string sessionId = userLogged.Id.ToString();
+                    return new UserLoginQueryResult(userId.ToString(), loginInfo.UserName, sessionId);
                 }
                 catch (Exception dbEx)
                 {
@@ -195,17 +202,21 @@ namespace RateIt.Common.Core.Controller
             }
         }
 
-        public BaseQueryResult UserLogout(SessionInfo sessionInfo)
+        public BaseQueryResult UserLogout(UserSessionInfo sessionInfo)
         {
             try
             {
                 //Assert session information
-                AssertSessionInfo(sessionInfo);
+                AssertSessionInfo(sessionInfo, true);
 
                 //Logout the user
                 try
                 {
                     _userSessionDAL.UserLogout(sessionInfo);
+
+                    //Add log record
+                    AddActionLogRecord(ActionLogType.User_Logout, sessionInfo.UserId, 
+                                       sessionInfo.SessionId);
                 }
                 catch (Exception dbEx)
                 {
@@ -254,7 +265,8 @@ namespace RateIt.Common.Core.Controller
 
         }
 
-        public UserListQueryResult GetUserListSys(QuerySysRequestID sysId, string userNamePart, uint maxCount)
+        public UserListQueryResult GetUserListSys(QuerySysRequestID sysId, string userNamePart, 
+                                                  uint maxCount)
         {
             //Assert QuerySysRequestID
             AssertQuerySysRequestID(sysId);
@@ -265,7 +277,7 @@ namespace RateIt.Common.Core.Controller
             //Get list of users
             try
             {
-                UserListItem[] userList = _userDAL.GetUserList(_userSessionDAL, userNamePart, maxCount);
+                User[] userList = _userDAL.GetUserList(_userSessionDAL, userNamePart, maxCount);
                 return new UserListQueryResult(userList);
             }
             catch (Exception ex)

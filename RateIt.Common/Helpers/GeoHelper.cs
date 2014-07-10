@@ -8,8 +8,8 @@ namespace RateIt.Common.Helpers
     {
         public static GeoPoint ShiftCoordinates(GeoPoint location, double distanceInMetersX, double distanceInMetersY)
         {
-            double latitude = distanceInMetersX / GeoConstants.EARTH_RADIUS_M;
-            double longitude = distanceInMetersY / (GeoConstants.EARTH_RADIUS_M * Math.Cos(location.Latitude * Math.PI / 180d));
+            double latitude = distanceInMetersX / GenericConstants.EARTH_RADIUS_M;
+            double longitude = distanceInMetersY / (GenericConstants.EARTH_RADIUS_M * Math.Cos(location.Latitude * Math.PI / 180d));
             return new GeoPoint
                 (
                     location.Latitude + latitude * 180d / Math.PI,

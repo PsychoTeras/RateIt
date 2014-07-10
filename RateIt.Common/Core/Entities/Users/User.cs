@@ -1,4 +1,6 @@
 ﻿using System;
+using MongoDB.Bson.Serialization.Attributes;
+using RateIt.Common.Core.Constants;
 
 namespace RateIt.Common.Core.Entities.Users
 {
@@ -12,11 +14,23 @@ namespace RateIt.Common.Core.Entities.Users
         public string PasswordHash;
         public string Email;
 
+        public UserState UserState;
+
+        [BsonIgnore]
+        public bool IsUserLogged;
+        [BsonIgnore]
+        public string UserId;
+
 #endregion
 
 #region Class methods
 
         public User() { }
+
+        protected override void IdHasChanged()
+        {
+            UserId = Id.ToString();
+        }
 
         public User(string userName, string passwordHash, string email)
         {

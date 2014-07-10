@@ -2,6 +2,7 @@
 using RateIt.Common.Classes;
 using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Entities.Session;
+using RateIt.Common.Core.Entities.Sessions;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Common.Core.Entities.Users;
 using RateIt.Common.Core.QueryResults;
@@ -21,7 +22,7 @@ namespace RateIt.Web.Ground
             UserLoginQueryResult loginResult = _service.UserLogin(loginInfo);
             if (!loginResult.HasError)
             {
-                SessionInfo sessionInfo = new SessionInfo(loginResult.UserName, loginResult.SessionId);
+                UserSessionInfo sessionInfo = new UserSessionInfo(loginResult.UserName, loginResult.SessionId);
                 StoreListQueryResult storesQueryResult = _service.GetStoresAtLocation(sessionInfo, 
                     new GeoPoint(49.9511370682993, 36.2615132331848), StoreQueryAreaLevel.Level3);
 

@@ -9,7 +9,7 @@ namespace RateIt.Common.Core.QueryResults
 
 #region Public fields
 
-        public UserListItem[] UserList;
+        public User[] UserList;
 
 #endregion
 
@@ -17,7 +17,7 @@ namespace RateIt.Common.Core.QueryResults
 
     public UserListQueryResult() { }
 
-    public UserListQueryResult(UserListItem[] userList)
+    public UserListQueryResult(User[] userList)
     {
         UserList = userList;
     }

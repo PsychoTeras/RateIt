@@ -20,6 +20,7 @@ namespace RateIt.Management.Forms
 #region Properties
 
         public string UserName { get; private set; }
+        public string UserId { get; private set; }
         public string SessionId { get; private set; }
 
 #endregion
@@ -68,6 +69,7 @@ namespace RateIt.Management.Forms
                 return;
             }
 
+            UserId = result.UserId;
             UserName = result.UserName;
             SessionId = result.SessionId;
             DialogResult = DialogResult.OK;

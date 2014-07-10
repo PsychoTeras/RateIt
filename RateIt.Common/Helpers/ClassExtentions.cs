@@ -31,5 +31,10 @@ namespace RateIt.Common.Helpers
 
             return stores.ToArray();
         }
+
+        public static ObjectId ToObjectId(this string str)
+        {
+            return new ObjectId(str);
+        }
     }
 }

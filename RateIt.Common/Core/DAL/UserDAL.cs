@@ -23,16 +23,9 @@ namespace RateIt.Common.Core.DAL
             get { return "T_USERS"; }
         }
 
-        internal MongoCollection<UserListItem> UserListDataCollection { get; private set; }
-
 #endregion
 
 #region Class methods
-
-        public UserDAL()
-        {
-            UserListDataCollection = Database.GetCollection<UserListItem>(CollectionName);
-        }
 
         protected override void CreateCollectionStructure()
         {
@@ -91,15 +84,15 @@ namespace RateIt.Common.Core.DAL
             AssertErrorMessage(concernResult.ErrorMessage);
         }
 
-        public UserListItem[] GetUserList(UserSessionDAL userLoginDAL,
-            string userNamePart, uint maxCount)
+        public User[] GetUserList(UserSessionDAL userLoginDAL, string userNamePart, 
+            uint maxCount)
         {
             //Search by part of user name
             string queryString = string.Format("/({0})/(si)", userNamePart);
             IMongoQuery qUserByName = Query.Matches("UserName", queryString);
 
             //Do search
-            MongoCursor<UserListItem> cursor = UserListDataCollection.
+            MongoCursor<User> cursor = DataCollection.
                 Find(qUserByName).
                 SetHint(IDX_T_USERS_USERNAME);
 
@@ -110,14 +103,14 @@ namespace RateIt.Common.Core.DAL
             }
 
             //Get result list
-            UserListItem[] result = cursor.ToArray();
+            User[] result = cursor.ToArray();
 
             //Set user logged state is needed
             if (userLoginDAL != null)
             {
-                foreach (UserListItem userListItem in result)
+                foreach (User user in result)
                 {
-                    userListItem.IsUserLogged = userLoginDAL.IsUserLogged(userListItem.Id);
+                    user.IsUserLogged = userLoginDAL.IsUserLogged(user.UserId);
                 }
             }
 

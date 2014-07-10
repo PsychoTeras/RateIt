@@ -12,6 +12,7 @@ namespace RateIt.Common.Core.Controller
         private UserDAL _userDAL = new UserDAL();
         private UserSessionDAL _userSessionDAL = new UserSessionDAL();
         private StoreDAL _storeDAL = new StoreDAL();
+        private ActionLogDAL _actionLogDAL = new ActionLogDAL();
 
 #endregion
 

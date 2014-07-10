@@ -1,1 +1,1 @@
-"_Externals\MongoDB\mongodb-win32-i386\mongod.exe" --dbpath _Externals\MongoDB\mongodb-win32-i386\DB --rest --verbose
+"_Externals\MongoDB\mongodb-win32-i386\mongod.exe" --dbpath _Externals\MongoDB\mongodb-win32-i386\DB --rest

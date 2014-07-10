@@ -2,6 +2,7 @@
 using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Controller;
 using RateIt.Common.Core.Entities.Session;
+using RateIt.Common.Core.Entities.Sessions;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Common.Core.Entities.Users;
 using RateIt.Common.Core.QueryResults;
@@ -38,18 +39,18 @@ namespace RateIt.Web
             return _controller.UserLogin(loginInfo);
         }
 
-        public BaseQueryResult StoreRegister(SessionInfo sessionInfo, Store registrationInfo)
+        public BaseQueryResult StoreRegister(UserSessionInfo sessionInfo, Store registrationInfo)
         {
             return _controller.StoreRegister(sessionInfo, registrationInfo);
         }
 
-        public StoreListQueryResult GetStoresAtLocation(SessionInfo sessionInfo, GeoPoint location, 
+        public StoreListQueryResult GetStoresAtLocation(UserSessionInfo sessionInfo, GeoPoint location, 
                                                         StoreQueryAreaLevel areaLevel)
         {
             return _controller.GetStoresAtLocation(sessionInfo, location, areaLevel);
         }
 
-        public BaseQueryResult UserLogout(SessionInfo sessionInfo)
+        public BaseQueryResult UserLogout(UserSessionInfo sessionInfo)
         {
             return _controller.UserLogout(sessionInfo);
         }

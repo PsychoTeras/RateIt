@@ -1,9 +1,8 @@
 ﻿using System;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
-using RateIt.Common.Core.Entities.Session;
 using RateIt.Common.Core.Entities.Users;
+using RateIt.Common.Helpers;
 
 namespace RateIt.Common.Core.DAL
 {
@@ -13,7 +12,7 @@ namespace RateIt.Common.Core.DAL
 #region Constants
 
         internal const string IDX_T_LOGGED_USERS_USER_ID = "IDX_T_LOGGED_USERS_USER_ID";
-        internal const string IDX_T_LOGGED_USERS_USER_NAME_SESSION_ID = "IDX_T_LOGGED_USERS_USER_NAME_SESSION_ID";
+        internal const string IDX_T_LOGGED_USERS_USER_ID_SESSION_ID = "IDX_T_LOGGED_USERS_USER_ID_SESSION_ID";
         internal const string IDX_T_LOGGED_USERS_LAST_ACCESS_TIME = "IDX_T_LOGGED_USERS_LAST_ACCESS_TIME";
 
 #endregion
@@ -39,12 +38,12 @@ namespace RateIt.Common.Core.DAL
                 SetUnique(true);
             DataCollection.CreateIndex(indexKeys, indexOptions);
 
-            //IDX_T_LOGGED_USERS_USER_NAME_SESSION_ID
+            //IDX_T_LOGGED_USERS_USER_ID_SESSION_ID
             indexKeys = IndexKeys.
-                Ascending("UserName").
+                Ascending("UserId").
                 Ascending("_id");
             indexOptions = IndexOptions.
-                SetName(IDX_T_LOGGED_USERS_USER_NAME_SESSION_ID).
+                SetName(IDX_T_LOGGED_USERS_USER_ID_SESSION_ID).
                 SetUnique(true);
             DataCollection.CreateIndex(indexKeys, indexOptions);
 
@@ -57,19 +56,19 @@ namespace RateIt.Common.Core.DAL
             DataCollection.CreateIndex(indexKeys, indexOptions);
         }
 
-        public bool IsUserLogged(ObjectId userId)
+        public bool IsUserLogged(string userId)
         {
             IMongoQuery qUserById = Query.EQ("UserId", userId);
             return DataCollection.FindOne(qUserById) != null;
         }
 
-        public bool UpdateUserSession(SessionInfo sessionInfo)
+        public bool UpdateUserSession(UserSessionInfo sessionInfo, bool assertOnly)
         {
             //Get a logged user record by session info
             IMongoQuery qUserBySessionInfo = new QueryBuilder<UserLogged>().And(new[]
                 {
-                    Query.Matches("UserName", sessionInfo.UserName),
-                    Query.EQ("_id", new ObjectId(sessionInfo.SessionId))
+                    Query.EQ("UserId", sessionInfo.UserId),
+                    Query.EQ("_id", sessionInfo.SessionId.ToObjectId())
                 });
             UserLogged userLogged = DataCollection.FindOne(qUserBySessionInfo);
 
@@ -77,6 +76,11 @@ namespace RateIt.Common.Core.DAL
             if (userLogged == null)
             {
                 return false;
+            }
+
+            if (assertOnly)
+            {
+                return true;
             }
 
             //Update last access time for the user record, create an update query
@@ -96,7 +100,7 @@ namespace RateIt.Common.Core.DAL
             return concernResult.DocumentsAffected > 0;
         }
 
-        public string UserLogin(string userName, ObjectId userId)
+        public UserLogged UserLogin(string userName, string userId)
         {
             //New UserLogged object for a user
             UserLogged userLogged = new UserLogged(userName, userId);
@@ -108,16 +112,16 @@ namespace RateIt.Common.Core.DAL
             AssertErrorMessage(concernResult.ErrorMessage);            
 
             //Return session ID
-            return userLogged.Id.ToString();
+            return userLogged;
         }
 
-        public void UserLogout(SessionInfo sessionInfo)
+        public void UserLogout(UserSessionInfo sessionInfo)
         {
             //Logout user
             IMongoQuery qRemoveUserBySessionInfo = new QueryBuilder<UserLogged>().And(new[]
                         {
-                            Query.Matches("UserName", sessionInfo.UserName),
-                            Query.EQ("_id", new ObjectId(sessionInfo.SessionId)) 
+                            Query.EQ("UserId", sessionInfo.UserId),
+                            Query.EQ("_id", sessionInfo.SessionId.ToObjectId()) 
                         });
 
             WriteConcernResult concernResult = DataCollection.Remove(qRemoveUserBySessionInfo);
