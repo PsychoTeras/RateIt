@@ -8,6 +8,7 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using RateIt.Common.Core.Classes;
+using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Management.Controls.Map.Markers;
 using RateIt.Management.Helpers;
@@ -38,16 +39,19 @@ namespace RateIt.Management.Forms
 
 #region Store methods
 
-        private void PrintStoresInfo(Store[] stores, GeoPoint atLocation)
+        private void PrintStoresInfo(Store[] stores, GeoPoint atLocation, 
+            StoreQueryAreaLevel areaLevel)
         {
             StringBuilder sb = new StringBuilder();
             if (stores.Length == 0)
             {
-                sb.AppendFormat("There are no stores found at location {0}", atLocation);
+                sb.AppendFormat("There are no stores found at location {0}, search radius is {1}m",
+                    atLocation, (ushort)areaLevel);
             }
             else
             {
-                sb.AppendFormat("There are {0} store(s) found at location {1}:", stores.Length, atLocation);
+                sb.AppendFormat("There are {0} store(s) found at location {1}, search radius is {2}m:",
+                    stores.Length, atLocation, (ushort)areaLevel);
                 for (int i = 0; i < stores.Length; i++)
                 {
                     sb.AppendFormat("{0}   {1}. {2}", Environment.NewLine, i + 1, stores[i]);

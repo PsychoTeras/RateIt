@@ -174,10 +174,10 @@ namespace RateIt.Management.Forms
                     //Calculate georectangle from tile area
                     GeoRectangle rectangle = new GeoRectangle
                         (
-                        latLngLeftTop.Lat,
-                        latLngLeftTop.Lng,
-                        latLngRightBottom.Lat - latLngLeftTop.Lat,
-                        latLngRightBottom.Lng - latLngLeftTop.Lng
+                            latLngLeftTop.Lat,
+                            latLngLeftTop.Lng,
+                            latLngRightBottom.Lat - latLngLeftTop.Lat,
+                            latLngRightBottom.Lng - latLngLeftTop.Lng
                         );
                     StoreListQueryResult result = _mainControllerSys.GetStoresAtLocationSys(
                         QuerySysRequestID.Instance, rectangle);
@@ -344,7 +344,8 @@ namespace RateIt.Management.Forms
             
             //Get stores at location by area level
             GeoPoint centerPoint = _mapMainMarker.Position.ToGeoPoint();
-            StoreListQueryResult result = _mainController.GetStoresAtLocation(_loggedUserSession, centerPoint, areaLevel);
+            StoreListQueryResult result = _mainController.GetStoresAtLocation(
+                _loggedUserSession, centerPoint, areaLevel);
 
             //Something failed
             if (!Helper.CheckOnValidQueryResult(result))
@@ -353,7 +354,7 @@ namespace RateIt.Management.Forms
             }
 
             //Print stores information
-            PrintStoresInfo(result.Stores, centerPoint);
+            PrintStoresInfo(result.Stores, centerPoint, areaLevel);
         }
 
 #endregion
