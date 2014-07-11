@@ -1,5 +1,5 @@
 ﻿using System;
-using RateIt.Common.Classes;
+using RateIt.Common.Core.Classes;
 using RateIt.Common.Core.Constants;
 
 namespace RateIt.Common.Helpers

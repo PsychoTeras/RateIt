@@ -1,4 +1,4 @@
-﻿using RateIt.Common.Classes;
+﻿using RateIt.Common.Core.Classes;
 using RateIt.Common.Core.QueryParams;
 using RateIt.Common.Core.QueryResults;
 

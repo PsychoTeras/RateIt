@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using RateIt.Common.Core.Classes;
+
 namespace RateIt.Web.Ground.RateItWebService {
     
     
@@ -34,7 +36,7 @@ namespace RateIt.Web.Ground.RateItWebService {
         RateIt.Common.Core.QueryResults.BaseQueryResult StoreRegister(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, RateIt.Common.Core.Entities.Stores.Store registrationInfo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateItController/GetStoresAtLocation", ReplyAction="http://tempuri.org/IRateItController/GetStoresAtLocationResponse")]
-        RateIt.Common.Core.QueryResults.StoreListQueryResult GetStoresAtLocation(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, RateIt.Common.Classes.GeoPoint location, RateIt.Common.Core.Constants.StoreQueryAreaLevel areaLevel);
+        RateIt.Common.Core.QueryResults.StoreListQueryResult GetStoresAtLocation(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, GeoPoint location, RateIt.Common.Core.Constants.StoreQueryAreaLevel areaLevel);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -80,7 +82,7 @@ namespace RateIt.Web.Ground.RateItWebService {
             return base.Channel.StoreRegister(sessionInfo, registrationInfo);
         }
         
-        public RateIt.Common.Core.QueryResults.StoreListQueryResult GetStoresAtLocation(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, RateIt.Common.Classes.GeoPoint location, RateIt.Common.Core.Constants.StoreQueryAreaLevel areaLevel) {
+        public RateIt.Common.Core.QueryResults.StoreListQueryResult GetStoresAtLocation(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, GeoPoint location, RateIt.Common.Core.Constants.StoreQueryAreaLevel areaLevel) {
             return base.Channel.GetStoresAtLocation(sessionInfo, location, areaLevel);
         }
     }

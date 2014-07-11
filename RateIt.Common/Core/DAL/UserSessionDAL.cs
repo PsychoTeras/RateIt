@@ -66,11 +66,16 @@ namespace RateIt.Common.Core.DAL
         public bool UpdateUserSession(UserSessionInfo sessionInfo, bool assertOnly)
         {
             //Get a logged user record by session info
+            ObjectId userId = sessionInfo.UserId.ToObjectId();
+            ObjectId sessionId = sessionInfo.SessionId.ToObjectId();
             IMongoQuery qUserBySessionInfo = new QueryBuilder<UserLogged>().And(new[]
                 {
-                    Query.EQ("UserId", sessionInfo.UserId.ToObjectId()),
-                    Query.EQ("_id", sessionInfo.SessionId.ToObjectId())
+                    Query.EQ("UserId", userId),
+                    Query.EQ("_id", sessionId)
                 });
+            userId.Release();
+            sessionId.Release();
+
             UserLogged userLogged = DataCollection.FindOne(qUserBySessionInfo);
 
             //If a logged user record doesn`t exist, return false
@@ -119,11 +124,15 @@ namespace RateIt.Common.Core.DAL
         public void UserLogout(UserSessionInfo sessionInfo)
         {
             //Logout user
+            ObjectId userId = sessionInfo.UserId.ToObjectId();
+            ObjectId sessionId = sessionInfo.SessionId.ToObjectId();
             IMongoQuery qRemoveUserBySessionInfo = new QueryBuilder<UserLogged>().And(new[]
-                        {
-                            Query.EQ("UserId", sessionInfo.UserId.ToObjectId()),
-                            Query.EQ("_id", sessionInfo.SessionId.ToObjectId()) 
-                        });
+                {
+                    Query.EQ("UserId", userId),
+                    Query.EQ("_id", sessionId)
+                });
+            userId.Release();
+            sessionId.Release();
 
             WriteConcernResult concernResult = DataCollection.Remove(qRemoveUserBySessionInfo);
 

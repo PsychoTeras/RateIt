@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using RateIt.Common.Helpers;
 
-namespace RateIt.Common.Classes
+namespace RateIt.Common.Core.Classes
 {
     [Serializable]
     public sealed class GeoArea

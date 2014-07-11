@@ -122,7 +122,7 @@ namespace RateIt.Common.Core.Controller
             }
 
             //Check user ID
-            if (string.IsNullOrEmpty(sessionInfo.SessionId))
+            if (sessionInfo.SessionId == null)
             {
                 throw BaseQueryResult.Throw("Session ID is empty",
                     ECGeneric.InvalidSessionInfo);
@@ -214,8 +214,8 @@ namespace RateIt.Common.Core.Controller
                     _userSessionDAL.UserLogout(sessionInfo);
 
                     //Add log record
-                    AddActionLogRecord(ActionLogType.User_Logout, sessionInfo.UserId, 
-                                       sessionInfo.SessionId);
+//                    AddActionLogRecord(ActionLogType.User_Logout, sessionInfo.UserId, 
+//                                       sessionInfo.SessionId);
                 }
                 catch (Exception dbEx)
                 {

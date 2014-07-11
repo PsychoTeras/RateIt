@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RateIt.Common.Classes
+namespace RateIt.Common.Core.Classes
 {
     [Serializable]
     public sealed class GeoRectangle

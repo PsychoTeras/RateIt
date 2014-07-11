@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using RateIt.Common.Classes;
+using RateIt.Common.Core.Classes;
 using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Controller;
 using RateIt.Common.Core.Entities.Stores;

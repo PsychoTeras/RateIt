@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ObjectIdPool.cs" />
     <Compile Include="Core\Constants\ActionLogType.cs" />
     <Compile Include="Core\Constants\GenericConstants.cs" />
     <Compile Include="Core\Constants\StoreQueryAreaLevel.cs" />
@@ -88,9 +89,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AssemblyVersion.tt</DependentUpon>
     </Compile>
-    <Compile Include="Classes\GeoArea.cs" />
-    <Compile Include="Classes\GeoRectangle.cs" />
-    <Compile Include="Classes\GeoSize.cs" />
+    <Compile Include="Core\Classes\GeoArea.cs" />
+    <Compile Include="Core\Classes\GeoRectangle.cs" />
+    <Compile Include="Core\Classes\GeoSize.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Core\Controller\RateItController_Store.cs" />
     <Compile Include="Core\DAL\StoreDAL.cs" />
@@ -103,7 +104,7 @@
     <Compile Include="Core\ErrorCodes\ECStoreRegistration.cs" />
     <Compile Include="Core\QueryResults\StoreListQueryResult.cs" />
     <Compile Include="Helpers\ClassExtentions.cs" />
-    <Compile Include="Classes\GeoPoint.cs" />
+    <Compile Include="Core\Classes\GeoPoint.cs" />
     <Compile Include="Helpers\GeoHelper.cs" />
     <Compile Include="SupplyClasses\HRTimer.cs" />
     <Compile Include="Core\QueryResults\BaseQueryResult.cs" />

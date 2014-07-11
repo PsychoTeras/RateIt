@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace RateIt.Common.Classes
+namespace RateIt.Common.Core.Classes
 {
     [Serializable]
     public sealed class GeoSize

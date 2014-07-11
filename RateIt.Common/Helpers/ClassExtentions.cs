@@ -34,7 +34,17 @@ namespace RateIt.Common.Helpers
 
         public static ObjectId ToObjectId(this string str)
         {
-            return new ObjectId(str);
+            return ObjectIdPool.Pop(str);
+        }
+
+        public static ObjectId ToObjectId(this byte[] bytes)
+        {
+            return ObjectIdPool.Pop(bytes);
+        }
+
+        public static void Release(this ObjectId objectId)
+        {
+            ObjectIdPool.Push(objectId);
         }
     }
 }

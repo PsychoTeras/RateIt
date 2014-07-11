@@ -1,5 +1,5 @@
 ﻿using System;
-using RateIt.Common.Classes;
+using RateIt.Common.Core.Classes;
 using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Common.Core.Entities.Users;
@@ -104,7 +104,7 @@ namespace RateIt.Common.Core.Controller
                     _storeDAL.StoreRegister(registrationInfo);
 
                     //Add log record
-                    AddActionLogRecord(ActionLogType.Store_Register, sessionInfo.UserId);
+                    //AddActionLogRecord(ActionLogType.Store_Register, sessionInfo.UserId);
                 }
                 catch (Exception dbEx)
                 {

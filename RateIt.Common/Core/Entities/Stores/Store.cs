@@ -1,5 +1,5 @@
 ﻿using System;
-using RateIt.Common.Classes;
+using RateIt.Common.Core.Classes;
 
 namespace RateIt.Common.Core.Entities.Stores
 {

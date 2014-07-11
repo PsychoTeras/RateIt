@@ -5,7 +5,7 @@ using System.Reflection;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.ToolTips;
-using RateIt.Common.Classes;
+using RateIt.Common.Core.Classes;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Management.Helpers;
 

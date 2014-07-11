@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 using GMap.NET;
-using RateIt.Common.Classes;
+using RateIt.Common.Core.Classes;
 
 namespace RateIt.Management.Helpers
 {

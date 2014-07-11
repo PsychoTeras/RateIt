@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using GMap.NET;
 using GMap.NET.WindowsForms;
-using RateIt.Common.Classes;
+using RateIt.Common.Core.Classes;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Management.Controls.Map.Markers;
 using RateIt.Management.Helpers;

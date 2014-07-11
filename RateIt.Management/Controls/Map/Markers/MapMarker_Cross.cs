@@ -4,7 +4,7 @@ using System.IO;
 using System.Reflection;
 using GMap.NET;
 using GMap.NET.WindowsForms;
-using RateIt.Common.Classes;
+using RateIt.Common.Core.Classes;
 using RateIt.Common.Core.Constants;
 using RateIt.Management.Helpers;
 
