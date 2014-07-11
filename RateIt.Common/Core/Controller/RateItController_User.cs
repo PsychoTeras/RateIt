@@ -24,7 +24,7 @@ namespace RateIt.Common.Core.Controller
             }
         }
 
-        private void AssertRegistrationInfo(User registrationInfo)
+        private void AssertRegistrationInfo(string tId, User registrationInfo)
         {
             //Check on null-reference
             if (registrationInfo == null)
@@ -32,6 +32,9 @@ namespace RateIt.Common.Core.Controller
                 throw BaseQueryResult.Throw("Registration info is null-reference", 
                     ECGeneric.NullReference);
             }
+
+            //Assert TID
+            AssertTID(tId);
 
             //Validate user name
             registrationInfo.UserName = (registrationInfo.UserName ?? string.Empty).Trim();
@@ -73,6 +76,9 @@ namespace RateIt.Common.Core.Controller
                 throw BaseQueryResult.Throw("Login info is null-reference",
                     ECGeneric.NullReference);
             }
+
+            //Assert TID
+            AssertTID(loginInfo.TId);
 
             //Validate user name
             loginInfo.UserName = (loginInfo.UserName ?? string.Empty).Trim();
@@ -140,12 +146,12 @@ namespace RateIt.Common.Core.Controller
 
 #region Public methods
 
-        public BaseQueryResult UserRegister(User registrationInfo)
+        public BaseQueryResult UserRegister(string tId, User registrationInfo)
         {
             try
             {
                 //Assert registration information
-                AssertRegistrationInfo(registrationInfo);
+                AssertRegistrationInfo(tId, registrationInfo);
 
                 //Register user
                 try

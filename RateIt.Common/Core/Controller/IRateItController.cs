@@ -14,7 +14,7 @@ namespace RateIt.Common.Core.Controller
 #region User actions
 
         [OperationContract]
-        BaseQueryResult      UserRegister(User registrationInfo);
+        BaseQueryResult      UserRegister(string tId, User registrationInfo);
         [OperationContract]
         UserLoginQueryResult UserLogin(UserLoginInfo loginInfo);
         [OperationContract]

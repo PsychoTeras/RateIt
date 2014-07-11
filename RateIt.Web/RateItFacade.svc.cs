@@ -27,9 +27,9 @@ namespace RateIt.Web
 
 #region IRateItController methods
 
-        public BaseQueryResult UserRegister(User registrationInfo)
+        public BaseQueryResult UserRegister(string tId, User registrationInfo)
         {
-            return _controller.UserRegister(registrationInfo);
+            return _controller.UserRegister(tId, registrationInfo);
         }
 
         public UserLoginQueryResult UserLogin(UserLoginInfo loginInfo)

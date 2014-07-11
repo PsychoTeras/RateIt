@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Controller\RateItController_BlackList.cs" />
     <Compile Include="Helpers\ObjectIdPool.cs" />
     <Compile Include="Core\Constants\ActionLogType.cs" />
     <Compile Include="Core\Constants\GenericConstants.cs" />

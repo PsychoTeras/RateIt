@@ -42,7 +42,7 @@ namespace RateIt.Management.Forms
         {
             string passwordHash = CommonHelper.GetHashSum(tbPassword.Text);
             User user = new User(tbUserName.Text, passwordHash, tbEmail.Text);
-            BaseQueryResult result = _controller.UserRegister(user);
+            BaseQueryResult result = _controller.UserRegister(UserLoginInfo.DEFAULT_TID, user);
             if (!Helper.CheckOnValidQueryResult(result))
             {
                 switch (result.ErrorCode)
