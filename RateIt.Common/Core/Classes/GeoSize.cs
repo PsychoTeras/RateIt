@@ -6,12 +6,10 @@ namespace RateIt.Common.Core.Classes
     [Serializable]
     public sealed class GeoSize
     {
+
 #region Public fields
 
-        [XmlIgnore] 
         public uint Width;
-
-        [XmlIgnore] 
         public uint Height;
 
 #endregion

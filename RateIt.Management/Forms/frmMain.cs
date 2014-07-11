@@ -319,6 +319,11 @@ namespace RateIt.Management.Forms
             }
         }
 
+        private void btnMapClearLocalCache_Click(object sender, EventArgs e)
+        {
+            //map.Manager.PrimaryCache.DeleteOlderThan(DateTime.Now, null);
+        }
+
 #endregion
 
 #region Store methods

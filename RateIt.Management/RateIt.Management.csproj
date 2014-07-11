@@ -165,6 +165,7 @@
     <EmbeddedResource Include="Resources\marker_shop_big_selected.png" />
     <EmbeddedResource Include="Resources\marker_shop_small_normal.png" />
     <EmbeddedResource Include="Resources\marker_shop_small_selected.png" />
+    <None Include="Resources\environment_delete.png" />
     <Content Include="Resources\star_yellow.ico" />
   </ItemGroup>
   <ItemGroup>

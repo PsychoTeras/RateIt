@@ -63,6 +63,16 @@ namespace RateIt.Management.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap environment_delete {
+            get {
+                object obj = ResourceManager.GetObject("environment_delete", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap marker_main {
             get {
                 object obj = ResourceManager.GetObject("marker_main", resourceCulture);

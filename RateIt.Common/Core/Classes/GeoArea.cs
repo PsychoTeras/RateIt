@@ -39,31 +39,8 @@ namespace RateIt.Common.Core.Classes
                         }
                     default:
                         {
-                            GeoPoint topLeft = new GeoPoint(Points[0]);
-                            GeoPoint bottomRight = new GeoPoint(Points[0]);
-                            foreach (GeoPoint geoPoint in Points)
-                            {
-                                //Top-left
-                                if (geoPoint.Latitude > topLeft.Latitude)
-                                {
-                                    topLeft.Latitude = geoPoint.Latitude;
-                                }
-                                if (geoPoint.Longitude < topLeft.Longitude)
-                                {
-                                    topLeft.Longitude = geoPoint.Longitude;
-                                }
-
-                                //Bottom-right
-                                if (geoPoint.Latitude < bottomRight.Latitude)
-                                {
-                                    bottomRight.Latitude = geoPoint.Latitude;
-                                }
-                                if (geoPoint.Longitude > bottomRight.Longitude)
-                                {
-                                    bottomRight.Longitude = geoPoint.Longitude;
-                                }
-                            }
-
+                            GeoPoint topLeft, bottomRight;
+                            GetCornerPoints(out topLeft, out bottomRight);
                             double lat = (topLeft.Latitude + bottomRight.Latitude) / 2;
                             double lng = (topLeft.Longitude + bottomRight.Longitude) / 2;
                             return new GeoPoint(lat, lng);
@@ -86,27 +63,10 @@ namespace RateIt.Common.Core.Classes
 
 #region Class methods
 
-        public GeoPoint AddPoint(double latitude, double longitude)
+        private void GetCornerPoints(out GeoPoint topLeft, out GeoPoint bottomRight)
         {
-            GeoPoint geoPoint = new GeoPoint(latitude, longitude);
-            Points.Add(geoPoint);
-            return geoPoint;
-        }
-
-        public void AddPoint(GeoPoint geoPoint)
-        {
-            Points.Add(geoPoint);
-        }
-
-        public GeoRectangle ToRectangle()
-        {
-            if (Points.Count < 4)
-            {
-                throw new Exception("Error while create georectangle: at least 4 geopoints are required");
-            }
-
-            GeoPoint topLeft = new GeoPoint(Points[0]);
-            GeoPoint bottomRight = new GeoPoint(Points[0]);
+            topLeft = new GeoPoint(Points[0]);
+            bottomRight = new GeoPoint(Points[0]);
             foreach (GeoPoint geoPoint in Points)
             {
                 //Top-left
@@ -129,6 +89,29 @@ namespace RateIt.Common.Core.Classes
                     bottomRight.Longitude = geoPoint.Longitude;
                 }
             }
+        }
+
+        public GeoPoint AddPoint(double latitude, double longitude)
+        {
+            GeoPoint geoPoint = new GeoPoint(latitude, longitude);
+            Points.Add(geoPoint);
+            return geoPoint;
+        }
+
+        public void AddPoint(GeoPoint geoPoint)
+        {
+            Points.Add(geoPoint);
+        }
+
+        public GeoRectangle ToRectangle()
+        {
+            if (Points.Count < 4)
+            {
+                throw new Exception("Error while create georectangle: at least 4 geopoints are required");
+            }
+
+            GeoPoint topLeft, bottomRight;
+            GetCornerPoints(out topLeft, out bottomRight);
 
             return new GeoRectangle
                 (
