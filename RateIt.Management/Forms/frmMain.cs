@@ -289,7 +289,6 @@ namespace RateIt.Management.Forms
             tbMapLongitude.Text = point.Lng.ToString(CultureInfo.InvariantCulture);
         }
 
-
         private void BtnMapNavigateClick(object sender, EventArgs e)
         {
             if (Visible)

@@ -9,17 +9,12 @@ namespace RateIt.Common.Core.Entities.Products
 
 #region Public fields
 
-        //MongoDB reflected properties
         public string Name;
-
-        //Product info
         public string Description;
 
-        //Product images
-        public byte[] Photo;
-        public byte[] Thumbnail;
+        public ProductCode ProductCode;
 
-        //Need to replace by red-black tree data structure
+        //Needs to be replaced by red-black tree data structure
         public List<string> AssignedKeywords = new List<string>();
 
 #endregion
