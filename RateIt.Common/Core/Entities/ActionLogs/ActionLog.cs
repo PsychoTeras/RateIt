@@ -1,4 +1,5 @@
 ﻿using System;
+using MongoDB.Bson;
 using RateIt.Common.Core.Constants;
 
 namespace RateIt.Common.Core.Entities.ActionLogs
@@ -12,10 +13,10 @@ namespace RateIt.Common.Core.Entities.ActionLogs
         public DateTime ActionTime;
         public ActionLogType ActionType;
 
-        public string Subject;
+        public ObjectId? Subject;
         public string SubjectInfo;
 
-        public string Object;
+        public ObjectId? Object;
         public string ObjectInfo;
 
         public string AdditionalInfo;
@@ -30,8 +31,8 @@ namespace RateIt.Common.Core.Entities.ActionLogs
         }
 
         public ActionLog(ActionLogType actionType,
-                         string subject = null, string subjectInfo = null,
-                         string @object = null, string objectInfo = null,
+                         ObjectId? subject = null, string subjectInfo = null,
+                         ObjectId? @object = null, string objectInfo = null,
                          string additionalInfo = null)
             : this()
         {

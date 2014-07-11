@@ -104,7 +104,7 @@ namespace RateIt.Common.Core.Controller
                     _storeDAL.StoreRegister(registrationInfo);
 
                     //Add log record
-                    //AddActionLogRecord(ActionLogType.Store_Register, sessionInfo.UserId);
+                    AddActionLogRecord(ActionLogType.Store_Register, sessionInfo.UserId);
                 }
                 catch (Exception dbEx)
                 {

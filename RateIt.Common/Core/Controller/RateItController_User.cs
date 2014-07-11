@@ -153,7 +153,7 @@ namespace RateIt.Common.Core.Controller
                     _userDAL.UserRegister(registrationInfo);
 
                     //Add log record
-                    AddActionLogRecord(ActionLogType.User_Register, registrationInfo.Id.ToString());
+                    AddActionLogRecord(ActionLogType.User_Register, registrationInfo.Id);
                 }
                 catch (Exception dbEx)
                 {
@@ -183,7 +183,7 @@ namespace RateIt.Common.Core.Controller
                     UserLogged userLogged = _userSessionDAL.UserLogin(userId);
                     
                     //Add log record
-                    AddActionLogRecord(ActionLogType.User_Login, userId.ToString());
+                    AddActionLogRecord(ActionLogType.User_Login, userId);
 
                     //Return login info
                     return new UserLoginQueryResult(userId.ToByteArray(), loginInfo.UserName, 
@@ -214,8 +214,7 @@ namespace RateIt.Common.Core.Controller
                     _userSessionDAL.UserLogout(sessionInfo);
 
                     //Add log record
-//                    AddActionLogRecord(ActionLogType.User_Logout, sessionInfo.UserId, 
-//                                       sessionInfo.SessionId);
+                    AddActionLogRecord(ActionLogType.User_Logout, sessionInfo.UserId);
                 }
                 catch (Exception dbEx)
                 {
