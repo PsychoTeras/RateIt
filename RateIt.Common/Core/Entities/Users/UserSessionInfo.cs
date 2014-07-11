@@ -8,8 +8,8 @@ namespace RateIt.Common.Core.Entities.Users
 
 #region Public fields
 
-        public string UserId;
-        public string SessionId;
+        public byte[] UserId;
+        public byte[] SessionId;
 
 #endregion
 
@@ -17,16 +17,10 @@ namespace RateIt.Common.Core.Entities.Users
 
         public UserSessionInfo() { }
 
-        public UserSessionInfo(string userId, string sessionId)
+        public UserSessionInfo(byte[] userId, byte[] sessionId)
         {
-            if (string.IsNullOrEmpty(UserId = userId))
-            {
-                throw new ArgumentException("User ID is empty");
-            }
-            if (string.IsNullOrEmpty(SessionId = sessionId))
-            {
-                throw new ArgumentException("Session ID is empty");
-            }
+            UserId = userId;
+            SessionId = sessionId;
         }
 
 #endregion

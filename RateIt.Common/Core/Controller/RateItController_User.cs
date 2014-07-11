@@ -186,8 +186,8 @@ namespace RateIt.Common.Core.Controller
                     AddActionLogRecord(ActionLogType.User_Login, userId.ToString());
 
                     //Return login info
-                    string sessionId = userLogged.Id.ToString();
-                    return new UserLoginQueryResult(userId.ToString(), loginInfo.UserName, sessionId);
+                    return new UserLoginQueryResult(userId.ToByteArray(), loginInfo.UserName, 
+                                                    userLogged.Id.ToByteArray());
                 }
                 catch (Exception dbEx)
                 {

@@ -65,7 +65,7 @@ namespace RateIt.Common.Core.DAL
 
         public bool UpdateUserSession(UserSessionInfo sessionInfo, bool assertOnly)
         {
-            //Get a logged user record by session info
+            //Prepare query
             ObjectId userId = sessionInfo.UserId.ToObjectId();
             ObjectId sessionId = sessionInfo.SessionId.ToObjectId();
             IMongoQuery qUserBySessionInfo = new QueryBuilder<UserLogged>().And(new[]
@@ -76,6 +76,7 @@ namespace RateIt.Common.Core.DAL
             userId.Release();
             sessionId.Release();
 
+            //Get a logged user record by session info
             UserLogged userLogged = DataCollection.FindOne(qUserBySessionInfo);
 
             //If a logged user record doesn`t exist, return false
@@ -123,7 +124,7 @@ namespace RateIt.Common.Core.DAL
 
         public void UserLogout(UserSessionInfo sessionInfo)
         {
-            //Logout user
+            //Prepare query
             ObjectId userId = sessionInfo.UserId.ToObjectId();
             ObjectId sessionId = sessionInfo.SessionId.ToObjectId();
             IMongoQuery qRemoveUserBySessionInfo = new QueryBuilder<UserLogged>().And(new[]
@@ -134,6 +135,7 @@ namespace RateIt.Common.Core.DAL
             userId.Release();
             sessionId.Release();
 
+            //Logout user
             WriteConcernResult concernResult = DataCollection.Remove(qRemoveUserBySessionInfo);
 
             //Assert possible internal DB error

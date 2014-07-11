@@ -20,7 +20,7 @@ namespace RateIt.Web.Ground
             UserLoginQueryResult loginResult = _service.UserLogin(loginInfo);
             if (!loginResult.HasError)
             {
-                UserSessionInfo sessionInfo = new UserSessionInfo(loginResult.UserName, loginResult.SessionId);
+                UserSessionInfo sessionInfo = new UserSessionInfo(loginResult.UserId, loginResult.SessionId);
                 StoreListQueryResult storesQueryResult = _service.GetStoresAtLocation(sessionInfo, 
                     new GeoPoint(49.9511370682993, 36.2615132331848), StoreQueryAreaLevel.Level3);
 

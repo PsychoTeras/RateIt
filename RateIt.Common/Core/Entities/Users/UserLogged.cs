@@ -31,10 +31,6 @@ namespace RateIt.Common.Core.Entities.Users
         public UserLogged(User user) 
             : this()
         {
-            if (user == null)
-            {
-                throw new ArgumentException("User is null-reference");
-            }
             UserId = user.Id;
         }
 
