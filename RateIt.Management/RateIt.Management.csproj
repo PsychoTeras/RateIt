@@ -161,8 +161,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\marker_main.png" />
-    <EmbeddedResource Include="Resources\marker_shop_big.png" />
-    <EmbeddedResource Include="Resources\marker_shop_small.png" />
+    <EmbeddedResource Include="Resources\marker_shop_big_normal.png" />
+    <EmbeddedResource Include="Resources\marker_shop_big_selected.png" />
+    <EmbeddedResource Include="Resources\marker_shop_small_normal.png" />
+    <EmbeddedResource Include="Resources\marker_shop_small_selected.png" />
     <Content Include="Resources\star_yellow.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -22,18 +22,26 @@ namespace RateIt.Management.Controls.Map.Markers
 
 #region Static private fields
 
-        private static readonly Pen _pen;
-        private static readonly Brush _brush;
-        private static readonly GraphicsPath _graphicsPath;
+        private static readonly Pen _penNormal;
+        private static readonly Pen _penSelected;
 
-        private static readonly Bitmap _storeIconBig;
-        private static readonly Bitmap _storeIconSmall;
+        private static readonly Brush _brushNormal;
+        private static readonly Brush _brushSelected;
+
+        private static readonly Bitmap _iconBigNormal;
+        private static readonly Bitmap _iconSmallNormal;
+
+        private static readonly Bitmap _iconBigSelected;
+        private static readonly Bitmap _iconSmallSelected;
+
+        private static readonly GraphicsPath _graphicsPath;
 
 #endregion
 
 #region Private fields
 
         private readonly MapViewer _map;
+        private bool _selected;
 
 #endregion
 
@@ -41,30 +49,64 @@ namespace RateIt.Management.Controls.Map.Markers
 
         public Store Store { get; private set; }
 
+        public bool Selected
+        {
+            get { return _selected; }
+            set
+            {
+                if (_selected != value)
+                {
+                    _selected = value;
+                    _map.Refresh();
+                }
+            }
+        }
+
 #endregion
 
 #region Static ctor
 
         static MapMarker_Store()
         {
-            _pen = new Pen(Brushes.DarkGreen, 1);
-            _brush = new SolidBrush(Color.FromArgb(50, Color.ForestGreen));
-            _graphicsPath = new GraphicsPath(FillMode.Winding);
+            _graphicsPath = new GraphicsPath();
 
-            string imageResName = "RateIt.Management.Resources.marker_shop_big.png";
+            _penNormal = new Pen(Brushes.DarkGreen, 1);
+            _brushNormal = new SolidBrush(Color.FromArgb(50, Color.ForestGreen));
+
+            _penSelected = new Pen(Brushes.DarkOrange, 1);
+            _brushSelected = new SolidBrush(Color.FromArgb(50, Color.Orange));
+
+            string imageResName = "RateIt.Management.Resources.marker_shop_big_normal.png";
             using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(imageResName))
             {
                 if (stream != null)
                 {
-                    _storeIconBig = new Bitmap(stream);
+                    _iconBigNormal = new Bitmap(stream);
                 }
             }
-            imageResName = "RateIt.Management.Resources.marker_shop_small.png";
+            imageResName = "RateIt.Management.Resources.marker_shop_small_normal.png";
             using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(imageResName))
             {
                 if (stream != null)
                 {
-                    _storeIconSmall = new Bitmap(stream);
+                    _iconSmallNormal = new Bitmap(stream);
+                }
+            }
+
+            imageResName = "RateIt.Management.Resources.marker_shop_big_selected.png";
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(imageResName))
+            {
+                if (stream != null)
+                {
+                    _iconBigSelected = new Bitmap(stream);
+                }
+            }
+            imageResName = "RateIt.Management.Resources.marker_shop_small_selected.png";
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(imageResName))
+            {
+                if (stream != null)
+                {
+                    _iconSmallSelected = new Bitmap(stream);
                 }
             }
         }
@@ -139,17 +181,23 @@ namespace RateIt.Management.Controls.Map.Markers
                         markerLocation.Y - markerHeight / 2
                     );
 
+                //Get actual drawing style
+                Pen pen = _selected ? _penSelected : _penNormal;
+                Brush brush = _selected ? _brushSelected : _brushNormal;
+                Bitmap iconBig = _selected ? _iconBigSelected : _iconBigNormal;
+                Bitmap iconSmall = _selected ? _iconSmallSelected : _iconSmallNormal;
+
                 //Draw area rectangle
                 _graphicsPath.Reset();
                 _graphicsPath.AddLines(fPoints);
-                g.FillPath(_brush, _graphicsPath);
+                g.FillPath(brush, _graphicsPath);
                 _graphicsPath.CloseFigure();
-                g.DrawPath(_pen, _graphicsPath);
+                g.DrawPath(pen, _graphicsPath);
 
                 //Draw store icon
                 Bitmap storeIcon = _map.Zoom > 16
-                                       ? _storeIconBig
-                                       : _storeIconSmall;
+                                       ? iconBig
+                                       : iconSmall;
                 GeoPoint storeAreaCenter = storeArea.CenterPoint;
                 GPoint gStoreAreaCenter = _map.FromLatLngToLocal(storeAreaCenter.ToPointLatLng());
                 g.DrawImageUnscaled(storeIcon,

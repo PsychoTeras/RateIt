@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using GMap.NET;
-using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using MongoDB.Driver;
 using RateIt.Common;
@@ -147,7 +146,7 @@ namespace RateIt.Management.Forms
 
 #region Map methods
 
-        private void map_OnMarkerClick(GMapMarker item, MouseEventArgs e)
+        private void MapOnMarkerClick(GMapMarker item, MouseEventArgs e)
         {
             MapMarker_Store marker = item as MapMarker_Store;
             if (marker != null)
@@ -156,7 +155,7 @@ namespace RateIt.Management.Forms
             }
         }
 
-        private void map_OnTileLoaded(GPoint pos, int zoom)
+        private void MapOnTileLoaded(GPoint pos, int zoom)
         {
             lock (_onTileLoadedObject)
             {
@@ -201,7 +200,7 @@ namespace RateIt.Management.Forms
             }
         }
 
-        private void map_OnTileLoadComplete(long elapsedMilliseconds)
+        private void MapOnTileLoadComplete(long elapsedMilliseconds)
         {
             /*lock (_onTileLoadedObject)
             {
@@ -209,7 +208,7 @@ namespace RateIt.Management.Forms
             }*/
         }
 
-        private void mapStores_OnMapZoomChanged()
+        private void MapOnZoomChanged()
         {
             trackMapZoom.Value = (int) map.Zoom;
             lblMapZoom.Text = string.Format("Zoom [{0}]:", trackMapZoom.Value);
@@ -227,16 +226,37 @@ namespace RateIt.Management.Forms
         {
             if (e.Button == MouseButtons.Left)
             {
-                /*//Check if a shop marker is under cursor
+                _mapIsMouseDown = true;
+                SetMapMainMarkerPosition(e);
+            }
+
+            //Select/unselect a store under cursor
+            if (e.Button == MouseButtons.Right)
+            {
                 foreach (GMapMarker m in _mapStoreOverlay.Markers)
                 {
                     if (m.IsVisible && m.LocalArea.Contains(e.X, e.Y))
                     {
-                        return;
+                        MapMarker_Store storeMarker = (MapMarker_Store)m;
+                        if (m != _selectedStoreMarker)
+                        {
+                            if (_selectedStoreMarker != null)
+                            {
+                                _selectedStoreMarker.Selected = false;
+                            }
+                            _selectedStoreMarker = storeMarker;
+                            _selectedStore = _selectedStoreMarker.Store;
+                            _selectedStoreMarker.Selected = true;
+                        }
+                        else
+                        {
+                            _selectedStoreMarker.Selected = false;
+                            _selectedStoreMarker = null;
+                            _selectedStore = null;
+                        }
+                        UpdateSelectedStoreActionControls();
                     }
-                }*/
-                _mapIsMouseDown = true;
-                SetMapMarkerPosition(e);
+                }
             }
         }
 
@@ -252,56 +272,16 @@ namespace RateIt.Management.Forms
         {
             if (e.Button == MouseButtons.Left && _mapIsMouseDown)
             {
-                SetMapMarkerPosition(e);
+                SetMapMainMarkerPosition(e);
             }
         }
 
-        private void map_OnPositionChanged(PointLatLng point)
+        private void MapOnPositionChanged(PointLatLng point)
         {
             tbMapLatitude.Text = point.Lat.ToString(CultureInfo.InvariantCulture);
             tbMapLongitude.Text = point.Lng.ToString(CultureInfo.InvariantCulture);
         }
 
-        private void DoMapNavigate(bool force = false)
-        {
-            if (Visible || force)
-            {
-                //Parse LatLng from debug string
-                if (tbMapLatitude.Text.Contains("x"))
-                {
-                    string[] latLng = tbMapLatitude.Text.Split(new[] { "x" }, StringSplitOptions.None);
-                    tbMapLatitude.Text = latLng[0].Replace("{", "").Trim();
-                    tbMapLongitude.Text = latLng[1].Replace("}", "").Trim();
-                }
-                //or load as is
-                else
-                {
-                    tbMapLatitude.Text = tbMapLatitude.Text.Trim();
-                    tbMapLongitude.Text = tbMapLongitude.Text.Trim();
-                }
-
-                double latitude, longitude;
-                if (double.TryParse(tbMapLatitude.Text, out latitude) &&
-                    double.TryParse(tbMapLongitude.Text, out longitude))
-                {
-                    //Apply map style
-                    switch (cbMapStyle.SelectedIndex)
-                    {
-                        case 0:
-                            {
-                                map.MapProvider = GMapProviders.GoogleMap;
-                                break;
-                            }
-                    }
-
-                    //Set map coordinates
-                    map.Position = new PointLatLng(latitude, longitude);
-                    map.MinZoom = trackMapZoom.Minimum;
-                    map.MaxZoom = trackMapZoom.Maximum;
-                    map.Zoom = trackMapZoom.Value;
-                }
-            }
-        }
 
         private void BtnMapNavigateClick(object sender, EventArgs e)
         {
@@ -325,19 +305,6 @@ namespace RateIt.Management.Forms
             DoMapNavigate();
         }
 
-        private void UpdateMapMarkerTbValues()
-        {
-            tbMapMarkerLatitude.Text = _mapMainMarker.Position.Lat.ToString(CultureInfo.InvariantCulture);
-            tbMapMarkerLongitude.Text = _mapMainMarker.Position.Lng.ToString(CultureInfo.InvariantCulture);
-        }
-
-        private void SetMapMarkerPosition(MouseEventArgs e)
-        {
-            _mapMainMarker.Position = map.FromLocalToLatLng(e.X, e.Y);
-            UpdateMapMarkerTbValues();
-            map.Refresh();
-        }
-
         private void TbMapLatitudeKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
@@ -349,24 +316,6 @@ namespace RateIt.Management.Forms
 #endregion
 
 #region Store methods
-
-        private void PrintStoresInfo(Store[] stores, GeoPoint atLocation)
-        {
-            StringBuilder sb = new StringBuilder();
-            if (stores.Length == 0)
-            {
-                sb.AppendFormat("There are no stores found at location {0}", atLocation);
-            }
-            else
-            {
-                sb.AppendFormat("There are {0} store(s) found at location {1}:", stores.Length, atLocation);
-                for (int i = 0; i < stores.Length; i++)
-                {
-                    sb.AppendFormat("{0}   {1}. {2}", Environment.NewLine, i + 1, stores[i]);
-                }
-            }
-            WriteLog(sb.ToString());
-        }
 
         private void BtnStoresFindAllInLevelClick(object sender, EventArgs e)
         {

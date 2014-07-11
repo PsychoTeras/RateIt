@@ -77,9 +77,12 @@ namespace RateIt.Management.Forms
             this.lblMapLatitude = new System.Windows.Forms.Label();
             this.pMap = new System.Windows.Forms.Panel();
             this.map = new RateIt.Management.Controls.Map.MapViewer();
+            this.tpStore = new System.Windows.Forms.TabPage();
             this.gbOutput = new System.Windows.Forms.GroupBox();
             this.tbOutput = new System.Windows.Forms.TextBox();
-            this.tpStore = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnSelectedStoreEdit = new System.Windows.Forms.Button();
+            this.btnSelectedStoreDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
@@ -98,6 +101,7 @@ namespace RateIt.Management.Forms
             ((System.ComponentModel.ISupportInitialize)(this.trackMapZoom)).BeginInit();
             this.pMap.SuspendLayout();
             this.gbOutput.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // scMain
@@ -117,8 +121,8 @@ namespace RateIt.Management.Forms
             // scMain.Panel2
             // 
             this.scMain.Panel2.Controls.Add(this.gbOutput);
-            this.scMain.Size = new System.Drawing.Size(713, 657);
-            this.scMain.SplitterDistance = 462;
+            this.scMain.Size = new System.Drawing.Size(723, 685);
+            this.scMain.SplitterDistance = 490;
             this.scMain.TabIndex = 8;
             // 
             // tcMain
@@ -130,7 +134,7 @@ namespace RateIt.Management.Forms
             this.tcMain.Location = new System.Drawing.Point(0, 0);
             this.tcMain.Name = "tcMain";
             this.tcMain.SelectedIndex = 0;
-            this.tcMain.Size = new System.Drawing.Size(713, 462);
+            this.tcMain.Size = new System.Drawing.Size(723, 490);
             this.tcMain.TabIndex = 1;
             // 
             // tpUsers
@@ -143,7 +147,7 @@ namespace RateIt.Management.Forms
             this.tpUsers.Location = new System.Drawing.Point(4, 22);
             this.tpUsers.Name = "tpUsers";
             this.tpUsers.Padding = new System.Windows.Forms.Padding(3);
-            this.tpUsers.Size = new System.Drawing.Size(705, 436);
+            this.tpUsers.Size = new System.Drawing.Size(715, 504);
             this.tpUsers.TabIndex = 0;
             this.tpUsers.Text = "Users";
             // 
@@ -154,7 +158,7 @@ namespace RateIt.Management.Forms
             this.gbUserLogged.Controls.Add(this.tbLoggedUserName);
             this.gbUserLogged.Controls.Add(this.label2);
             this.gbUserLogged.Enabled = false;
-            this.gbUserLogged.Location = new System.Drawing.Point(481, 146);
+            this.gbUserLogged.Location = new System.Drawing.Point(491, 146);
             this.gbUserLogged.Name = "gbUserLogged";
             this.gbUserLogged.Size = new System.Drawing.Size(218, 74);
             this.gbUserLogged.TabIndex = 6;
@@ -195,7 +199,7 @@ namespace RateIt.Management.Forms
             this.gbUserSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.gbUserSelected.Controls.Add(this.btnUserLogout);
             this.gbUserSelected.Controls.Add(this.btnUserLogin);
-            this.gbUserSelected.Location = new System.Drawing.Point(481, 62);
+            this.gbUserSelected.Location = new System.Drawing.Point(491, 62);
             this.gbUserSelected.Name = "gbUserSelected";
             this.gbUserSelected.Size = new System.Drawing.Size(218, 78);
             this.gbUserSelected.TabIndex = 5;
@@ -238,7 +242,7 @@ namespace RateIt.Management.Forms
             this.gbUserList.Controls.Add(this.lblUserSearch);
             this.gbUserList.Location = new System.Drawing.Point(6, 6);
             this.gbUserList.Name = "gbUserList";
-            this.gbUserList.Size = new System.Drawing.Size(469, 424);
+            this.gbUserList.Size = new System.Drawing.Size(479, 492);
             this.gbUserList.TabIndex = 4;
             this.gbUserList.TabStop = false;
             this.gbUserList.Text = "User list";
@@ -260,7 +264,7 @@ namespace RateIt.Management.Forms
             this.lvUsers.Name = "lvUsers";
             this.lvUsers.ShowGroups = false;
             this.lvUsers.ShowItemToolTips = true;
-            this.lvUsers.Size = new System.Drawing.Size(457, 375);
+            this.lvUsers.Size = new System.Drawing.Size(467, 443);
             this.lvUsers.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvUsers.TabIndex = 3;
             this.lvUsers.UseCompatibleStateImageBehavior = false;
@@ -286,7 +290,7 @@ namespace RateIt.Management.Forms
             // ntbUsersCount
             // 
             this.ntbUsersCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ntbUsersCount.Location = new System.Drawing.Point(415, 398);
+            this.ntbUsersCount.Location = new System.Drawing.Point(425, 466);
             this.ntbUsersCount.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -306,7 +310,7 @@ namespace RateIt.Management.Forms
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(382, 401);
+            this.label1.Location = new System.Drawing.Point(392, 469);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(27, 13);
             this.label1.TabIndex = 6;
@@ -316,9 +320,9 @@ namespace RateIt.Management.Forms
             // 
             this.tbUserSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbUserSearch.Location = new System.Drawing.Point(110, 398);
+            this.tbUserSearch.Location = new System.Drawing.Point(110, 466);
             this.tbUserSearch.Name = "tbUserSearch";
-            this.tbUserSearch.Size = new System.Drawing.Size(266, 20);
+            this.tbUserSearch.Size = new System.Drawing.Size(276, 20);
             this.tbUserSearch.TabIndex = 5;
             this.tbUserSearch.TextChanged += new System.EventHandler(this.TbUserSearchTextChanged);
             // 
@@ -326,7 +330,7 @@ namespace RateIt.Management.Forms
             // 
             this.lblUserSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblUserSearch.AutoSize = true;
-            this.lblUserSearch.Location = new System.Drawing.Point(6, 401);
+            this.lblUserSearch.Location = new System.Drawing.Point(6, 469);
             this.lblUserSearch.Name = "lblUserSearch";
             this.lblUserSearch.Size = new System.Drawing.Size(98, 13);
             this.lblUserSearch.TabIndex = 4;
@@ -336,7 +340,7 @@ namespace RateIt.Management.Forms
             // 
             this.gbUserNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.gbUserNew.Controls.Add(this.btnUserRegister);
-            this.gbUserNew.Location = new System.Drawing.Point(481, 6);
+            this.gbUserNew.Location = new System.Drawing.Point(491, 6);
             this.gbUserNew.Name = "gbUserNew";
             this.gbUserNew.Size = new System.Drawing.Size(218, 50);
             this.gbUserNew.TabIndex = 3;
@@ -358,6 +362,7 @@ namespace RateIt.Management.Forms
             // tpStores
             // 
             this.tpStores.BackColor = System.Drawing.Color.White;
+            this.tpStores.Controls.Add(this.groupBox2);
             this.tpStores.Controls.Add(this.groupBox1);
             this.tpStores.Controls.Add(this.gbMapMarker);
             this.tpStores.Controls.Add(this.gbMapNavigation);
@@ -365,7 +370,7 @@ namespace RateIt.Management.Forms
             this.tpStores.Location = new System.Drawing.Point(4, 22);
             this.tpStores.Name = "tpStores";
             this.tpStores.Padding = new System.Windows.Forms.Padding(3);
-            this.tpStores.Size = new System.Drawing.Size(705, 436);
+            this.tpStores.Size = new System.Drawing.Size(715, 464);
             this.tpStores.TabIndex = 1;
             this.tpStores.Text = "Stores";
             // 
@@ -377,12 +382,12 @@ namespace RateIt.Management.Forms
             this.groupBox1.Controls.Add(this.btnStoresFindAllInL1);
             this.groupBox1.Controls.Add(this.panel2);
             this.groupBox1.Controls.Add(this.btnStoreSearchByName);
-            this.groupBox1.Location = new System.Drawing.Point(480, 289);
+            this.groupBox1.Location = new System.Drawing.Point(490, 289);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(218, 141);
+            this.groupBox1.Size = new System.Drawing.Size(218, 85);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Stores";
+            this.groupBox1.Text = "Stores on the map";
             // 
             // btnStoresFindAllInL3
             // 
@@ -440,7 +445,7 @@ namespace RateIt.Management.Forms
             this.gbMapMarker.Controls.Add(this.tbMapMarkerLatitude);
             this.gbMapMarker.Controls.Add(this.label4);
             this.gbMapMarker.Controls.Add(this.btnStoreRegister);
-            this.gbMapMarker.Location = new System.Drawing.Point(481, 182);
+            this.gbMapMarker.Location = new System.Drawing.Point(491, 182);
             this.gbMapMarker.Name = "gbMapMarker";
             this.gbMapMarker.Size = new System.Drawing.Size(218, 101);
             this.gbMapMarker.TabIndex = 2;
@@ -504,7 +509,7 @@ namespace RateIt.Management.Forms
             this.gbMapNavigation.Controls.Add(this.lblMapLongitude);
             this.gbMapNavigation.Controls.Add(this.tbMapLatitude);
             this.gbMapNavigation.Controls.Add(this.lblMapLatitude);
-            this.gbMapNavigation.Location = new System.Drawing.Point(481, 6);
+            this.gbMapNavigation.Location = new System.Drawing.Point(491, 6);
             this.gbMapNavigation.Name = "gbMapNavigation";
             this.gbMapNavigation.Size = new System.Drawing.Size(218, 170);
             this.gbMapNavigation.TabIndex = 1;
@@ -617,7 +622,7 @@ namespace RateIt.Management.Forms
             this.pMap.Controls.Add(this.map);
             this.pMap.Location = new System.Drawing.Point(6, 6);
             this.pMap.Name = "pMap";
-            this.pMap.Size = new System.Drawing.Size(469, 424);
+            this.pMap.Size = new System.Drawing.Size(479, 452);
             this.pMap.TabIndex = 0;
             // 
             // map
@@ -639,17 +644,27 @@ namespace RateIt.Management.Forms
             this.map.RetryLoadTile = 0;
             this.map.RoutesEnabled = false;
             this.map.ShowTileGridLines = false;
-            this.map.Size = new System.Drawing.Size(467, 422);
+            this.map.Size = new System.Drawing.Size(477, 450);
             this.map.TabIndex = 0;
             this.map.Zoom = 0D;
-            this.map.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.map_OnMarkerClick);
-            this.map.OnPositionChanged += new GMap.NET.PositionChanged(this.map_OnPositionChanged);
-            this.map.OnTileLoaded += new GMap.NET.TileLoaded(this.map_OnTileLoaded);
-            this.map.OnTileLoadComplete += new GMap.NET.TileLoadComplete(this.map_OnTileLoadComplete);
-            this.map.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.mapStores_OnMapZoomChanged);
+            this.map.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.MapOnMarkerClick);
+            this.map.OnPositionChanged += new GMap.NET.PositionChanged(this.MapOnPositionChanged);
+            this.map.OnTileLoaded += new GMap.NET.TileLoaded(this.MapOnTileLoaded);
+            this.map.OnTileLoadComplete += new GMap.NET.TileLoadComplete(this.MapOnTileLoadComplete);
+            this.map.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.MapOnZoomChanged);
             this.map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MapMouseDown);
             this.map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MapMouseMove);
             this.map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MapMouseUp);
+            // 
+            // tpStore
+            // 
+            this.tpStore.Location = new System.Drawing.Point(4, 22);
+            this.tpStore.Name = "tpStore";
+            this.tpStore.Padding = new System.Windows.Forms.Padding(3);
+            this.tpStore.Size = new System.Drawing.Size(705, 436);
+            this.tpStore.TabIndex = 2;
+            this.tpStore.Text = "Selected store";
+            this.tpStore.UseVisualStyleBackColor = true;
             // 
             // gbOutput
             // 
@@ -657,7 +672,7 @@ namespace RateIt.Management.Forms
             this.gbOutput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbOutput.Location = new System.Drawing.Point(0, 0);
             this.gbOutput.Name = "gbOutput";
-            this.gbOutput.Size = new System.Drawing.Size(713, 191);
+            this.gbOutput.Size = new System.Drawing.Size(723, 191);
             this.gbOutput.TabIndex = 3;
             this.gbOutput.TabStop = false;
             this.gbOutput.Text = "Output";
@@ -674,24 +689,46 @@ namespace RateIt.Management.Forms
             this.tbOutput.Name = "tbOutput";
             this.tbOutput.ReadOnly = true;
             this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbOutput.Size = new System.Drawing.Size(701, 166);
+            this.tbOutput.Size = new System.Drawing.Size(711, 166);
             this.tbOutput.TabIndex = 2;
             // 
-            // tpStore
+            // groupBox2
             // 
-            this.tpStore.Location = new System.Drawing.Point(4, 22);
-            this.tpStore.Name = "tpStore";
-            this.tpStore.Padding = new System.Windows.Forms.Padding(3);
-            this.tpStore.Size = new System.Drawing.Size(705, 436);
-            this.tpStore.TabIndex = 2;
-            this.tpStore.Text = "Selected store";
-            this.tpStore.UseVisualStyleBackColor = true;
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.btnSelectedStoreDelete);
+            this.groupBox2.Controls.Add(this.btnSelectedStoreEdit);
+            this.groupBox2.Location = new System.Drawing.Point(491, 380);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(218, 78);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Selected store";
+            // 
+            // btnSelectedStoreEdit
+            // 
+            this.btnSelectedStoreEdit.Enabled = false;
+            this.btnSelectedStoreEdit.Location = new System.Drawing.Point(6, 19);
+            this.btnSelectedStoreEdit.Name = "btnSelectedStoreEdit";
+            this.btnSelectedStoreEdit.Size = new System.Drawing.Size(206, 23);
+            this.btnSelectedStoreEdit.TabIndex = 0;
+            this.btnSelectedStoreEdit.Text = "Edit selected store";
+            this.btnSelectedStoreEdit.UseVisualStyleBackColor = true;
+            // 
+            // btnSelectedStoreDelete
+            // 
+            this.btnSelectedStoreDelete.Enabled = false;
+            this.btnSelectedStoreDelete.Location = new System.Drawing.Point(6, 48);
+            this.btnSelectedStoreDelete.Name = "btnSelectedStoreDelete";
+            this.btnSelectedStoreDelete.Size = new System.Drawing.Size(206, 23);
+            this.btnSelectedStoreDelete.TabIndex = 1;
+            this.btnSelectedStoreDelete.Text = "Delete selected store";
+            this.btnSelectedStoreDelete.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(737, 681);
+            this.ClientSize = new System.Drawing.Size(747, 709);
             this.Controls.Add(this.scMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMain";
@@ -721,6 +758,7 @@ namespace RateIt.Management.Forms
             this.pMap.ResumeLayout(false);
             this.gbOutput.ResumeLayout(false);
             this.gbOutput.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -777,6 +815,9 @@ namespace RateIt.Management.Forms
         private System.Windows.Forms.Button btnStoresFindAllInL1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TabPage tpStore;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button btnSelectedStoreDelete;
+        private System.Windows.Forms.Button btnSelectedStoreEdit;
 
     }
 }

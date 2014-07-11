@@ -73,9 +73,9 @@ namespace RateIt.Management.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap marker_shop_big {
+        internal static System.Drawing.Bitmap marker_shop_big_normal {
             get {
-                object obj = ResourceManager.GetObject("marker_shop_big", resourceCulture);
+                object obj = ResourceManager.GetObject("marker_shop_big_normal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,29 @@ namespace RateIt.Management.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap marker_shop_small {
+        internal static System.Drawing.Bitmap marker_shop_big_selected {
             get {
-                object obj = ResourceManager.GetObject("marker_shop_small", resourceCulture);
+                object obj = ResourceManager.GetObject("marker_shop_big_selected", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap marker_shop_small_normal {
+            get {
+                object obj = ResourceManager.GetObject("marker_shop_small_normal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap marker_shop_small_selected {
+            get {
+                object obj = ResourceManager.GetObject("marker_shop_small_selected", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
