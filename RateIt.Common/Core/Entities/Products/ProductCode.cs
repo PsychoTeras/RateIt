@@ -4,7 +4,7 @@ using RateIt.Common.Core.Constants;
 namespace RateIt.Common.Core.Entities.Products
 {
     [Serializable]
-    public struct ProductCode
+    public sealed class ProductCode
     {
 
 #region Public fields
@@ -15,6 +15,8 @@ namespace RateIt.Common.Core.Entities.Products
 #endregion
 
 #region Ctor
+
+        public ProductCode() { }
 
         public ProductCode(ProductCodeType type, byte[] code)
         {
