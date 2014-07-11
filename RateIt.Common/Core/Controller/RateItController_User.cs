@@ -180,8 +180,7 @@ namespace RateIt.Common.Core.Controller
                 //Login the user
                 try
                 {
-                    UserLogged userLogged = _userSessionDAL.UserLogin(loginInfo.UserName, 
-                                                                      userId.ToString());
+                    UserLogged userLogged = _userSessionDAL.UserLogin(userId.ToString());
                     
                     //Add log record
                     AddActionLogRecord(ActionLogType.User_Login, userId.ToString());

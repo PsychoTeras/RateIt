@@ -100,10 +100,10 @@ namespace RateIt.Common.Core.DAL
             return concernResult.DocumentsAffected > 0;
         }
 
-        public UserLogged UserLogin(string userName, string userId)
+        public UserLogged UserLogin(string userId)
         {
             //New UserLogged object for a user
-            UserLogged userLogged = new UserLogged(userName, userId);
+            UserLogged userLogged = new UserLogged(userId);
 
             //Login user
             WriteConcernResult concernResult = DataCollection.Insert(userLogged);

@@ -9,7 +9,6 @@ namespace RateIt.Common.Core.Entities.Users
 
 #region Public fields
 
-        public string UserName;
         public string UserId;
         public DateTime LastAccessTime;
 
@@ -22,14 +21,13 @@ namespace RateIt.Common.Core.Entities.Users
             ResetLastAccessTime();
         }
 
-        public UserLogged(string userName, string userId)
+        public UserLogged(string userId)
             : this()
         {
-            if (string.IsNullOrEmpty(userName))
+            if (string.IsNullOrEmpty(userId))
             {
-                throw new ArgumentException("User name is empty");
+                throw new ArgumentException("User ID is empty");
             }
-            UserName = userName;
             UserId = userId;
         }
 
@@ -40,11 +38,10 @@ namespace RateIt.Common.Core.Entities.Users
             {
                 throw new ArgumentException("User is null-reference");
             }
-            if (string.IsNullOrEmpty(user.UserName))
+            if (string.IsNullOrEmpty(user.UserId))
             {
-                throw new ArgumentException("User name is empty");
+                throw new ArgumentException("User ID is empty");
             }
-            UserName = user.UserName;
             UserId = user.UserId;
         }
 
