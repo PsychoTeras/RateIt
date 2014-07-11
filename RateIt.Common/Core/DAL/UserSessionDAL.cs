@@ -1,4 +1,5 @@
 ﻿using System;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using RateIt.Common.Core.Entities.Users;
@@ -56,7 +57,7 @@ namespace RateIt.Common.Core.DAL
             DataCollection.CreateIndex(indexKeys, indexOptions);
         }
 
-        public bool IsUserLogged(string userId)
+        public bool IsUserLogged(ObjectId userId)
         {
             IMongoQuery qUserById = Query.EQ("UserId", userId);
             return DataCollection.FindOne(qUserById) != null;
@@ -67,7 +68,7 @@ namespace RateIt.Common.Core.DAL
             //Get a logged user record by session info
             IMongoQuery qUserBySessionInfo = new QueryBuilder<UserLogged>().And(new[]
                 {
-                    Query.EQ("UserId", sessionInfo.UserId),
+                    Query.EQ("UserId", sessionInfo.UserId.ToObjectId()),
                     Query.EQ("_id", sessionInfo.SessionId.ToObjectId())
                 });
             UserLogged userLogged = DataCollection.FindOne(qUserBySessionInfo);
@@ -100,7 +101,7 @@ namespace RateIt.Common.Core.DAL
             return concernResult.DocumentsAffected > 0;
         }
 
-        public UserLogged UserLogin(string userId)
+        public UserLogged UserLogin(ObjectId userId)
         {
             //New UserLogged object for a user
             UserLogged userLogged = new UserLogged(userId);
@@ -120,7 +121,7 @@ namespace RateIt.Common.Core.DAL
             //Logout user
             IMongoQuery qRemoveUserBySessionInfo = new QueryBuilder<UserLogged>().And(new[]
                         {
-                            Query.EQ("UserId", sessionInfo.UserId),
+                            Query.EQ("UserId", sessionInfo.UserId.ToObjectId()),
                             Query.EQ("_id", sessionInfo.SessionId.ToObjectId()) 
                         });
 
@@ -130,10 +131,10 @@ namespace RateIt.Common.Core.DAL
             AssertErrorMessage(concernResult.ErrorMessage);
         }
 
-        public void UserLogout(string userName)
+        public void UserLogout(ObjectId userId)
         {
             //Logout user
-            IMongoQuery qRemoveUserById = Query.EQ("UserName", userName);
+            IMongoQuery qRemoveUserById = Query.EQ("UserId", userId);
             WriteConcernResult concernResult = DataCollection.Remove(qRemoveUserById);
 
             //Assert possible internal DB error

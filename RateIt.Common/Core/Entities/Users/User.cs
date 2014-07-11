@@ -18,19 +18,12 @@ namespace RateIt.Common.Core.Entities.Users
 
         [BsonIgnore]
         public bool IsUserLogged;
-        [BsonIgnore]
-        public string UserId;
 
 #endregion
 
 #region Class methods
 
         public User() { }
-
-        protected override void IdHasChanged()
-        {
-            UserId = Id.ToString();
-        }
 
         public User(string userName, string passwordHash, string email)
         {

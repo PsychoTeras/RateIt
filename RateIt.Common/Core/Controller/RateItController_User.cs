@@ -98,7 +98,7 @@ namespace RateIt.Common.Core.Controller
             }
 
             //Check if the user is logged for now
-            if (_userSessionDAL.IsUserLogged(userId.ToString()))
+            if (_userSessionDAL.IsUserLogged(userId))
             {
                 throw BaseQueryResult.Throw("This user is currently logged",
                     ECLogin.UserIsLogged);
@@ -180,7 +180,7 @@ namespace RateIt.Common.Core.Controller
                 //Login the user
                 try
                 {
-                    UserLogged userLogged = _userSessionDAL.UserLogin(userId.ToString());
+                    UserLogged userLogged = _userSessionDAL.UserLogin(userId);
                     
                     //Add log record
                     AddActionLogRecord(ActionLogType.User_Login, userId.ToString());
@@ -243,10 +243,13 @@ namespace RateIt.Common.Core.Controller
                 //Assert QuerySysRequestID
                 AssertQuerySysRequestID(sysId);
 
-                //Logout the user
                 try
                 {
-                    _userSessionDAL.UserLogout(userName);
+                    //Get user by name
+                    User user = _userDAL.GetUser(userName);
+
+                    //Logout the user
+                    _userSessionDAL.UserLogout(user.Id);
                 }
                 catch (Exception dbEx)
                 {

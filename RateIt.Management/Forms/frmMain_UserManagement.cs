@@ -13,6 +13,7 @@ namespace RateIt.Management.Forms
 
 #region Private members
 
+        private User _loggedUser;
         private UserSessionInfo _loggedUserSession;
 
 #endregion
@@ -31,21 +32,7 @@ namespace RateIt.Management.Forms
 
         private User LoggedUser
         {
-            get
-            {
-                if (_loggedUserSession != null)
-                {
-                    ListViewItem item = lvUsers.Items.Cast<ListViewItem>().FirstOrDefault
-                        (
-                            li => ((User)li.Tag).UserId.Equals
-                                      (
-                                          _loggedUserSession.UserId, StringComparison.InvariantCultureIgnoreCase
-                                      )
-                        );
-                    return (User)(item != null ? item.Tag : null);
-                }
-                return null;
-            }
+            get { return _loggedUser; }
         }
 
 #endregion
@@ -66,6 +53,7 @@ namespace RateIt.Management.Forms
             if (loggedUser != null)
             {
                 loggedUser.IsUserLogged = false;
+                _loggedUser = null;
                 _loggedUserSession = null;
                 AfterCurrentUserHasLoggedOut(loggedUser.UserName, isSessionExpired);
             }
@@ -158,7 +146,7 @@ namespace RateIt.Management.Forms
         {
             gbUserLogged.Enabled = true;
             tbLoggedUserName.Text = userName;
-            WriteLog(string.Format("User {0} successfully logged in", _loggedUserSession));
+            WriteLog(string.Format("User {0} successfully logged in", _loggedUser));
             UpdateSelectedUserListRecord();
         }
 
@@ -171,6 +159,7 @@ namespace RateIt.Management.Forms
                     if (form.Execute(_mainController, SelectedUser))
                     {
                         _loggedUserSession = new UserSessionInfo(form.UserId, form.SessionId);
+                        _loggedUser = SelectedUser;
                         SelectedUser.IsUserLogged = true;
                         AfterSelectedUserHasLoggedIn(SelectedUser.UserName);
                     }

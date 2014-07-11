@@ -44,8 +44,6 @@ namespace RateIt.Common.Core.DAL
             indexOptions = IndexOptions.
                 SetName(IDX_T_USERS_CREDENTIAL);
             DataCollection.CreateIndex(indexKeys, indexOptions);
-            
-            //!!! What is it?
         }
 
         public ObjectId GetUserId(string userName, string password)
@@ -85,7 +83,7 @@ namespace RateIt.Common.Core.DAL
         }
 
         public User[] GetUserList(UserSessionDAL userLoginDAL, string userNamePart, 
-            uint maxCount)
+                                  uint maxCount)
         {
             //Search by part of user name
             string queryString = string.Format("/({0})/(si)", userNamePart);
@@ -110,7 +108,7 @@ namespace RateIt.Common.Core.DAL
             {
                 foreach (User user in result)
                 {
-                    user.IsUserLogged = userLoginDAL.IsUserLogged(user.UserId);
+                    user.IsUserLogged = userLoginDAL.IsUserLogged(user.Id);
                 }
             }
 

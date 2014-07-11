@@ -1,4 +1,5 @@
 ﻿using System;
+using MongoDB.Bson;
 using RateIt.Common.Core.Constants;
 
 namespace RateIt.Common.Core.Entities.Users
@@ -9,7 +10,7 @@ namespace RateIt.Common.Core.Entities.Users
 
 #region Public fields
 
-        public string UserId;
+        public ObjectId UserId;
         public DateTime LastAccessTime;
 
 #endregion
@@ -21,13 +22,9 @@ namespace RateIt.Common.Core.Entities.Users
             ResetLastAccessTime();
         }
 
-        public UserLogged(string userId)
+        public UserLogged(ObjectId userId)
             : this()
         {
-            if (string.IsNullOrEmpty(userId))
-            {
-                throw new ArgumentException("User ID is empty");
-            }
             UserId = userId;
         }
 
@@ -38,11 +35,7 @@ namespace RateIt.Common.Core.Entities.Users
             {
                 throw new ArgumentException("User is null-reference");
             }
-            if (string.IsNullOrEmpty(user.UserId))
-            {
-                throw new ArgumentException("User ID is empty");
-            }
-            UserId = user.UserId;
+            UserId = user.Id;
         }
 
         public DateTime ResetLastAccessTime()
