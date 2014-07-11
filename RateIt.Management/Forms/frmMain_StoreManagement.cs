@@ -26,6 +26,7 @@ namespace RateIt.Management.Forms
 
         private GMapOverlay _mapStoreOverlay;
         private HashSet<int> _storesOnScreen;
+        private List<Store> _storesInQueue;
         private HashSet<PointLatLng> _processedTiles;
 
         private bool _mapIsMouseDown;
@@ -63,6 +64,7 @@ namespace RateIt.Management.Forms
         {
             //Base initialization
             _onTileLoadedObject = new object();
+            _storesInQueue = new List<Store>();
 
             //Show map
             cbMapStyle.SelectedIndex = 0;
@@ -108,6 +110,14 @@ namespace RateIt.Management.Forms
         {
             btnSelectedStoreEdit.Enabled = btnSelectedStoreDelete.Enabled =
                 _selectedStore != null;
+            if (_selectedStore != null && !tcMain.TabPages.Contains(tpStore))
+            {
+                tcMain.TabPages.Add(tpStore);
+            } 
+            else if (_selectedStore == null && tcMain.TabPages.Contains(tpStore))
+            {
+                tcMain.TabPages.Remove(tpStore);
+            }
         }
 
 #endregion

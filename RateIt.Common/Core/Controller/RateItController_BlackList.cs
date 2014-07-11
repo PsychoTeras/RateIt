@@ -7,6 +7,7 @@
 
         private void AssertTID(string tId)
         {
+            //ECGeneric.TerminalIsBlocked
         }
 
 #endregion

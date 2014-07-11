@@ -188,11 +188,8 @@ namespace RateIt.Management.Forms
                         return;
                     }
 
-                    //Place each of the stores on screen
-                    foreach (Store store in result.Stores)
-                    {
-                        AddStoreMarker(store, false);
-                    }
+                    //Push stores to queue
+                    _storesInQueue.AddRange(result.Stores);
 
                     //Add current tile to the list of processed tiles
                     _processedTiles.Add(latLngLeftTop);
@@ -200,12 +197,22 @@ namespace RateIt.Management.Forms
             }
         }
 
+        private void PopStoresFromQueueToMap()
+        {
+            lock (_onTileLoadedObject)
+            {
+                foreach (Store store in _storesInQueue)
+                {
+                    AddStoreMarker(store, false);
+                }
+                _storesInQueue.Clear();
+                map.Refresh();
+            }
+        }
+
         private void MapOnTileLoadComplete(long elapsedMilliseconds)
         {
-            /*lock (_onTileLoadedObject)
-            {
-                BeginInvoke(new Action(() => map.Refresh()));
-            }*/
+            map.BeginInvoke(new Action(PopStoresFromQueueToMap));
         }
 
         private void MapOnZoomChanged()
