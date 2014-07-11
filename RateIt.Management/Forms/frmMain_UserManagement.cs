@@ -192,7 +192,7 @@ namespace RateIt.Management.Forms
         {
             gbUserLogged.Enabled = false;
             tbLoggedUserName.Text = string.Empty;
-            WriteLog(isSessionExpired
+            WriteLog(!isSessionExpired
                 ? string.Format("User {0} successfully logged out", userName)
                 : string.Format("Session for user {0} has expired", userName));
             UpdateUserListRecord(lvUsers.Items.Cast<ListViewItem>().FirstOrDefault
