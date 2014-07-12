@@ -139,7 +139,17 @@ namespace RateIt.Management.Forms
 
         private void LvUsersMouseDoubleClick(object sender, MouseEventArgs e)
         {
-            BtnUserLoginClick(this, null);
+            if (SelectedUser != null)
+            {
+                if (SelectedUser.IsUserLogged)
+                {
+                    BtnUserLogoutClick(this, null);
+                }
+                else
+                {
+                    BtnUserLoginClick(this, null);
+                }
+            }
         }
 
         private void AfterSelectedUserHasLoggedIn(string userName)

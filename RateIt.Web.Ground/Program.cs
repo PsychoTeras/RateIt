@@ -15,6 +15,10 @@ namespace RateIt.Web.Ground
 
         static void Main(string[] args)
         {
+            int i = 1, y = 2;
+            int hc1 = i.GetHashCode(), hc2 = y.GetHashCode();
+            var t1 = i.GetTypeCode();
+
             string passwordHash = CommonHelper.GetHashSum("1");
             UserLoginInfo loginInfo = new UserLoginInfo("1", passwordHash);
             UserLoginQueryResult loginResult = _service.UserLogin(loginInfo);

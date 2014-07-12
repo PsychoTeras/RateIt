@@ -62,10 +62,10 @@ namespace RateIt.Common.Core.DAL
         {
             //Calculate search criteria
             const double searchRadius = (double)StoreSize.Huge; //In meters
-            const double searchRadiusRad = searchRadius / GenericConstants.EARTH_RADIUS_M;
+            const double searchRadiusRad = searchRadius / GenericConstants.EARTH_RADIUS_MAX_M;
 
             //Search by location
-            IMongoQuery qStoresAtLocation = Query.WithinCircle(GEOPOINT_FIELD_NAME,
+            IMongoQuery qStoresAtLocation = Query.Near(GEOPOINT_FIELD_NAME,
                 location.Latitude, location.Longitude, searchRadiusRad, true);
 
             //Do search
@@ -83,10 +83,10 @@ namespace RateIt.Common.Core.DAL
         public Store[] GetStoresAtLocation(GeoPoint location, StoreQueryAreaLevel areaLevel)
         {
             double searchRadius = (double)areaLevel;
-            double searchRadiusRad = searchRadius / GenericConstants.EARTH_RADIUS_M;
+            double searchRadiusRad = searchRadius / GenericConstants.EARTH_RADIUS_MAX_M;
 
             //Search by location
-            IMongoQuery qStoresAtLocation = Query.WithinCircle(GEOPOINT_FIELD_NAME,
+            IMongoQuery qStoresAtLocation = Query.Near(GEOPOINT_FIELD_NAME,
                 location.Latitude, location.Longitude, searchRadiusRad, true);
 
             //Do search
