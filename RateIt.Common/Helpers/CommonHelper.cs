@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using RateIt.Common.Core.Constants;
 
 namespace RateIt.Common.Helpers
 {
@@ -19,9 +20,22 @@ namespace RateIt.Common.Helpers
 
     internal static class InternalHelper
     {
+        private static readonly Regex _regexUserNameVerify = 
+            new Regex(@"^[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*$", RegexOptions.Compiled);
+        private static readonly Regex _regexEmailVerify = 
+            new Regex(@"^.+@.+\..+$", RegexOptions.Compiled);
+
+        public static bool IsValidUserName(string userName)
+        {
+            return !string.IsNullOrEmpty(userName) &&
+                   _regexUserNameVerify.IsMatch(userName);
+        }
+
         public static bool IsValidEmail(string email)
         {
-            return new Regex(@"^.+@.+\..+$").IsMatch(email ?? string.Empty);
+            return !string.IsNullOrEmpty(email) &&
+                   email.Length <= GenericConstants.USER_EMAIL_LENGTH_MAX &&
+                   _regexEmailVerify.IsMatch(email);
         }
 
         public static void SafeDispose<T>(ref T obj) where T : class, IDisposable

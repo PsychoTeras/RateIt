@@ -90,8 +90,16 @@ namespace RateIt.Management.Forms
             {
                 switch (result.ErrorCode)
                 {
-                    case ECStoreRegistration.NameIsBlank:
+                    case ECStoreRegistration.StoreNameIsBlank:
+                    case ECStoreRegistration.MinStoreNameLengthRequired:
+                    case ECStoreRegistration.MaxStoreNameLengthExceeded:
                         tbName.Focus();
+                        break;
+                    case ECStoreRegistration.MaxAddressLengthExceeded:
+                        tbAddress.Focus();
+                        break;
+                    case ECStoreRegistration.MaxDescriptionLengthExceeded:
+                        tbDescription.Focus();
                         break;
                 }
                 return;

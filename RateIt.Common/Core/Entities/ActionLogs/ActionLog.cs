@@ -25,16 +25,12 @@ namespace RateIt.Common.Core.Entities.ActionLogs
 
 #region Ctor
 
-        public ActionLog()
-        {
-            ActionTime = DateTime.Now.ToUniversalTime();
-        }
+        public ActionLog() { }
 
         public ActionLog(ActionLogType actionType,
                          ObjectId? subject = null, string subjectInfo = null,
                          ObjectId? @object = null, string objectInfo = null,
                          string additionalInfo = null)
-            : this()
         {
             ActionType = actionType;
             Subject = subject;
@@ -42,6 +38,7 @@ namespace RateIt.Common.Core.Entities.ActionLogs
             Object = @object;
             ObjectInfo = objectInfo;
             AdditionalInfo = additionalInfo;
+            ActionTime = DateTime.UtcNow;
         }
 
 #endregion

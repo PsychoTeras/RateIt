@@ -9,7 +9,6 @@ namespace RateIt.Common.Core.QueryResults
 #region Properties
 
         public byte[] UserId;
-        public string UserName;
         public byte[] SessionId;
 
 #endregion
@@ -18,10 +17,9 @@ namespace RateIt.Common.Core.QueryResults
 
     public UserLoginQueryResult() { }
 
-    public UserLoginQueryResult(byte[] userId, string userName, byte[] sessionId)
+    public UserLoginQueryResult(byte[] userId, byte[] sessionId)
     {
         UserId = userId;
-        UserName = userName;
         SessionId = sessionId;
     }
 

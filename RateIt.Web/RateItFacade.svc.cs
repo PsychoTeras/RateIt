@@ -1,6 +1,7 @@
 ﻿using RateIt.Common.Core.Classes;
 using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Controller;
+using RateIt.Common.Core.Entities.Products;
 using RateIt.Common.Core.Entities.Stores;
 using RateIt.Common.Core.Entities.Users;
 using RateIt.Common.Core.QueryResults;
@@ -27,9 +28,9 @@ namespace RateIt.Web
 
 #region IRateItController methods
 
-        public BaseQueryResult UserRegister(string tId, User registrationInfo)
+        public BaseQueryResult UserRegister(string tId, User user)
         {
-            return _controller.UserRegister(tId, registrationInfo);
+            return _controller.UserRegister(tId, user);
         }
 
         public UserLoginQueryResult UserLogin(UserLoginInfo loginInfo)
@@ -37,20 +38,25 @@ namespace RateIt.Web
             return _controller.UserLogin(loginInfo);
         }
 
-        public BaseQueryResult StoreRegister(UserSessionInfo sessionInfo, Store registrationInfo)
+        public BaseQueryResult UserLogout(UserSessionInfo sessionInfo)
         {
-            return _controller.StoreRegister(sessionInfo, registrationInfo);
+            return _controller.UserLogout(sessionInfo);
         }
 
-        public StoreListQueryResult GetStoresAtLocation(UserSessionInfo sessionInfo, GeoPoint location, 
+        public BaseQueryResult StoreRegister(UserSessionInfo sessionInfo, Store user)
+        {
+            return _controller.StoreRegister(sessionInfo, user);
+        }
+
+        public StoreListQueryResult GetStoresAtLocation(UserSessionInfo sessionInfo, GeoPoint location,
                                                         StoreQueryAreaLevel areaLevel)
         {
             return _controller.GetStoresAtLocation(sessionInfo, location, areaLevel);
         }
 
-        public BaseQueryResult UserLogout(UserSessionInfo sessionInfo)
+        public ProductRegisterQueryResult ProductRegister(UserSessionInfo sessionInfo, Product product)
         {
-            return _controller.UserLogout(sessionInfo);
+            return _controller.ProductRegister(sessionInfo, product);
         }
 
 #endregion

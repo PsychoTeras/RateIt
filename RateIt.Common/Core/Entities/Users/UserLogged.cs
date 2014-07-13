@@ -17,27 +17,24 @@ namespace RateIt.Common.Core.Entities.Users
 
 #region Class methods
 
-        public UserLogged()
-        {
-            ResetLastAccessTime();
-        }
+        public UserLogged() {}
 
         public UserLogged(ObjectId userId)
-            : this()
         {
+            ResetLastAccessTime();
             UserId = userId;
         }
 
         public UserLogged(User user) 
-            : this()
         {
+            ResetLastAccessTime();
             UserId = user.Id;
         }
 
         public DateTime ResetLastAccessTime()
         {
             double min = GenericConstants.USER_SESSION_TTL_MIN;
-            LastAccessTime = DateTime.Now.AddMinutes(min).ToUniversalTime();
+            LastAccessTime = DateTime.UtcNow.AddMinutes(min);
             return LastAccessTime;
         }
 

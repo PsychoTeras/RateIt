@@ -49,10 +49,10 @@ namespace RateIt.Common.Core.DAL
             DataCollection.CreateIndex(indexKeys, indexOptions);
         }
 
-        public void StoreRegister(Store registrationInfo)
+        public void StoreRegister(Store store)
         {
             //Register new store
-            WriteConcernResult concernResult = DataCollection.Insert(registrationInfo);
+            WriteConcernResult concernResult = DataCollection.Insert(store);
 
             //Assert possible internal DB error
             AssertErrorMessage(concernResult.ErrorMessage);

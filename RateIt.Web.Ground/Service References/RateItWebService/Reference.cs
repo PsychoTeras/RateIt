@@ -8,8 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using RateIt.Common.Core.Classes;
-
 namespace RateIt.Web.Ground.RateItWebService {
     
     
@@ -20,7 +18,7 @@ namespace RateIt.Web.Ground.RateItWebService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateItController/UserRegister", ReplyAction="http://tempuri.org/IRateItController/UserRegisterResponse")]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.UserLoginQueryResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.StoreListQueryResult))]
-        RateIt.Common.Core.QueryResults.BaseQueryResult UserRegister(RateIt.Common.Core.Entities.Users.User registrationInfo);
+        RateIt.Common.Core.QueryResults.BaseQueryResult UserRegister(string tId, RateIt.Common.Core.Entities.Users.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateItController/UserLogin", ReplyAction="http://tempuri.org/IRateItController/UserLoginResponse")]
         RateIt.Common.Core.QueryResults.UserLoginQueryResult UserLogin(RateIt.Common.Core.Entities.Users.UserLoginInfo loginInfo);
@@ -33,10 +31,10 @@ namespace RateIt.Web.Ground.RateItWebService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateItController/StoreRegister", ReplyAction="http://tempuri.org/IRateItController/StoreRegisterResponse")]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.UserLoginQueryResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.StoreListQueryResult))]
-        RateIt.Common.Core.QueryResults.BaseQueryResult StoreRegister(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, RateIt.Common.Core.Entities.Stores.Store registrationInfo);
+        RateIt.Common.Core.QueryResults.BaseQueryResult StoreRegister(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, RateIt.Common.Core.Entities.Stores.Store user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateItController/GetStoresAtLocation", ReplyAction="http://tempuri.org/IRateItController/GetStoresAtLocationResponse")]
-        RateIt.Common.Core.QueryResults.StoreListQueryResult GetStoresAtLocation(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, GeoPoint location, RateIt.Common.Core.Constants.StoreQueryAreaLevel areaLevel);
+        RateIt.Common.Core.QueryResults.StoreListQueryResult GetStoresAtLocation(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, RateIt.Common.Core.Classes.GeoPoint location, RateIt.Common.Core.Constants.StoreQueryAreaLevel areaLevel);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -66,8 +64,8 @@ namespace RateIt.Web.Ground.RateItWebService {
                 base(binding, remoteAddress) {
         }
         
-        public RateIt.Common.Core.QueryResults.BaseQueryResult UserRegister(RateIt.Common.Core.Entities.Users.User registrationInfo) {
-            return base.Channel.UserRegister(registrationInfo);
+        public RateIt.Common.Core.QueryResults.BaseQueryResult UserRegister(string tId, RateIt.Common.Core.Entities.Users.User user) {
+            return base.Channel.UserRegister(tId, user);
         }
         
         public RateIt.Common.Core.QueryResults.UserLoginQueryResult UserLogin(RateIt.Common.Core.Entities.Users.UserLoginInfo loginInfo) {
@@ -78,11 +76,11 @@ namespace RateIt.Web.Ground.RateItWebService {
             return base.Channel.UserLogout(sessionInfo);
         }
         
-        public RateIt.Common.Core.QueryResults.BaseQueryResult StoreRegister(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, RateIt.Common.Core.Entities.Stores.Store registrationInfo) {
-            return base.Channel.StoreRegister(sessionInfo, registrationInfo);
+        public RateIt.Common.Core.QueryResults.BaseQueryResult StoreRegister(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, RateIt.Common.Core.Entities.Stores.Store user) {
+            return base.Channel.StoreRegister(sessionInfo, user);
         }
         
-        public RateIt.Common.Core.QueryResults.StoreListQueryResult GetStoresAtLocation(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, GeoPoint location, RateIt.Common.Core.Constants.StoreQueryAreaLevel areaLevel) {
+        public RateIt.Common.Core.QueryResults.StoreListQueryResult GetStoresAtLocation(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, RateIt.Common.Core.Classes.GeoPoint location, RateIt.Common.Core.Constants.StoreQueryAreaLevel areaLevel) {
             return base.Channel.GetStoresAtLocation(sessionInfo, location, areaLevel);
         }
     }

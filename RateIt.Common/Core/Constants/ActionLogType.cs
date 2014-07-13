@@ -14,5 +14,10 @@
         Store_Register  = 200,
         Store_EditInfo  = 201,
         Store_Deleted   = 202,
+
+        //Product
+        Product_Register = 300,
+        Product_EditInfo = 301,
+        Product_Deleted  = 302,
     }
 }

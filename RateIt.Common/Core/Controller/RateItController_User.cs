@@ -14,54 +14,76 @@ namespace RateIt.Common.Core.Controller
 
 #region Private methods
 
-        private void AssertQuerySysRequestID(QuerySysRequestID sysId)
+        private void AssertUserInfo(string tId, User user)
         {
-            //Check system request id
-            if (sysId != QuerySysRequestID.Instance)
-            {
-                throw BaseQueryResult.Throw("Invalid system request id",
-                    ECGeneric.InvalidSysRequestId);
-            }
-        }
-
-        private void AssertRegistrationInfo(string tId, User registrationInfo)
-        {
-            //Check on null-reference
-            if (registrationInfo == null)
-            {
-                throw BaseQueryResult.Throw("Registration info is null-reference", 
-                    ECGeneric.NullReference);
-            }
-
             //Assert TID
             AssertTID(tId);
 
+            //Check on null-reference
+            if (user == null)
+            {
+                throw BaseQueryResult.Throw("User is null-reference", 
+                    ECGeneric.NullReference);
+            }
+
             //Validate user name
-            registrationInfo.UserName = (registrationInfo.UserName ?? string.Empty).Trim();
-            if (string.IsNullOrEmpty(registrationInfo.UserName))
+            user.UserName = (user.UserName ?? string.Empty).Trim();
+            if (string.IsNullOrEmpty(user.UserName))
             {
                 throw BaseQueryResult.Throw("User name cannot be blank", 
                     ECUserRegistration.UserNameIsBlank);
             }
 
+            //Validate minimal user name length
+            if (user.UserName.Length < GenericConstants.USER_NAME_LENGTH_MIN)
+            {
+                string errMsg = string.Format("User name should have {0} letters at least",
+                                              GenericConstants.USER_NAME_LENGTH_MIN);
+                throw BaseQueryResult.Throw(errMsg,
+                    ECUserRegistration.MinUserNameLengthRequired);
+            }
+
+            //Validate maximal user name length
+            if (user.UserName.Length > GenericConstants.USER_NAME_LENGTH_MAX)
+            {
+                string errMsg = string.Format("User name should not have more than {0} letters",
+                                              GenericConstants.USER_NAME_LENGTH_MAX);
+                throw BaseQueryResult.Throw(errMsg,
+                    ECUserRegistration.MaxUserNameLengthExceeded);
+            }
+
+            //Validate user name
+            if (!InternalHelper.IsValidUserName(user.UserName))
+            {
+                throw BaseQueryResult.Throw("User name is invalid",
+                    ECUserRegistration.InvalidUserName);
+            }
+
             //Validate user password
-            if (string.IsNullOrEmpty(registrationInfo.PasswordHash))
+            if (string.IsNullOrEmpty(user.PasswordHash))
             {
                 throw BaseQueryResult.Throw("Password cannot be blank", 
                     ECUserRegistration.PasswordIsBlank);
             }
 
+            //Validate password hash length
+            if (user.PasswordHash.Length > GenericConstants.USER_PASSWORD_HASH_LENGTH)
+            {
+                throw BaseQueryResult.Throw("Password hash is invalid",
+                    ECUserRegistration.InvalidPasswordHash);
+            }
+
             //Validate email
-            registrationInfo.Email = (registrationInfo.Email ?? string.Empty).Trim();
-            if (!string.IsNullOrEmpty(registrationInfo.Email) &&
-                !InternalHelper.IsValidEmail(registrationInfo.Email))
+            user.Email = (user.Email ?? string.Empty).Trim();
+            if (!string.IsNullOrEmpty(user.Email) &&
+                !InternalHelper.IsValidEmail(user.Email))
             {
                 throw BaseQueryResult.Throw("Email address not valid", 
                     ECUserRegistration.InvalidEmail);
             }
 
             //Check if user exists
-            if (_userDAL.IsUserExists(registrationInfo.UserName))
+            if (_userDAL.IsUserExists(user.UserName))
             {
                 throw BaseQueryResult.Throw("User is exists",
                     ECUserRegistration.UserNameIsBlank);                
@@ -88,11 +110,43 @@ namespace RateIt.Common.Core.Controller
                     ECLogin.UserNameIsBlank);
             }
 
+            //Validate minimal user name length
+            if (loginInfo.UserName.Length < GenericConstants.USER_NAME_LENGTH_MIN)
+            {
+                string errMsg = string.Format("User name should have {0} letters at least",
+                                              GenericConstants.USER_NAME_LENGTH_MIN);
+                throw BaseQueryResult.Throw(errMsg,
+                    ECLogin.MinUserNameLengthRequired);
+            }
+
+            //Validate maximal user name length
+            if (loginInfo.UserName.Length > GenericConstants.USER_NAME_LENGTH_MAX)
+            {
+                string errMsg = string.Format("User name should not have more than {0} letters",
+                                              GenericConstants.USER_NAME_LENGTH_MAX);
+                throw BaseQueryResult.Throw(errMsg,
+                    ECLogin.MaxUserNameLengthExceeded);
+            }
+
+            //Validate user name
+            if (!InternalHelper.IsValidUserName(loginInfo.UserName))
+            {
+                throw BaseQueryResult.Throw("User name is invalid",
+                    ECLogin.InvalidUserName);
+            }
+
             //Validate user password
             if (string.IsNullOrEmpty(loginInfo.PasswordHash))
             {
                 throw BaseQueryResult.Throw("Password cannot be blank",
                     ECLogin.PasswordIsBlank);
+            }
+
+            //Validate password hash length
+            if (loginInfo.PasswordHash.Length > GenericConstants.USER_PASSWORD_HASH_LENGTH)
+            {
+                throw BaseQueryResult.Throw("Password hash is invalid",
+                    ECLogin.InvalidPasswordHash);
             }
 
             //Validate crenedtials
@@ -113,53 +167,24 @@ namespace RateIt.Common.Core.Controller
             return userId;
         }
 
-        private void AssertSessionInfo(UserSessionInfo sessionInfo)
-        {
-            AssertSessionInfo(sessionInfo, false);
-        }
-
-        private void AssertSessionInfo(UserSessionInfo sessionInfo, bool assertOnly)
-        {
-            //Validate session info
-            if (sessionInfo == null)
-            {
-                throw BaseQueryResult.Throw("Session info is null-reference. Do login before continue",
-                    ECGeneric.InvalidSessionInfo);
-            }
-
-            //Check user ID
-            if (sessionInfo.SessionId == null)
-            {
-                throw BaseQueryResult.Throw("Session ID is empty",
-                    ECGeneric.InvalidSessionInfo);
-            }
-
-            //Validate session
-            if (!_userSessionDAL.UpdateUserSession(sessionInfo, assertOnly))
-            {
-                throw BaseQueryResult.Throw("User session is expired or invalid. Please re-login",
-                    ECGeneric.InvalidSessionInfo);
-            }
-        }
-
 #endregion
 
 #region Public methods
 
-        public BaseQueryResult UserRegister(string tId, User registrationInfo)
+        public BaseQueryResult UserRegister(string tId, User user)
         {
             try
             {
-                //Assert registration information
-                AssertRegistrationInfo(tId, registrationInfo);
+                //Assert user information
+                AssertUserInfo(tId, user);
 
                 //Register user
                 try
                 {
-                    _userDAL.UserRegister(registrationInfo);
+                    _userDAL.UserRegister(user);
 
                     //Add log record
-                    AddActionLogRecord(ActionLogType.User_Register, registrationInfo.Id);
+                    AddActionLogRecord(ActionLogType.User_Register, user.Id);
                 }
                 catch (Exception dbEx)
                 {
@@ -192,8 +217,7 @@ namespace RateIt.Common.Core.Controller
                     AddActionLogRecord(ActionLogType.User_Login, userId);
 
                     //Return login info
-                    return new UserLoginQueryResult(userId.ToByteArray(), loginInfo.UserName, 
-                                                    userLogged.Id.ToByteArray());
+                    return new UserLoginQueryResult(userId.ToByteArray(), userLogged.Id.ToByteArray());
                 }
                 catch (Exception dbEx)
                 {

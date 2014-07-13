@@ -74,7 +74,13 @@
   <ItemGroup>
     <Compile Include="Core\Constants\ProductCodeType.cs" />
     <Compile Include="Core\Controller\RateItController_BlackList.cs" />
+    <Compile Include="Core\Controller\RateItController_Product.cs" />
+    <Compile Include="Core\DAL\ProductDAL.cs" />
+    <Compile Include="Core\Entities\ProductReviews\ProductReview.cs" />
     <Compile Include="Core\Entities\Products\ProductCode.cs" />
+    <Compile Include="Core\ErrorCodes\ECProductRegistration.cs" />
+    <Compile Include="Core\QueryResults\ProductListQueryResult.cs" />
+    <Compile Include="Core\QueryResults\ProductRegisterQueryResult.cs" />
     <Compile Include="Helpers\ObjectIdPool.cs" />
     <Compile Include="Core\Constants\ActionLogType.cs" />
     <Compile Include="Core\Constants\GenericConstants.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MongoDB.Bson;
 
 namespace RateIt.Common.Core.Entities.Products
 {
@@ -9,28 +10,36 @@ namespace RateIt.Common.Core.Entities.Products
 
 #region Public fields
 
-        public string Name;
-        public string Description;
+        public ObjectId StoreId;
 
         public ProductCode ProductCode;
+        public string ProductName;
+        public string Description;
 
-        //Needs to be replaced by red-black tree data structure
-        public List<string> AssignedKeywords = new List<string>();
+        public byte Rating;
+
+        public List<string> Keywords;
 
 #endregion
 
 #region Class methods
 
-        //Need to replace by search in red-black tree
-        //Null-reference unsafe mathod, case sensitive, non-trimmed
-        public bool RelevantlyToKeyword(string keyword)
+        public Product() { }
+
+        public Product(ObjectId storeId, ProductCode productCode,
+            string productName, string description, string[] keywords)
         {
-            return AssignedKeywords.Find(s => s.StartsWith(keyword)) != null;
+            ProductCode = productCode;
+            ProductName = productName;
+            Description = description;
+            Keywords = keywords != null && keywords.Length > 0
+                ? new List<string>(keywords)
+                : new List<string>();
         }
 
         public override string ToString()
         {
-            return string.Format("{0} [{1}]", Name ?? string.Empty, Id);
+            return string.Format("{0} [{1}]", ProductName ?? string.Empty, Id);
         }
 
 #endregion

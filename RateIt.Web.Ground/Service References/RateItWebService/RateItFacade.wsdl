@@ -9,7 +9,7 @@
       <xsd:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Constants" />
       <xsd:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.QueryResults" />
       <xsd:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Stores" />
-      <xsd:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Classes" />
+      <xsd:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Classes" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IRateItController_UserRegister_InputMessage">

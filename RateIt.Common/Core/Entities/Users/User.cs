@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
 using RateIt.Common.Core.Constants;
 
@@ -14,6 +15,7 @@ namespace RateIt.Common.Core.Entities.Users
         public string PasswordHash;
         public string Email;
 
+        [IgnoreDataMember]
         public UserState UserState;
 
         [BsonIgnore]

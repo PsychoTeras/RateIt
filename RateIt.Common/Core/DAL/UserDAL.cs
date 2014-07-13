@@ -73,10 +73,10 @@ namespace RateIt.Common.Core.DAL
             return GetUser(userName) != null;
         }
 
-        public void UserRegister(User registrationInfo)
+        public void UserRegister(User user)
         {
             //Register new user
-            WriteConcernResult concernResult = DataCollection.Insert(registrationInfo);
+            WriteConcernResult concernResult = DataCollection.Insert(user);
 
             //Assert possible internal DB error
             AssertErrorMessage(concernResult.ErrorMessage);

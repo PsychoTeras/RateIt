@@ -1,4 +1,5 @@
 ﻿using System;
+using RateIt.Common.Core.Constants;
 
 namespace RateIt.Common.Core.Classes
 {
@@ -10,6 +11,21 @@ namespace RateIt.Common.Core.Classes
 
         public double Latitude;
         public double Longitude;
+
+#endregion
+
+#region Properties
+
+        public bool IsValid
+        {
+            get
+            {
+                return Latitude >= GenericConstants.LATITUDE_MIN &&
+                       Latitude <= GenericConstants.LATITUDE_MAX &&
+                       Longitude >= GenericConstants.LONGITUDE_MIN &&
+                       Longitude <= GenericConstants.LONGITUDE_MAX;
+            }
+        }
 
 #endregion
 

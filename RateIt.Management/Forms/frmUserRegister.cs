@@ -48,9 +48,14 @@ namespace RateIt.Management.Forms
                 switch (result.ErrorCode)
                 {
                     case ECUserRegistration.UserNameIsBlank:
+                    case ECUserRegistration.MinUserNameLengthRequired:
+                    case ECUserRegistration.MaxUserNameLengthExceeded:
+                    case ECUserRegistration.InvalidUserName:
+                    case ECUserRegistration.UserExists:
                         tbUserName.Focus();
                         break;
                     case ECUserRegistration.PasswordIsBlank:
+                    case ECUserRegistration.InvalidPasswordHash:
                         tbPassword.Focus();
                         break;
                     case ECUserRegistration.InvalidEmail:

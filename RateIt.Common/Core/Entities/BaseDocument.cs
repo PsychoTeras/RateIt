@@ -40,6 +40,11 @@ namespace RateIt.Common.Core.Entities
 
         protected virtual void IdHasChanged() { }
 
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
 #endregion
 
     }

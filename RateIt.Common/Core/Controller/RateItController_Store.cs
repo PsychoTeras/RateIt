@@ -12,14 +12,73 @@ namespace RateIt.Common.Core.Controller
     public sealed partial class RateItController
     {
 
-#region Constants
-
-        private const byte MIN_STORE_NAME_LENGTH = 3 ;
-        private const byte MAX_STORE_NAME_LENGTH = 50;
-
-#endregion
-
 #region Private methods
+
+        private void AssertStoreInfo(Store store)
+        {
+            //Check user on null-reference
+            if (store == null)
+            {
+                throw BaseQueryResult.Throw("Store is null-reference",
+                    ECGeneric.NullReference);
+            }
+
+            //Validate store name
+            store.StoreName = (store.StoreName ?? string.Empty).Trim();
+            if (string.IsNullOrEmpty(store.StoreName))
+            {
+                throw BaseQueryResult.Throw("Store name cannot be blank",
+                    ECStoreRegistration.StoreNameIsBlank);
+            }
+
+            //Validate minimal store name length
+            if (store.StoreName.Length < GenericConstants.STORE_NAME_LENGTH_MIN)
+            {
+                string errMsg = string.Format("Store name should have {0} letters at least",
+                                              GenericConstants.STORE_NAME_LENGTH_MIN);
+                throw BaseQueryResult.Throw(errMsg,
+                    ECStoreRegistration.MinStoreNameLengthRequired);
+            }
+
+            //Validate maximal store name length
+            if (store.StoreName.Length > GenericConstants.STORE_NAME_LENGTH_MAX)
+            {
+                string errMsg = string.Format("Store name should not have more than {0} letters",
+                                              GenericConstants.STORE_NAME_LENGTH_MAX);
+                throw BaseQueryResult.Throw(errMsg,
+                    ECStoreRegistration.MaxStoreNameLengthExceeded);
+            }
+
+            //Validate maximal address length
+            store.Address = (store.Address ?? string.Empty).Trim();
+            store.Address2 = (store.Address2 ?? string.Empty).Trim();
+            if (store.Address.Length > GenericConstants.STORE_ADDRESS_LENGTH_MAX ||
+                store.Address2.Length > GenericConstants.STORE_ADDRESS_LENGTH_MAX)
+            {
+                string errMsg = string.Format("Store address should not have more than {0} letters",
+                                              GenericConstants.STORE_ADDRESS_LENGTH_MAX);
+                throw BaseQueryResult.Throw(errMsg,
+                    ECStoreRegistration.MaxAddressLengthExceeded);
+            }
+
+            //Validate maximal description length
+            store.Description = (store.Description ?? string.Empty).Trim();
+            if (store.Description.Length > GenericConstants.STORE_DESCRIPTION_LENGTH_MAX)
+            {
+                string errMsg = string.Format("Store description should not have more than {0} letters",
+                                              GenericConstants.STORE_DESCRIPTION_LENGTH_MAX);
+                throw BaseQueryResult.Throw(errMsg,
+                    ECStoreRegistration.MaxStoreNameLengthExceeded);
+            }
+
+            //Validate geocoordinates and store size
+            if (store.Location == null || !store.Location.IsValid ||
+                store.Size == null || !store.Size.IsValid)
+            {
+                throw BaseQueryResult.Throw("Store location is invalid",
+                    ECStoreRegistration.InvalidGeoCoordinates);
+            }
+        }
 
         private void AssertGetStoresAtLocation(GeoPoint location)
         {
@@ -48,47 +107,11 @@ namespace RateIt.Common.Core.Controller
             }
         }
 
-        private void AssertRegistrationInfo(Store registrationInfo)
-        {
-            //Check registrationInfo on null-reference
-            if (registrationInfo == null)
-            {
-                throw BaseQueryResult.Throw("Registration info is null-reference", 
-                    ECGeneric.NullReference);
-            }
-
-            //Validate store name
-            registrationInfo.StoreName = (registrationInfo.StoreName ?? string.Empty).Trim();
-            if (string.IsNullOrEmpty(registrationInfo.StoreName))
-            {
-                throw BaseQueryResult.Throw("Store name cannot be blank",
-                    ECStoreRegistration.NameIsBlank);
-            }
-
-            //Validate minimal store name length
-            if (registrationInfo.StoreName.Length < MIN_STORE_NAME_LENGTH)
-            {
-                string errMsg = string.Format("Store name should have {0} letters at least", 
-                                              MIN_STORE_NAME_LENGTH);
-                throw BaseQueryResult.Throw(errMsg, 
-                    ECStoreRegistration.MinNameLengthRequired);
-            }
-
-            //Validate maximal store name length
-            if (registrationInfo.StoreName.Length > MAX_STORE_NAME_LENGTH)
-            {
-                string errMsg = string.Format("Store name should not have more than {0} letters", 
-                                              MAX_STORE_NAME_LENGTH);
-                throw BaseQueryResult.Throw(errMsg, 
-                    ECStoreRegistration.MaxNameLengthExceeded);
-            }
-        }
-
 #endregion
 
 #region Public methods
 
-        public BaseQueryResult StoreRegister(UserSessionInfo sessionInfo, Store registrationInfo)
+        public BaseQueryResult StoreRegister(UserSessionInfo sessionInfo, Store store)
         {
             try
             {
@@ -96,12 +119,12 @@ namespace RateIt.Common.Core.Controller
                 AssertSessionInfo(sessionInfo);
 
                 //Assert registration information
-                AssertRegistrationInfo(registrationInfo);
+                AssertStoreInfo(store);
 
                 //Register store
                 try
                 {
-                    _storeDAL.StoreRegister(registrationInfo);
+                    _storeDAL.StoreRegister(store);
 
                     //Add log record
                     AddActionLogRecord(ActionLogType.Store_Register, sessionInfo.UserId);

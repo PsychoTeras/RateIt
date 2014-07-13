@@ -19,7 +19,6 @@ namespace RateIt.Management.Forms
 
 #region Properties
 
-        public string UserName { get; private set; }
         public byte[] UserId { get; private set; }
         public byte[] SessionId { get; private set; }
 
@@ -55,11 +54,14 @@ namespace RateIt.Management.Forms
                 switch (result.ErrorCode)
                 {
                     case ECLogin.UserNameIsBlank:
+                    case ECLogin.MinUserNameLengthRequired:
+                    case ECLogin.MaxUserNameLengthExceeded:
                         {
                             tbUserName.Focus();
                             break;
                         }
                     case ECLogin.PasswordIsBlank:
+                    case ECLogin.InvalidPasswordHash:
                     case ECLogin.InvalidCrenedtials:
                         {
                             tbPassword.Focus();
@@ -70,7 +72,6 @@ namespace RateIt.Management.Forms
             }
 
             UserId = result.UserId;
-            UserName = result.UserName;
             SessionId = result.SessionId;
             DialogResult = DialogResult.OK;
         }

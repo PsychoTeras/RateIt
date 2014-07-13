@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Xml.Serialization;
+using RateIt.Common.Core.Constants;
 
 namespace RateIt.Common.Core.Classes
 {
@@ -11,6 +11,21 @@ namespace RateIt.Common.Core.Classes
 
         public uint Width;
         public uint Height;
+
+#endregion
+
+#region Properties
+
+        public bool IsValid
+        {
+            get
+            {
+                return Width >= GenericConstants.STORE_SIZE_MIN_M &&
+                       Width <= GenericConstants.STORE_SIZE_MAX_M &&
+                       Height >= GenericConstants.STORE_SIZE_MIN_M &&
+                       Height <= GenericConstants.STORE_SIZE_MAX_M;
+            }
+        }
 
 #endregion
 
