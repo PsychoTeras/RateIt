@@ -4,6 +4,7 @@ using RateIt.Common.Core.Entities.Products;
 using RateIt.Common.Core.Entities.Users;
 using RateIt.Common.Core.ErrorCodes;
 using RateIt.Common.Core.QueryResults;
+using RateIt.Common.Helpers;
 
 namespace RateIt.Common.Core.Controller
 {
@@ -56,6 +57,11 @@ namespace RateIt.Common.Core.Controller
 //            }
         }
 
+        private void AssertGetProductsInfo(byte[] storeId, string productName)
+        {
+            
+        }
+
 #endregion
 
 #region Public methods
@@ -65,6 +71,9 @@ namespace RateIt.Common.Core.Controller
         {
             try
             {
+                //Assert session information
+                AssertSessionInfo(sessionInfo);
+
                 //Assert product information
                 AssertProductInfo(product);
 
@@ -88,6 +97,35 @@ namespace RateIt.Common.Core.Controller
             catch (Exception ex)
             {
                 return BaseQueryResult.FromException<ProductRegisterQueryResult>(ex);
+            }
+        }
+
+        public ProductListQueryResult GetProducts(UserSessionInfo sessionInfo, 
+            byte[] storeId, string productName)
+        {
+            try
+            {
+                //Assert session information
+                AssertSessionInfo(sessionInfo);
+
+                //Assert product information
+                AssertGetProductsInfo(storeId, productName);
+
+                //Get products list
+                try
+                {
+                    Product[] products = _productDAL.GetProducts(storeId.ToObjectId(), productName);
+                    return new ProductListQueryResult(products);
+                }
+                catch (Exception dbEx)
+                {
+                    //Something failed in DB
+                    return BaseQueryResult.FromException<ProductListQueryResult>(dbEx, ECGeneric.DBError);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BaseQueryResult.FromException<ProductListQueryResult>(ex);
             }
         }
 

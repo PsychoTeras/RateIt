@@ -43,9 +43,9 @@ namespace RateIt.Web
             return _controller.UserLogout(sessionInfo);
         }
 
-        public BaseQueryResult StoreRegister(UserSessionInfo sessionInfo, Store user)
+        public BaseQueryResult StoreRegister(UserSessionInfo sessionInfo, Store store)
         {
-            return _controller.StoreRegister(sessionInfo, user);
+            return _controller.StoreRegister(sessionInfo, store);
         }
 
         public StoreListQueryResult GetStoresAtLocation(UserSessionInfo sessionInfo, GeoPoint location,
@@ -57,6 +57,12 @@ namespace RateIt.Web
         public ProductRegisterQueryResult ProductRegister(UserSessionInfo sessionInfo, Product product)
         {
             return _controller.ProductRegister(sessionInfo, product);
+        }
+
+        public ProductListQueryResult GetProducts(UserSessionInfo sessionInfo, byte[] storeId, 
+                                                  string productName)
+        {
+            return _controller.GetProducts(sessionInfo, storeId, productName);
         }
 
 #endregion

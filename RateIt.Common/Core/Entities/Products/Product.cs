@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using MongoDB.Bson;
 
@@ -15,8 +16,6 @@ namespace RateIt.Common.Core.Entities.Products
         public ProductCode ProductCode;
         public string ProductName;
         public string Description;
-
-        public byte Rating;
 
         public List<string> Keywords;
 
@@ -35,6 +34,15 @@ namespace RateIt.Common.Core.Entities.Products
             Keywords = keywords != null && keywords.Length > 0
                 ? new List<string>(keywords)
                 : new List<string>();
+        }
+
+        public void AddKeyword(string keyword)
+        {
+            if (!string.IsNullOrEmpty(keyword = (keyword ?? string.Empty).Trim()) && 
+                Keywords.FirstOrDefault(s => s.Equals(keyword, StringComparison.InvariantCultureIgnoreCase)) != null)
+            {
+                Keywords.Add(keyword);
+            }
         }
 
         public override string ToString()

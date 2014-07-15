@@ -26,7 +26,7 @@ namespace RateIt.Common.Core.Controller
 #region Store actions
 
         [OperationContract]
-        BaseQueryResult      StoreRegister(UserSessionInfo sessionInfo, Store user);
+        BaseQueryResult      StoreRegister(UserSessionInfo sessionInfo, Store store);
         [OperationContract]
         StoreListQueryResult GetStoresAtLocation(UserSessionInfo sessionInfo, GeoPoint location, 
                                                  StoreQueryAreaLevel areaLevel);
@@ -37,6 +37,9 @@ namespace RateIt.Common.Core.Controller
 
         [OperationContract]
         ProductRegisterQueryResult ProductRegister(UserSessionInfo sessionInfo, Product product);
+        [OperationContract]
+        ProductListQueryResult GetProducts(UserSessionInfo sessionInfo, byte[] storeId, 
+                                           string productName);
 
 #endregion
 

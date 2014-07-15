@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Users" elementFormDefault="qualified" targetProductNamespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Users" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Users" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Users" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Constants" />
   <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities" />
   <xs:complexType name="User">
@@ -9,7 +9,7 @@
           <xs:element name="Email" nillable="true" type="xs:string" />
           <xs:element name="IsUserLogged" type="xs:boolean" />
           <xs:element name="PasswordHash" nillable="true" type="xs:string" />
-          <xs:element name="UserProductName" nillable="true" type="xs:string" />
+          <xs:element name="UserName" nillable="true" type="xs:string" />
           <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Constants" name="UserState" type="q2:UserState" />
         </xs:sequence>
       </xs:extension>
@@ -20,7 +20,7 @@
     <xs:sequence>
       <xs:element name="PasswordHash" nillable="true" type="xs:string" />
       <xs:element name="TId" nillable="true" type="xs:string" />
-      <xs:element name="UserProductName" nillable="true" type="xs:string" />
+      <xs:element name="UserName" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UserLoginInfo" nillable="true" type="tns:UserLoginInfo" />
