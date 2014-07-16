@@ -11,7 +11,6 @@ namespace RateIt.Common.Core.DAL
 
 #region Constants
 
-        internal const string IDX_T_PRODUCTS_STORE_ID = "IDX_T_PRODUCTS_STORE_ID";
         internal const string IDX_T_PRODUCTS_PRODUCT_CODE = "IDX_T_PRODUCTS_PRODUCT_CODE";
         internal const string IDX_T_PRODUCTS_STORE_ID_PRODUCT_NAME = "IDX_T_PRODUCTS_STORE_ID_PRODUCT_NAME";
 
@@ -38,13 +37,6 @@ namespace RateIt.Common.Core.DAL
                 SetUnique(true);
             DataCollection.CreateIndex(indexKeys, indexOptions);
 
-            //IDX_T_PRODUCTS_STORE_ID
-            indexKeys = IndexKeys.
-                Ascending("StoreId");
-            indexOptions = IndexOptions.
-                SetName(IDX_T_PRODUCTS_STORE_ID);
-            DataCollection.CreateIndex(indexKeys, indexOptions);
-
             //IDX_T_PRODUCTS_STORE_ID_PRODUCT_NAME
             indexKeys = IndexKeys.
                 Ascending("StoreId").
@@ -63,7 +55,7 @@ namespace RateIt.Common.Core.DAL
             AssertErrorMessage(concernResult.ErrorMessage);
         }
 
-        public Product[] GetProducts(ObjectId storeId, string productKeyWord)
+        public Product[] GetProducts(ObjectId storeId, string productKeyWord, uint maxCount)
         {
             //Search by part of product name, storeId and keywords
             string queryString = string.Format("/({0})/(si)", productKeyWord);
@@ -77,6 +69,12 @@ namespace RateIt.Common.Core.DAL
             MongoCursor<Product> cursor = DataCollection.
                 Find(qProductForStoreByName).
                 SetHint(IDX_T_PRODUCTS_STORE_ID_PRODUCT_NAME);
+
+            //Set TOP (N) limit
+            if (maxCount > 0)
+            {
+                cursor = cursor.SetLimit((int)maxCount);
+            }
 
             //Get result list
             Product[] result = cursor.ToArray();

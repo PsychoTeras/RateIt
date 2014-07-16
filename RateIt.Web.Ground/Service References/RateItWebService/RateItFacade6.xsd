@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetProductNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Users" />
   <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.QueryResults" />
   <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Stores" />
   <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Classes" />
   <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Constants" />
-  <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Products" />
   <xs:element name="UserRegister">
     <xs:complexType>
       <xs:sequence>
@@ -53,7 +52,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Users" minOccurs="0" name="sessionInfo" nillable="true" type="q7:UserSessionInfo" />
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Stores" minOccurs="0" name="store" nillable="true" type="q8:Store" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Stores" minOccurs="0" name="user" nillable="true" type="q8:Store" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -77,37 +76,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.QueryResults" minOccurs="0" name="GetStoresAtLocationResult" nillable="true" type="q13:StoreListQueryResult" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ProductRegister">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Users" minOccurs="0" name="sessionInfo" nillable="true" type="q14:UserSessionInfo" />
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Products" minOccurs="0" name="product" nillable="true" type="q15:Product" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ProductRegisterResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.QueryResults" minOccurs="0" name="ProductRegisterResult" nillable="true" type="q16:ProductRegisterQueryResult" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetProducts">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Users" minOccurs="0" name="sessionInfo" nillable="true" type="q17:UserSessionInfo" />
-        <xs:element minOccurs="0" name="storeId" nillable="true" type="xs:base64Binary" />
-        <xs:element minOccurs="0" name="productName" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetProductsResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.QueryResults" minOccurs="0" name="GetProductsResult" nillable="true" type="q18:ProductListQueryResult" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

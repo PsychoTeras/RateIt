@@ -12,9 +12,11 @@ namespace RateIt.Common.Helpers
 
         public static string GetHashSum(string utf8Str)
         {
-            byte[] strBytes = Encoding.Unicode.GetBytes(utf8Str);
+            _hashAlgorithm.Initialize();
+            byte[] strBytes = Encoding.UTF8.GetBytes(utf8Str);
             byte[] hash = _hashAlgorithm.ComputeHash(strBytes, 0, strBytes.Length);
-            return BitConverter.ToString(hash).Replace("-", "").ToLower();
+            //return BitConverter.ToString(hash).Replace("-", "").ToLower();
+            return Convert.ToBase64String(hash);
         }
     }
 

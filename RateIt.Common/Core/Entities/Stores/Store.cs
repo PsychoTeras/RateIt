@@ -18,12 +18,6 @@ namespace RateIt.Common.Core.Entities.Stores
 
 #endregion
 
-#region Properties
-
-        public byte[] StoreId { get; private set; }
-
-#endregion
-
 #region Ctor
 
         public Store() {}
@@ -41,11 +35,6 @@ namespace RateIt.Common.Core.Entities.Stores
 #endregion
 
 #region Class methods
-
-        protected override void IdHasChanged()
-        {
-            StoreId = Id.ToByteArray();
-        }
 
         public override string ToString()
         {

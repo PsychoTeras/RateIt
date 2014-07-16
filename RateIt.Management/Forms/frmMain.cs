@@ -13,7 +13,6 @@ using RateIt.Common.Core.Classes;
 using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Controller;
 using RateIt.Common.Core.Entities.Stores;
-using RateIt.Common.Core.Entities.Users;
 using RateIt.Common.Core.QueryParams;
 using RateIt.Common.Core.QueryResults;
 using RateIt.Management.Controls.Map.Markers;
@@ -141,78 +140,6 @@ namespace RateIt.Management.Forms
         private void FrmMainFormClosed(object sender, FormClosedEventArgs e)
         {
             Process.GetCurrentProcess().Kill();
-        }
-
-#endregion
-
-#region User methods
-
-        private void TbUserSearchTextChanged(object sender, EventArgs e)
-        {
-            RefreshUserList();
-        }
-
-        private void BtnUserRegisterClick(object sender, EventArgs e)
-        {
-            if (frmUserRegister.DoRegister(_mainController))
-            {
-                RefreshUserList();
-            }
-        }
-
-        private void LvUsersSelectedIndexChanged(object sender, EventArgs e)
-        {
-            btnUserLogin.Enabled = SelectedUser != null &&
-                                   _loggedUserSession == null;
-            btnUserLogout.Enabled = SelectedUser != null &&
-                                    SelectedUser != LoggedUser &&
-                                    SelectedUser.IsUserLogged;
-        }
-
-        private void LvUsersMouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if (SelectedUser != null)
-            {
-                if (SelectedUser.IsUserLogged)
-                {
-                    BtnUserLogoutClick(this, null);
-                }
-                else
-                {
-                    BtnUserLoginClick(this, null);
-                }
-            }
-        }
-        
-        private void BtnUserLogoutClick(object sender, EventArgs e)
-        {
-            if (btnUserLogout.Enabled && SelectedUser != null)
-            {
-                BaseQueryResult result = _mainControllerSys.UserLogoutSys(
-                    QuerySysRequestID.Instance, SelectedUser.UserName);
-                if (Helper.CheckOnValidQueryResult(result))
-                {
-                    SelectedUser.IsUserLogged = false;
-                    AfterSelectedUserHasLoggedOut();
-                }
-            }
-        }
-
-        private void BtnUserLoginClick(object sender, EventArgs e)
-        {
-            if (btnUserLogin.Enabled && SelectedUser != null)
-            {
-                using (frmUserLogin form = new frmUserLogin())
-                {
-                    if (form.Execute(_mainController, SelectedUser))
-                    {
-                        _loggedUserSession = new UserSessionInfo(form.UserId, form.SessionId);
-                        _loggedUser = SelectedUser;
-                        SelectedUser.IsUserLogged = true;
-                        AfterSelectedUserHasLoggedIn(SelectedUser.UserName);
-                    }
-                }
-            }
         }
 
 #endregion

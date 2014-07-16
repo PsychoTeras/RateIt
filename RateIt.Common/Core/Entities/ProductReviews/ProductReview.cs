@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 using MongoDB.Bson;
 
 namespace RateIt.Common.Core.Entities.ProductReviews

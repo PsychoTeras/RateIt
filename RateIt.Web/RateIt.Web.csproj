@@ -64,6 +64,7 @@
     <Compile Include="..\RateIt.Common\Properties\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
+    <Compile Include="IRateItAndroid.cs" />
     <Compile Include="RateItFacade.svc.cs">
       <DependentUpon>RateItFacade.svc</DependentUpon>
     </Compile>

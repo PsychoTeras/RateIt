@@ -79,26 +79,12 @@ namespace RateIt.Management.Forms
             this.tbMapLatitude = new System.Windows.Forms.TextBox();
             this.lblMapLatitude = new System.Windows.Forms.Label();
             this.pMap = new System.Windows.Forms.Panel();
+            this.map = new RateIt.Management.Controls.Map.MapViewer();
             this.tpStore = new System.Windows.Forms.TabPage();
-            this.tcSelectedStore = new System.Windows.Forms.TabControl();
-            this.tpStoreInfo = new System.Windows.Forms.TabPage();
-            this.tpStoreProducts = new System.Windows.Forms.TabPage();
             this.gbOutput = new System.Windows.Forms.GroupBox();
             this.tbOutput = new System.Windows.Forms.TextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnMapClearLocalCache = new System.Windows.Forms.ToolStripButton();
-            this.lvProducts = new System.Windows.Forms.ListView();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.map = new RateIt.Management.Controls.Map.MapViewer();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
@@ -117,13 +103,8 @@ namespace RateIt.Management.Forms
             this.gbMapNavigation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackMapZoom)).BeginInit();
             this.pMap.SuspendLayout();
-            this.tpStore.SuspendLayout();
-            this.tcSelectedStore.SuspendLayout();
-            this.tpStoreProducts.SuspendLayout();
             this.gbOutput.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // scMain
@@ -169,7 +150,7 @@ namespace RateIt.Management.Forms
             this.tpUsers.Location = new System.Drawing.Point(4, 22);
             this.tpUsers.Name = "tpUsers";
             this.tpUsers.Padding = new System.Windows.Forms.Padding(3);
-            this.tpUsers.Size = new System.Drawing.Size(715, 464);
+            this.tpUsers.Size = new System.Drawing.Size(715, 456);
             this.tpUsers.TabIndex = 0;
             this.tpUsers.Text = "Users";
             // 
@@ -264,10 +245,10 @@ namespace RateIt.Management.Forms
             this.gbUserList.Controls.Add(this.lblUserSearch);
             this.gbUserList.Location = new System.Drawing.Point(6, 6);
             this.gbUserList.Name = "gbUserList";
-            this.gbUserList.Size = new System.Drawing.Size(479, 452);
+            this.gbUserList.Size = new System.Drawing.Size(479, 444);
             this.gbUserList.TabIndex = 4;
             this.gbUserList.TabStop = false;
-            this.gbUserList.Text = "Registered users";
+            this.gbUserList.Text = "User list";
             // 
             // lvUsers
             // 
@@ -286,7 +267,7 @@ namespace RateIt.Management.Forms
             this.lvUsers.Name = "lvUsers";
             this.lvUsers.ShowGroups = false;
             this.lvUsers.ShowItemToolTips = true;
-            this.lvUsers.Size = new System.Drawing.Size(467, 402);
+            this.lvUsers.Size = new System.Drawing.Size(467, 394);
             this.lvUsers.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvUsers.TabIndex = 3;
             this.lvUsers.UseCompatibleStateImageBehavior = false;
@@ -312,7 +293,7 @@ namespace RateIt.Management.Forms
             // ntbUsersCount
             // 
             this.ntbUsersCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ntbUsersCount.Location = new System.Drawing.Point(425, 426);
+            this.ntbUsersCount.Location = new System.Drawing.Point(425, 418);
             this.ntbUsersCount.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -332,7 +313,7 @@ namespace RateIt.Management.Forms
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(392, 429);
+            this.label1.Location = new System.Drawing.Point(392, 421);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(27, 13);
             this.label1.TabIndex = 6;
@@ -342,7 +323,7 @@ namespace RateIt.Management.Forms
             // 
             this.tbUserSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbUserSearch.Location = new System.Drawing.Point(110, 426);
+            this.tbUserSearch.Location = new System.Drawing.Point(110, 418);
             this.tbUserSearch.Name = "tbUserSearch";
             this.tbUserSearch.Size = new System.Drawing.Size(276, 20);
             this.tbUserSearch.TabIndex = 5;
@@ -352,7 +333,7 @@ namespace RateIt.Management.Forms
             // 
             this.lblUserSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblUserSearch.AutoSize = true;
-            this.lblUserSearch.Location = new System.Drawing.Point(6, 429);
+            this.lblUserSearch.Location = new System.Drawing.Point(6, 421);
             this.lblUserSearch.Name = "lblUserSearch";
             this.lblUserSearch.Size = new System.Drawing.Size(98, 13);
             this.lblUserSearch.TabIndex = 4;
@@ -679,49 +660,46 @@ namespace RateIt.Management.Forms
             this.pMap.Size = new System.Drawing.Size(479, 452);
             this.pMap.TabIndex = 0;
             // 
+            // map
+            // 
+            this.map.Bearing = 0F;
+            this.map.CanDragMap = true;
+            this.map.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.map.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.map.GrayScaleMode = false;
+            this.map.LevelsKeepInMemmory = 5;
+            this.map.Location = new System.Drawing.Point(0, 0);
+            this.map.MarkersEnabled = true;
+            this.map.MaxZoom = 2;
+            this.map.MinZoom = 2;
+            this.map.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.map.Name = "map";
+            this.map.NegativeMode = false;
+            this.map.PolygonsEnabled = false;
+            this.map.RetryLoadTile = 0;
+            this.map.RoutesEnabled = false;
+            this.map.ShowTileGridLines = false;
+            this.map.Size = new System.Drawing.Size(477, 450);
+            this.map.TabIndex = 0;
+            this.map.Zoom = 0D;
+            this.map.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.MapOnMarkerClick);
+            this.map.OnPositionChanged += new GMap.NET.PositionChanged(this.MapOnPositionChanged);
+            this.map.OnTileLoaded += new GMap.NET.TileLoaded(this.MapOnTileLoaded);
+            this.map.OnTileLoadComplete += new GMap.NET.TileLoadComplete(this.MapOnTileLoadComplete);
+            this.map.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.MapOnZoomChanged);
+            this.map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MapMouseDown);
+            this.map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MapMouseMove);
+            this.map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MapMouseUp);
+            // 
             // tpStore
             // 
-            this.tpStore.Controls.Add(this.tcSelectedStore);
             this.tpStore.Location = new System.Drawing.Point(4, 22);
             this.tpStore.Name = "tpStore";
             this.tpStore.Padding = new System.Windows.Forms.Padding(3);
-            this.tpStore.Size = new System.Drawing.Size(715, 464);
+            this.tpStore.Size = new System.Drawing.Size(715, 456);
             this.tpStore.TabIndex = 2;
             this.tpStore.Text = "Selected store";
             this.tpStore.UseVisualStyleBackColor = true;
-            // 
-            // tcSelectedStore
-            // 
-            this.tcSelectedStore.Controls.Add(this.tpStoreProducts);
-            this.tcSelectedStore.Controls.Add(this.tpStoreInfo);
-            this.tcSelectedStore.Location = new System.Drawing.Point(6, 6);
-            this.tcSelectedStore.Name = "tcSelectedStore";
-            this.tcSelectedStore.SelectedIndex = 0;
-            this.tcSelectedStore.Size = new System.Drawing.Size(703, 452);
-            this.tcSelectedStore.TabIndex = 6;
-            // 
-            // tpStoreInfo
-            // 
-            this.tpStoreInfo.Location = new System.Drawing.Point(4, 22);
-            this.tpStoreInfo.Name = "tpStoreInfo";
-            this.tpStoreInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tpStoreInfo.Size = new System.Drawing.Size(695, 426);
-            this.tpStoreInfo.TabIndex = 0;
-            this.tpStoreInfo.Text = "Store info";
-            this.tpStoreInfo.UseVisualStyleBackColor = true;
-            // 
-            // tpStoreProducts
-            // 
-            this.tpStoreProducts.Controls.Add(this.groupBox4);
-            this.tpStoreProducts.Controls.Add(this.groupBox3);
-            this.tpStoreProducts.Controls.Add(this.lvProducts);
-            this.tpStoreProducts.Location = new System.Drawing.Point(4, 22);
-            this.tpStoreProducts.Name = "tpStoreProducts";
-            this.tpStoreProducts.Padding = new System.Windows.Forms.Padding(3);
-            this.tpStoreProducts.Size = new System.Drawing.Size(695, 426);
-            this.tpStoreProducts.TabIndex = 1;
-            this.tpStoreProducts.Text = "Products";
-            this.tpStoreProducts.UseVisualStyleBackColor = true;
             // 
             // gbOutput
             // 
@@ -768,143 +746,6 @@ namespace RateIt.Management.Forms
             this.btnMapClearLocalCache.Text = "Clear map local cache";
             this.btnMapClearLocalCache.Click += new System.EventHandler(this.btnMapClearLocalCache_Click);
             // 
-            // lvProducts
-            // 
-            this.lvProducts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvProducts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader6,
-            this.columnHeader7,
-            this.columnHeader8});
-            this.lvProducts.FullRowSelect = true;
-            this.lvProducts.GridLines = true;
-            this.lvProducts.HideSelection = false;
-            this.lvProducts.Location = new System.Drawing.Point(6, 6);
-            this.lvProducts.MultiSelect = false;
-            this.lvProducts.Name = "lvProducts";
-            this.lvProducts.ShowGroups = false;
-            this.lvProducts.ShowItemToolTips = true;
-            this.lvProducts.Size = new System.Drawing.Size(459, 392);
-            this.lvProducts.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.lvProducts.TabIndex = 4;
-            this.lvProducts.UseCompatibleStateImageBehavior = false;
-            this.lvProducts.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Product name";
-            this.columnHeader4.Width = 119;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Description";
-            this.columnHeader5.Width = 131;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "Votes cnt";
-            this.columnHeader6.Width = 57;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "Avg qlt";
-            this.columnHeader7.Width = 56;
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "Avg prc/qlt";
-            this.columnHeader8.Width = 65;
-            // 
-            // map
-            // 
-            this.map.Bearing = 0F;
-            this.map.CanDragMap = true;
-            this.map.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.map.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.map.GrayScaleMode = false;
-            this.map.LevelsKeepInMemmory = 5;
-            this.map.Location = new System.Drawing.Point(0, 0);
-            this.map.MarkersEnabled = true;
-            this.map.MaxZoom = 2;
-            this.map.MinZoom = 2;
-            this.map.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
-            this.map.Name = "map";
-            this.map.NegativeMode = false;
-            this.map.PolygonsEnabled = false;
-            this.map.RetryLoadTile = 0;
-            this.map.RoutesEnabled = false;
-            this.map.ShowTileGridLines = false;
-            this.map.Size = new System.Drawing.Size(477, 450);
-            this.map.TabIndex = 0;
-            this.map.Zoom = 0D;
-            this.map.OnMarkerClick += new GMap.NET.WindowsForms.MarkerClick(this.MapOnMarkerClick);
-            this.map.OnPositionChanged += new GMap.NET.PositionChanged(this.MapOnPositionChanged);
-            this.map.OnTileLoaded += new GMap.NET.TileLoaded(this.MapOnTileLoaded);
-            this.map.OnTileLoadComplete += new GMap.NET.TileLoadComplete(this.MapOnTileLoadComplete);
-            this.map.OnMapZoomChanged += new GMap.NET.MapZoomChanged(this.MapOnZoomChanged);
-            this.map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MapMouseDown);
-            this.map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MapMouseMove);
-            this.map.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MapMouseUp);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.button1);
-            this.groupBox3.Location = new System.Drawing.Point(471, 6);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(218, 50);
-            this.groupBox3.TabIndex = 5;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "New product";
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(6, 19);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(206, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Register new product";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.button2);
-            this.groupBox4.Controls.Add(this.button3);
-            this.groupBox4.Location = new System.Drawing.Point(471, 62);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(218, 78);
-            this.groupBox4.TabIndex = 6;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Selected product";
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(6, 48);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(206, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Add commentary";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(6, 19);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(206, 23);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "View full info";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -939,15 +780,10 @@ namespace RateIt.Management.Forms
             this.gbMapNavigation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackMapZoom)).EndInit();
             this.pMap.ResumeLayout(false);
-            this.tpStore.ResumeLayout(false);
-            this.tcSelectedStore.ResumeLayout(false);
-            this.tpStoreProducts.ResumeLayout(false);
             this.gbOutput.ResumeLayout(false);
             this.gbOutput.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1010,20 +846,6 @@ namespace RateIt.Management.Forms
         private System.Windows.Forms.Button btnSelectedStoreEdit;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton btnMapClearLocalCache;
-        private System.Windows.Forms.TabControl tcSelectedStore;
-        private System.Windows.Forms.TabPage tpStoreInfo;
-        private System.Windows.Forms.TabPage tpStoreProducts;
-        private System.Windows.Forms.ListView lvProducts;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.ColumnHeader columnHeader7;
-        private System.Windows.Forms.ColumnHeader columnHeader8;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
 
     }
 }

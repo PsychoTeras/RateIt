@@ -9,97 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace RateIt.Web.Ground.RateItWebService {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ObjectId", Namespace="http://schemas.datacontract.org/2004/07/MongoDB.Bson")]
-    [System.SerializableAttribute()]
-    public partial struct ObjectId : System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private int _incrementField;
-        
-        private int _machineField;
-        
-        private short _pidField;
-        
-        private int _timestampField;
-        
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public int _increment {
-            get {
-                return this._incrementField;
-            }
-            set {
-                if ((this._incrementField.Equals(value) != true)) {
-                    this._incrementField = value;
-                    this.RaisePropertyChanged("_increment");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public int _machine {
-            get {
-                return this._machineField;
-            }
-            set {
-                if ((this._machineField.Equals(value) != true)) {
-                    this._machineField = value;
-                    this.RaisePropertyChanged("_machine");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public short _pid {
-            get {
-                return this._pidField;
-            }
-            set {
-                if ((this._pidField.Equals(value) != true)) {
-                    this._pidField = value;
-                    this.RaisePropertyChanged("_pid");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public int _timestamp {
-            get {
-                return this._timestampField;
-            }
-            set {
-                if ((this._timestampField.Equals(value) != true)) {
-                    this._timestampField = value;
-                    this.RaisePropertyChanged("_timestamp");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="RateItWebService.IRateItController")]
@@ -108,8 +18,6 @@ namespace RateIt.Web.Ground.RateItWebService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateItController/UserRegister", ReplyAction="http://tempuri.org/IRateItController/UserRegisterResponse")]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.UserLoginQueryResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.StoreListQueryResult))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.ProductRegisterQueryResult))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.ProductListQueryResult))]
         RateIt.Common.Core.QueryResults.BaseQueryResult UserRegister(string tId, RateIt.Common.Core.Entities.Users.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateItController/UserLogin", ReplyAction="http://tempuri.org/IRateItController/UserLoginResponse")]
@@ -118,25 +26,15 @@ namespace RateIt.Web.Ground.RateItWebService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateItController/UserLogout", ReplyAction="http://tempuri.org/IRateItController/UserLogoutResponse")]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.UserLoginQueryResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.StoreListQueryResult))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.ProductRegisterQueryResult))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.ProductListQueryResult))]
         RateIt.Common.Core.QueryResults.BaseQueryResult UserLogout(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateItController/StoreRegister", ReplyAction="http://tempuri.org/IRateItController/StoreRegisterResponse")]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.UserLoginQueryResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.StoreListQueryResult))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.ProductRegisterQueryResult))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(RateIt.Common.Core.QueryResults.ProductListQueryResult))]
-        RateIt.Common.Core.QueryResults.BaseQueryResult StoreRegister(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, RateIt.Common.Core.Entities.Stores.Store store);
+        RateIt.Common.Core.QueryResults.BaseQueryResult StoreRegister(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, RateIt.Common.Core.Entities.Stores.Store user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateItController/GetStoresAtLocation", ReplyAction="http://tempuri.org/IRateItController/GetStoresAtLocationResponse")]
         RateIt.Common.Core.QueryResults.StoreListQueryResult GetStoresAtLocation(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, RateIt.Common.Core.Classes.GeoPoint location, RateIt.Common.Core.Constants.StoreQueryAreaLevel areaLevel);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateItController/ProductRegister", ReplyAction="http://tempuri.org/IRateItController/ProductRegisterResponse")]
-        RateIt.Common.Core.QueryResults.ProductRegisterQueryResult ProductRegister(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, RateIt.Common.Core.Entities.Products.Product product);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRateItController/GetProducts", ReplyAction="http://tempuri.org/IRateItController/GetProductsResponse")]
-        RateIt.Common.Core.QueryResults.ProductListQueryResult GetProducts(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, byte[] storeId, string productName);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -178,20 +76,12 @@ namespace RateIt.Web.Ground.RateItWebService {
             return base.Channel.UserLogout(sessionInfo);
         }
         
-        public RateIt.Common.Core.QueryResults.BaseQueryResult StoreRegister(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, RateIt.Common.Core.Entities.Stores.Store store) {
-            return base.Channel.StoreRegister(sessionInfo, store);
+        public RateIt.Common.Core.QueryResults.BaseQueryResult StoreRegister(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, RateIt.Common.Core.Entities.Stores.Store user) {
+            return base.Channel.StoreRegister(sessionInfo, user);
         }
         
         public RateIt.Common.Core.QueryResults.StoreListQueryResult GetStoresAtLocation(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, RateIt.Common.Core.Classes.GeoPoint location, RateIt.Common.Core.Constants.StoreQueryAreaLevel areaLevel) {
             return base.Channel.GetStoresAtLocation(sessionInfo, location, areaLevel);
-        }
-        
-        public RateIt.Common.Core.QueryResults.ProductRegisterQueryResult ProductRegister(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, RateIt.Common.Core.Entities.Products.Product product) {
-            return base.Channel.ProductRegister(sessionInfo, product);
-        }
-        
-        public RateIt.Common.Core.QueryResults.ProductListQueryResult GetProducts(RateIt.Common.Core.Entities.Users.UserSessionInfo sessionInfo, byte[] storeId, string productName) {
-            return base.Channel.GetProducts(sessionInfo, storeId, productName);
         }
     }
 }

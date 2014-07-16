@@ -1,4 +1,5 @@
 ﻿using System.ServiceModel;
+using System.ServiceModel.Web;
 using RateIt.Common.Core.Classes;
 using RateIt.Common.Core.Constants;
 using RateIt.Common.Core.Entities.Products;
@@ -26,7 +27,7 @@ namespace RateIt.Common.Core.Controller
 #region Store actions
 
         [OperationContract]
-        BaseQueryResult      StoreRegister(UserSessionInfo sessionInfo, Store store);
+        BaseQueryResult      StoreRegister(UserSessionInfo sessionInfo, Store user);
         [OperationContract]
         StoreListQueryResult GetStoresAtLocation(UserSessionInfo sessionInfo, GeoPoint location, 
                                                  StoreQueryAreaLevel areaLevel);
@@ -37,9 +38,6 @@ namespace RateIt.Common.Core.Controller
 
         [OperationContract]
         ProductRegisterQueryResult ProductRegister(UserSessionInfo sessionInfo, Product product);
-        [OperationContract]
-        ProductListQueryResult GetProducts(UserSessionInfo sessionInfo, byte[] storeId, 
-                                           string productName);
 
 #endregion
 

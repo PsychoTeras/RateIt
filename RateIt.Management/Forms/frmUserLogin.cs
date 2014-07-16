@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using RateIt.Common.Core.Controller;
 using RateIt.Common.Core.Entities.Users;
 using RateIt.Common.Core.ErrorCodes;
@@ -71,8 +72,8 @@ namespace RateIt.Management.Forms
                 return;
             }
 
-            UserId = result.UserId;
-            SessionId = result.SessionId;
+            UserId = Convert.FromBase64String(result.UserId);
+            SessionId = Convert.FromBase64String(result.SessionId);
             DialogResult = DialogResult.OK;
         }
 

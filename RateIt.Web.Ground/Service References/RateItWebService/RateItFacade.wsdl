@@ -10,9 +10,6 @@
       <xsd:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.QueryResults" />
       <xsd:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Stores" />
       <xsd:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Classes" />
-      <xsd:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Products" />
-      <xsd:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd9" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/MongoDB.Bson" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IRateItController_UserRegister_InputMessage">
@@ -45,18 +42,6 @@
   <wsdl:message name="IRateItController_GetStoresAtLocation_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetStoresAtLocationResponse" />
   </wsdl:message>
-  <wsdl:message name="IRateItController_ProductRegister_InputMessage">
-    <wsdl:part name="parameters" element="tns:ProductRegister" />
-  </wsdl:message>
-  <wsdl:message name="IRateItController_ProductRegister_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ProductRegisterResponse" />
-  </wsdl:message>
-  <wsdl:message name="IRateItController_GetProducts_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetProducts" />
-  </wsdl:message>
-  <wsdl:message name="IRateItController_GetProducts_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductsResponse" />
-  </wsdl:message>
   <wsdl:portType name="IRateItController">
     <wsdl:operation name="UserRegister">
       <wsdl:input wsaw:Action="http://tempuri.org/IRateItController/UserRegister" message="tns:IRateItController_UserRegister_InputMessage" />
@@ -77,14 +62,6 @@
     <wsdl:operation name="GetStoresAtLocation">
       <wsdl:input wsaw:Action="http://tempuri.org/IRateItController/GetStoresAtLocation" message="tns:IRateItController_GetStoresAtLocation_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IRateItController/GetStoresAtLocationResponse" message="tns:IRateItController_GetStoresAtLocation_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ProductRegister">
-      <wsdl:input wsaw:Action="http://tempuri.org/IRateItController/ProductRegister" message="tns:IRateItController_ProductRegister_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IRateItController/ProductRegisterResponse" message="tns:IRateItController_ProductRegister_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetProducts">
-      <wsdl:input wsaw:Action="http://tempuri.org/IRateItController/GetProducts" message="tns:IRateItController_GetProducts_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IRateItController/GetProductsResponse" message="tns:IRateItController_GetProducts_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IRateItController" type="tns:IRateItController">
@@ -127,24 +104,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetStoresAtLocation">
       <soap:operation soapAction="http://tempuri.org/IRateItController/GetStoresAtLocation" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ProductRegister">
-      <soap:operation soapAction="http://tempuri.org/IRateItController/ProductRegister" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetProducts">
-      <soap:operation soapAction="http://tempuri.org/IRateItController/GetProducts" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

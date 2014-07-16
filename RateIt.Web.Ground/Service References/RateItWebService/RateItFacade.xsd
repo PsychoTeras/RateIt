@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.QueryResults" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.QueryResults" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.QueryResults" elementFormDefault="qualified" targetProductNamespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.QueryResults" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Stores" />
-  <xs:import schemaLocation="http://localhost/RateIt.Web/RateItFacade.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Products" />
   <xs:complexType name="BaseQueryResult">
     <xs:sequence>
       <xs:element minOccurs="0" name="ErrorCode" type="xs:int" />
@@ -15,6 +14,7 @@
         <xs:sequence>
           <xs:element name="SessionId" nillable="true" type="xs:base64Binary" />
           <xs:element name="UserId" nillable="true" type="xs:base64Binary" />
+          <xs:element name="UserProductName" nillable="true" type="xs:string" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -30,24 +30,4 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="StoreListQueryResult" nillable="true" type="tns:StoreListQueryResult" />
-  <xs:complexType name="ProductRegisterQueryResult">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BaseQueryResult">
-        <xs:sequence>
-          <xs:element name="ProductId" nillable="true" type="xs:base64Binary" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="ProductRegisterQueryResult" nillable="true" type="tns:ProductRegisterQueryResult" />
-  <xs:complexType name="ProductListQueryResult">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:BaseQueryResult">
-        <xs:sequence>
-          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/RateIt.Common.Core.Entities.Products" name="Products" nillable="true" type="q2:ArrayOfProduct" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="ProductListQueryResult" nillable="true" type="tns:ProductListQueryResult" />
 </xs:schema>

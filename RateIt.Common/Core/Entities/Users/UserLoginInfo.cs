@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace RateIt.Common.Core.Entities.Users
 {
     [Serializable]
+    [DataContract]
     public sealed class UserLoginInfo
     {
 
@@ -14,9 +16,12 @@ namespace RateIt.Common.Core.Entities.Users
 
 #region Properties
 
-        public string UserName;
-        public string PasswordHash;
-        public string TId;
+        [DataMember(Order = 1)]
+        public string UserName { get; set; }
+        [DataMember(Order = 2)]
+        public string PasswordHash { get; set; }
+        [DataMember(Order = 3)]
+        public string TId { get; set; }
 
 #endregion
 

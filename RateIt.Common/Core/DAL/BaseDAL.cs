@@ -54,7 +54,10 @@ namespace RateIt.Common.Core.DAL
 
         protected virtual void RegisterClassMap()
         {
-            BsonClassMap.RegisterClassMap<T>();
+            if (!BsonClassMap.IsClassMapRegistered(typeof (T)))
+            {
+                BsonClassMap.RegisterClassMap<T>();
+            }
         }
 
         protected BaseDAL() : base(Configuration.DBHost, Configuration.DBPort)

@@ -8,7 +8,7 @@ using RateIt.Common.Core.QueryResults;
 
 namespace RateIt.Web
 {
-    public class RateItFacade : IRateItController
+    public class RateItFacade : IRateItController, IRateItAndroid
     {
 
 #region Private fields
@@ -43,9 +43,9 @@ namespace RateIt.Web
             return _controller.UserLogout(sessionInfo);
         }
 
-        public BaseQueryResult StoreRegister(UserSessionInfo sessionInfo, Store store)
+        public BaseQueryResult StoreRegister(UserSessionInfo sessionInfo, Store user)
         {
-            return _controller.StoreRegister(sessionInfo, store);
+            return _controller.StoreRegister(sessionInfo, user);
         }
 
         public StoreListQueryResult GetStoresAtLocation(UserSessionInfo sessionInfo, GeoPoint location,
@@ -59,13 +59,17 @@ namespace RateIt.Web
             return _controller.ProductRegister(sessionInfo, product);
         }
 
-        public ProductListQueryResult GetProducts(UserSessionInfo sessionInfo, byte[] storeId, 
-                                                  string productName)
-        {
-            return _controller.GetProducts(sessionInfo, storeId, productName);
-        }
-
 #endregion
 
+        public UserLoginQueryResult UserLoginA(string userName, string passwordHash, string tid)
+        {
+            UserLoginInfo loginInfo = new UserLoginInfo()
+                {
+                    PasswordHash = passwordHash,
+                    TId = tid,
+                    UserName = userName
+                };
+            return _controller.UserLogin(loginInfo);
+        }
     }
 }

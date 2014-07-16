@@ -66,8 +66,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\DataSources\RateIt.Common.Core.QueryResults.BaseQueryResult.datasource" />
-    <None Include="Properties\DataSources\RateIt.Common.Core.QueryResults.ProductListQueryResult.datasource" />
-    <None Include="Properties\DataSources\RateIt.Common.Core.QueryResults.ProductRegisterQueryResult.datasource" />
     <None Include="Properties\DataSources\RateIt.Common.Core.QueryResults.StoreListQueryResult.datasource" />
     <None Include="Properties\DataSources\RateIt.Common.Core.QueryResults.UserLoginQueryResult.datasource" />
     <None Include="Service References\RateItWebService\RateItFacade.wsdl" />
@@ -75,15 +73,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\RateItWebService\RateItFacade1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\RateItWebService\RateItFacade2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\RateItWebService\RateItFacade21.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\RateItWebService\RateItFacade22.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\RateItWebService\RateItFacade3.xsd">
